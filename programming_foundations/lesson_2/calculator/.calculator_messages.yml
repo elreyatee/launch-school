@@ -1,0 +1,11 @@
+# calculator messages
+
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  first_number: "What's the first number?"
+  second_number: "What's the second number?"
+  valid_name: "Make sure to use a valid name."
+  valid_number: "That's not a valid number ..."
+  must_choose: "Must choose 1, 2, 3 or 4."
+  another_calculation: "Do you want to perform another calculation?"
+  thank_you: "Thank you for using calculator!"
