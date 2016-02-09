@@ -39,9 +39,11 @@ def detect_result(player_hand, dealer_hand, deck)
   # Show dealer's face up card
   prompt "Dealer's face up card is a #{dealer_hand.last[0]} of #{dealer_hand.last[1]}."
 
+  # Player's turn --> game immediately ends if player busts
   player_total = player_turn(player_hand, deck)
   return :player_busted if player_total > BLACKJACK
 
+  # Dealer's turn --> game immediately ends if dealer busts
   dealer_total = dealer_turn(dealer_hand, deck)
   return :dealer_busted if dealer_total > BLACKJACK
 

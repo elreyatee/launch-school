@@ -44,7 +44,6 @@ end
 def play_game
   welcome
 
-  # Main game loop
   loop do
     # Initialize game
     deck = deck_of_cards
