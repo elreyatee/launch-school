@@ -15,20 +15,22 @@ def player_turn(hand, deck)
   end
 
   prompt "You chose to stay!" unless busted?(hand)
+  
   total(hand)
 end
 
 def dealer_turn(hand, deck)
   puts "------------ Dealer's Turn ------------"
 
-  loop do
+  while !busted?(hand)
     show_cards(hand, "Dealer's cards: ")
-    break if busted?(hand) || total(hand) >= DEALER_MIN
+    break if total(hand) >= DEALER_MIN
     show_a_card(deck.last, "Dealer takes a hit: ")
     hand << deal_card(deck)
   end
 
   prompt "Dealer chose to stay!" unless busted?(hand)
+
   total(hand)
 end
 
