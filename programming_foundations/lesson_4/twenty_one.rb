@@ -1,7 +1,7 @@
 require 'pry'
 
-SUITS = ["\u2660", "\u2663", "\u2665", "\u2666"]
-RANKS = %w(2 3 4 5 6 7 8 9 10 Jack King Queen Ace)
+SUITS = ["\u2660", "\u2663", "\u2665", "\u2666"].freeze
+RANKS = %w(2 3 4 5 6 7 8 9 10 Jack King Queen Ace).freeze
 NUMBER_OF_DECKS = 1
 
 def prompt(msg)
@@ -13,6 +13,7 @@ def deck_of_cards
 end
 
 # [["2", "Diamonds"], ["2", "Clubs"] ...
+# rubocop:disable Style/ConditionalAssignment
 def total(cards)
   values = cards.map { |card| card[0] }
 
@@ -32,6 +33,7 @@ def total(cards)
 
   sum
 end
+# rubocop:enable Style/ConditionalAssignment
 
 def deal_card(deck)
   deck.pop
@@ -59,7 +61,7 @@ def show_cards(hand, msg = 'Your cards: ')
   prompt msg.to_s + sentence.joinand(', ')
 end
 
-def show_card(card, msg = '')
+def show_a_card(card, msg = '')
   prompt "#{msg} #{card[0]} of #{card[1]}"
 end
 
@@ -75,17 +77,12 @@ def player_turn(hand, deck)
     prompt "Hit or stay?"
     answer = gets.chomp
     break if answer.start_with?('s')
-    show_card(deck.last, "You're dealt:")
+    show_a_card(deck.last, "You're dealt:")
     hand << deal_card(deck)
   end
 
-  if busted?(hand)
-    return total(hand)
-  else
-    prompt "You chose to stay!"
-    prompt "You're total card value: #{total(hand)}"
-    return total(hand)
-  end
+  prompt "You chose to stay!" if !busted?(hand)
+  total(hand)
 end
 
 def dealer_turn(hand, deck)
@@ -98,14 +95,15 @@ def dealer_turn(hand, deck)
     hand << deal_card(deck)
   end
 
-  if busted?(hand)
-    prompt "Dealer busted."
-    return total(hand)
-  else
-    prompt "Dealer chose to stay!"
-    prompt "Dealer's total card value: #{total(hand)}"
-    return total(hand)
-  end
+  prompt "Dealer chose to stay!" if !busted?(hand)
+  total(hand)
+end
+
+def display_totals(player_hand, dealer_hand)
+  puts "======================================="
+  prompt "You're total card value: #{total(player_hand)}"
+  prompt "Dealer's total card value: #{total(dealer_hand)}"
+  puts "======================================="
 end
 
 def detect_result(player_hand, dealer_hand, deck)
@@ -126,6 +124,8 @@ end
 
 def display_result(player_hand, dealer_hand, deck)
   result = detect_result(player_hand, dealer_hand, deck)
+
+  display_totals(player_hand, dealer_hand)
 
   case result
   when :player
@@ -152,7 +152,7 @@ def play_game
   welcome
 
   # Main game loop
-  loop do 
+  loop do
     deck = deck_of_cards
     player_hand = []
     dealer_hand = []
