@@ -1,0 +1,225 @@
+Question 1
+
+You are given the following code:
+
+  class Oracle
+    def predict_the_future
+      "You will " + choices.sample
+    end
+
+    def choices
+      ["eat a nice lunch", "take a nap soon", "stay at work late"]
+    end
+  end
+
+What is the result of calling
+
+oracle = Oracle.new
+oracle.predict_the_future
+
+Answer: One of the choices from array ["eat a nice lunch", "take a nap soon", "stay at work late"]
+
+Question 2
+
+We have an Oracle class and a RoadTrip class that inherits from the Oracle class.
+
+  class Oracle
+    def predict_the_future
+      "You will " + choices.sample
+    end
+
+    def choices
+      ["eat a nice lunch", "take a nap soon", "stay at work late"]
+    end
+  end
+
+  class RoadTrip < Oracle
+    def choices
+      ["visit Vegas", "fly to Fiji", "romp in Rome"]
+    end
+  end
+
+What is the result of the following:
+
+trip = RoadTrip.new
+trip.predict_the_future
+
+Answer: One of the choices from ["visit Vegas", "fly to Fiji", "romp in Rome"]. The idea here is that even though RoadTrip subclasses Oracle, RoadTrip 'overrides' the inherited instance method called choices. Better yet, when Ruby traverses up the method look up chain, it finds the choices methods defined in its own class and uses that as it comes before the choice method defined further up the chain.
+
+Question 3
+
+How do you find where Ruby will look for a method when that method is called? How can you find an object's ancestors?
+
+  module Taste
+    def flavor(flavor)
+      puts "#{flavor}"
+    end
+  end
+
+  class Orange
+    include Taste
+  end
+
+  class HotSauce
+    include Taste
+  end
+
+What is the lookup chain for Orange and HotSauce?
+
+Answer:
+
+Method look up chains for Orange and HotSauce classes
+Orange => [Orange, Taste, Object, Kernel, BasicObject]
+HotSauce => [HotSauce, Taste, Object, Kernel, BasicObject]
+
+You can find an object's ancestors by using Object#ancestors method. Ruby will traverse up the look up chain when you 
+
+Question 4
+
+What could you add to this class to simplify it and remove two methods from the class definition while still maintaining the same functionality?
+
+  class BeesWax
+    def initialize(type)
+      @type = type
+    end
+
+    def type
+      @type
+    end
+
+    def type=(t)
+      @type = t
+    end
+
+    def describe_type
+      puts "I am a #{@type} of Bees Wax"
+    end
+  end
+
+Answer: 
+
+  class BeesWax
+    attr_accessor :type
+
+    def initialize(type)
+      @type = type
+    end
+
+    def describe_type
+      puts "I am a #{@type} of Bees Wax"
+    end
+  end
+
+Question 5
+
+There are a number of variables listed below. What are the different types and how do you know which is which?
+
+  excited_dog = "excited dog"
+  @excited_dog = "excited dog"
+  @@excited_dog = "excited dog"
+
+Answer: 
+
+  excited_dog = "excited dog" => local variable
+  @excited_dog = "excited dog" => instance variable (see @ symbol)
+  @@excited_dog = "excited dog" => class variable (see @@ symbol)
+
+Question 6
+
+If I have the following class:
+
+  class Television
+    def self.manufacturer
+      # method logic
+    end
+
+    def model
+      # method logic
+    end
+  end
+
+Which one of these is a class method (if any) and how do you know? How would you call a class method?
+
+Answer: manufacturer is the class method looking at the use of self in its definition, which refers to the Television object itself. To call it: Television.manufacturer
+
+Question 7
+
+If we have a class such as the one below:
+
+  class Cat
+    @@cats_count = 0
+
+    def initialize(type)
+      @type = type
+      @age  = 0
+      @@cats_count += 1
+    end
+
+    def self.cats_count
+      @@cats_count
+    end
+  end
+
+Explain what the @@cats_count variable does and how it works. What code would you need to write to test your theory?
+
+Answer: 
+
+The @@cats_count is a class variable. For each Cat instance that's created, @@cats_count is incremented by 1 keeping a total of Cat objects.
+
+Question 8
+
+If we have this class:
+
+  class Game
+    def play
+      "Start the game!"
+    end
+  end
+
+And another class:
+
+  class Bingo
+    def rules_of_play
+      #rules of play
+    end
+  end
+
+What can we add to the Bingo class to allow it to inherit the play method from the Game class?
+
+Answer: Bingo < Game, this is called subclassing Bingo from Game class.
+
+Question 9
+
+If we have this class:
+
+  class Game
+    def play
+      "Start the game!"
+    end
+  end
+
+  class Bingo < Game
+    def rules_of_play
+      #rules of play
+    end
+  end
+
+What would happen if we added a play method to the Bingo class, keeping in mind that there is already a method of this name in the Game class that the Bingo class inherits from.
+
+Answer: 
+
+If we add a play method to the Bingo class, when we call the method Ruby will traverse up the ancestor chain and find the play method already defined in the Bingo class, which will take precedence over the one defined in Game class because its further up the ancestor chain.
+
+Question 10
+
+What are the benefits of using Object Oriented Programming in Ruby? Think of as many as you can.
+
+Answer: 
+
+(1) Feels more natural to the real world, easier to conceptualize when thinking about objects that carry with them attributes and behaviors
+
+(2) Easier to manage more complex program
+
+(3) You can mix in behaviors or features into existing classes/methods - an example of this are gems -> gives functionality without duplicating code
+
+(4) You can control what functionality gets exposed (getter and setter methods, public/private/protected methods, etc)
