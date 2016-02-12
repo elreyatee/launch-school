@@ -3,8 +3,6 @@ class Board
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
                   [[1, 5, 9], [3, 5, 7]]              # diagonals
 
-  TAB_VALUE = 10
-
   def initialize
     @squares = {}
     reset
@@ -42,17 +40,20 @@ class Board
 
   # rubocop:disable Metrics/AbcSize
   def draw
-    tab "     |     |"
-    tab "  #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}"
-    tab "     |     |"
-    tab "-----+-----+-----"
-    tab "     |     |"
-    tab "  #{@squares[4]}  |  #{@squares[5]}  |  #{@squares[6]}"
-    tab "     |     |"
-    tab "-----+-----+-----"
-    tab "     |     |"
-    tab "  #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}"
-    tab "     |     |"
+    boards = <<-GRID
+              |     |
+           #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}
+              |     |
+         -----+-----+-----
+              |     |
+           #{@squares[4]}  |  #{@squares[5]}  |  #{@squares[6]}
+              |     |
+         -----+-----+-----
+              |     |
+           #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}
+              |     |
+    GRID
+    puts boards.center(TTTGame::SPACING || 0)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -182,14 +183,14 @@ class TTTGame
   end
 
   def display_welcome_message
-    puts "Welcome to Tic Tac Toe!"
-    puts ""
+    puts "Welcome to Tic Tac Toe!\n".center(SPACING)
   end
 
   def display_goodbye_message
     puts "Thanks for playing Tic Tac Toe! Goodbye!"
   end
 
+  # rubocop:disable Metrics/AbcSize
   def display_board
     puts "ROUND #{@@round}".center(SPACING)
     puts "=" * SPACING
@@ -202,6 +203,7 @@ class TTTGame
     board.draw
     puts ''
   end
+  # rubocop:enable Metrics/AbcSize
 
   def clear_screen_and_display_board
     clear
