@@ -3,6 +3,8 @@ class Board
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
                   [[1, 5, 9], [3, 5, 7]]              # diagonals
 
+  TAB_VALUE = 10
+
   def initialize
     @squares = {}
     reset
@@ -40,17 +42,17 @@ class Board
 
   # rubocop:disable Metrics/AbcSize
   def draw
-    puts "     |     |"
-    puts "  #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}"
-    puts "     |     |"
-    puts "-----+-----+-----"
-    puts "     |     |"
-    puts "  #{@squares[4]}  |  #{@squares[5]}  |  #{@squares[6]}"
-    puts "     |     |"
-    puts "-----+-----+-----"
-    puts "     |     |"
-    puts "  #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}"
-    puts "     |     |"
+    tab "     |     |"
+    tab "  #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}"
+    tab "     |     |"
+    tab "-----+-----+-----"
+    tab "     |     |"
+    tab "  #{@squares[4]}  |  #{@squares[5]}  |  #{@squares[6]}"
+    tab "     |     |"
+    tab "-----+-----+-----"
+    tab "     |     |"
+    tab "  #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}"
+    tab "     |     |"
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -60,6 +62,10 @@ class Board
     markers = squares.select(&:marked?).collect(&:marker)
     return false if markers.size != 3
     markers.min == markers.max
+  end
+
+  def tab(line)
+    puts " " * TAB_VALUE + "#{line}"
   end
 end
 
@@ -85,12 +91,25 @@ class Square
   end
 end
 
-Player = Struct.new(:marker)
+class Player
+  CPU_NAMES = %w(Hal Klaatu Skynet SID6.7 Bishop)
+
+  attr_accessor :marker, :points
+
+  def initialize(marker)
+    @marker = marker
+    @points = 0
+  end
+end
 
 class TTTGame
   HUMAN_MARKER = "X".freeze
   COMPUTER_MARKER = "O".freeze
   FIRST_TO_MOVE = HUMAN_MARKER
+  MAX = 5
+
+  @@round = 1
+  @@ties = 0
 
   attr_reader :board, :human, :computer
 
@@ -104,26 +123,60 @@ class TTTGame
   def play
     clear
     display_welcome_message
+   
+    loop do 
+      loop do 
+        display_board
 
-    loop do
-      display_board
+        loop do
+          current_player_moves
+          break if board.someone_won? || board.full?
+          clear_screen_and_display_board
+        end
 
-      loop do
-        current_player_moves
-        break if board.someone_won? || board.full?
-        clear_screen_and_display_board
+        display_result
+        break if first_to_max?
+        reset
+        display_next_round_message
       end
 
-      display_result
+      display_final_scores
       break unless play_again?
-      reset
       display_play_again_message
+      setup_new_game
     end
 
     display_goodbye_message
   end
 
   private
+
+  def setup_new_game
+    reset
+    human.points = 0
+    computer.points = 0
+    @@round = 1
+    @@ties = 0
+  end
+
+  def display_final_scores
+    clear
+    puts "Total rounds played: #{@@round}"
+    puts "Total number of ties: #{@@ties}"
+    puts "Final score: "
+    puts "Human: #{human.points}"
+    puts "Computer: #{computer.points}"
+
+    if human.points == 5
+      puts "You won the game!"
+    else
+      puts "Computer won the game!"
+    end
+  end
+
+  def first_to_max?
+    human.points == MAX || computer.points == MAX
+  end
 
   def display_welcome_message
     puts "Welcome to Tic Tac Toe!"
@@ -135,7 +188,13 @@ class TTTGame
   end
 
   def display_board
-    puts "You're a #{human.marker}. Computer is a #{computer.marker}."
+    puts "                ROUND #{@@round}        "
+    puts "========================================"
+    puts "                 SCORES                 "
+    puts "Human: #{human.points}                     Computer: #{computer.points}"
+    puts "========================================"
+    puts ''
+    puts "You're an #{human.marker}.  Computer is a #{computer.marker}."
     puts ''
     board.draw
     puts ''
@@ -173,11 +232,15 @@ class TTTGame
     case board.winning_marker
     when human.marker
       puts "You won!"
+      human.points += 1
     when computer.marker
       puts "Computer won!"
+      computer.points += 1
     else
       puts "It's a tie!"
+      @@ties += 1
     end
+    sleep 2
   end
 
   def play_again?
@@ -196,6 +259,12 @@ class TTTGame
     board.reset
     @current_marker = FIRST_TO_MOVE
     clear
+  end
+
+  def display_next_round_message
+    puts "Let's play another round!"
+    puts ''
+    @@round += 1
   end
 
   def display_play_again_message
