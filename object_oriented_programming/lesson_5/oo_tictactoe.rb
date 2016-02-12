@@ -94,11 +94,11 @@ end
 class Player
   CPU_NAMES = %w(Hal Klaatu Skynet SID6.7 Bishop)
 
-  attr_accessor :marker, :points
+  attr_accessor :marker, :name
 
-  def initialize(marker)
+  def initialize(marker, name)
     @marker = marker
-    @points = 0
+    @name = name 
   end
 end
 
@@ -107,16 +107,19 @@ class TTTGame
   COMPUTER_MARKER = "O".freeze
   FIRST_TO_MOVE = HUMAN_MARKER
   MAX = 5
+  SPACING = 40
 
   @@round = 1
   @@ties = 0
+  @@human_points = 0
+  @@computer_points = 0
 
   attr_reader :board, :human, :computer
 
   def initialize
     @board = Board.new
-    @human = Player.new(HUMAN_MARKER)
-    @computer = Player.new(COMPUTER_MARKER)
+    @human = Player.new(HUMAN_MARKER, 'Human')
+    @computer = Player.new(COMPUTER_MARKER, Player::CPU_NAMES.sample)
     @current_marker = FIRST_TO_MOVE
   end
 
@@ -153,8 +156,8 @@ class TTTGame
 
   def setup_new_game
     reset
-    human.points = 0
-    computer.points = 0
+    @@human_points = 0
+    @@computer_points = 0
     @@round = 1
     @@ties = 0
   end
@@ -165,17 +168,17 @@ class TTTGame
     puts "Total number of ties: #{@@ties}"
     puts "Final score: "
     puts "Human: #{human.points}"
-    puts "Computer: #{computer.points}"
+    puts "#{computer.name}: #{computer.points}"
 
-    if human.points == 5
+    if @@human_points == MAX
       puts "You won the game!"
     else
-      puts "Computer won the game!"
+      puts "#{computer.name} won the game!"
     end
   end
 
   def first_to_max?
-    human.points == MAX || computer.points == MAX
+    @@human_points == MAX || @@computer_points == MAX
   end
 
   def display_welcome_message
@@ -188,13 +191,13 @@ class TTTGame
   end
 
   def display_board
-    puts "                ROUND #{@@round}        "
-    puts "========================================"
-    puts "                 SCORES                 "
-    puts "Human: #{human.points}                     Computer: #{computer.points}"
-    puts "========================================"
+    puts "ROUND #{@@round}".center(SPACING)
+    puts "=" * SPACING
+    puts "SCORES".center(SPACING)
+    puts "Human: #{@@human_points}".ljust(SPACING / 2) + "#{computer.name}: #{@@computer_points}".rjust(SPACING / 2)
+    puts "=" * SPACING
     puts ''
-    puts "You're an #{human.marker}.  Computer is a #{computer.marker}."
+    puts "You're an #{human.marker}.  #{computer.name} is an #{computer.marker}.".center(SPACING)
     puts ''
     board.draw
     puts ''
@@ -232,10 +235,10 @@ class TTTGame
     case board.winning_marker
     when human.marker
       puts "You won!"
-      human.points += 1
+      @@human_points += 1
     when computer.marker
-      puts "Computer won!"
-      computer.points += 1
+      puts "#{computer.name} won!"
+      @@computer_points += 1
     else
       puts "It's a tie!"
       @@ties += 1
