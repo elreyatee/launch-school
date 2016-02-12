@@ -38,7 +38,6 @@ class Board
     (1..9).each { |key| @squares[key] = Square.new }
   end
 
-  # rubocop:disable Metrics/AbcSize
   def draw
     boards = <<-GRID
               |     |
@@ -55,7 +54,6 @@ class Board
     GRID
     puts boards.center(TTTGame::SPACING || 0)
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -66,6 +64,6 @@ class Board
   end
 
   def tab(line)
-    puts " " * TAB_VALUE + "#{line}"
+    puts " " * TAB_VALUE + line.to_s
   end
 end
