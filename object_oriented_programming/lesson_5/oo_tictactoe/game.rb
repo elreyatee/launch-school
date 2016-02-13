@@ -1,3 +1,5 @@
+require 'pry'
+
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -5,18 +7,15 @@ end
 class TTTGame
   MAX = 5
   SPACING = 40
-  @@first_to_move = nil
-  @@round = 1
-  @@ties = 0
 
+  attr_accessor :game_data
   attr_reader :board, :human, :computer
 
   def initialize
     @board = Board.new
     @human = Player.new
     @computer = Computer.new
-    @@first_to_move = human.marker
-    @current_marker = @@first_to_move
+    @game_data = {round: 1, ties: 0, first_to_move: human.marker, current_marker: human.marker }
     @human.name = ask_name
   end
 
@@ -63,18 +62,17 @@ class TTTGame
     reset
     human.score = 0
     computer.score = 0
-    @@round = 1
-    @@ties = 0
+    game_data[:round] = 1
+    game_data[:ties] = 0
   end
 
   def display_final_scores
     clear
-    puts "Total rounds played: #{@@round}"
-    puts "Total number of ties: #{@@ties}"
+    puts "Total rounds played: #{game_data[:round]}"
+    puts "Total number of ties: #{game_data[:ties]}"
     puts "Final score: "
     puts "#{human.name}: #{human.score}"
     puts "#{computer.name}: #{computer.score}"
-
     puts "#{human.name} won the game!" if human.score == MAX
     puts "#{computer.name} won the game!" if computer.score == MAX
   end
@@ -91,18 +89,27 @@ class TTTGame
     puts "Thanks for playing Tic Tac Toe! Goodbye!"
   end
 
+  def dash_line
+    '=' * SPACING
+  end
+
+  def scores
+    "#{human.name}: #{human.score}".ljust(SPACING / 2) + 
+    "#{computer.name}: #{computer.score}".rjust(SPACING / 2) 
+  end
+
   # rubocop:disable Metrics/AbcSize
   def display_board
-    puts "ROUND #{@@round}".center(SPACING)
-    puts "=" * SPACING
-    puts "SCORES".center(SPACING)
-    puts "#{human.name}: #{human.score}".ljust(SPACING / 2) + "#{computer.name}: #{computer.score}".rjust(SPACING / 2)
-    puts "=" * SPACING
-    puts ''
-    puts "You're an #{human.marker}.  #{computer.name} is an #{computer.marker}.".center(SPACING)
-    puts ''
+    game_board = <<-DISPLAY
+      ROUND #{game_data[:round]}
+      #{dash_line}
+      SCORES
+      #{dash_line}
+      #{scores}
+    DISPLAY
+    
+    game_board.each_line { |line| puts line.strip.center(SPACING) }
     board.draw(options: SPACING)
-    puts ''
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -116,7 +123,7 @@ class TTTGame
   end
 
   def human_moves
-    puts "Chose a square between (#{board.unmarked_keys.join(', ')}): "
+    print "Chose a square between (#{board.unmarked_keys.join(', ')}): "
 
     square = nil
     loop do
@@ -168,9 +175,9 @@ class TTTGame
       computer.score += 1
     else
       puts "It's a tie!"
-      @@ties += 1
+      game_data[:ties] += 1
     end
-    sleep 2
+    sleep 1
   end
 
   def play_again?
@@ -187,14 +194,14 @@ class TTTGame
 
   def reset
     board.reset
-    @current_marker = @@first_to_move
+    game_data[:current_marker] = game_data[:first_to_move]
     clear
   end
 
   def display_next_round_message
     puts "Let's play another round!"
     puts ''
-    @@round += 1
+    game_data[:round] += 1
   end
 
   def display_play_again_message
@@ -203,12 +210,12 @@ class TTTGame
   end
 
   def current_player_moves
-    if @current_marker == human.marker
+    if game_data[:current_marker] == human.marker
       human_moves
-      @current_marker = computer.marker
+      game_data[:current_marker] = computer.marker
     else
       computer_moves
-      @current_marker = human.marker
+      game_data[:current_marker] = human.marker
     end
   end
 end
