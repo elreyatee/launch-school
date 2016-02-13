@@ -178,8 +178,8 @@ class TTTGame
     system 'clear'
   end
 
-  def owner(marker)
-    winner = data[:players].find { |plyr| plyr.marker == marker }
+  def owner(mrk)
+    winner = data[:players].find { |plyr| plyr.marker == mrk }
     if winner
       winner.score += 1 
     else

@@ -18,12 +18,12 @@ class Computer < Player
     super(marker, name)
   end
 
-  def choice_on(board)
+  def choice_on(brd)
     moves = [:offense, :defense, :middle, :random]
     square = nil
 
     moves.each do |move|
-      square = send(move, board)
+      square = send(move, brd)
       break if square
     end
 
@@ -32,19 +32,19 @@ class Computer < Player
 
   private
 
-  def offense(board)
-    board.find_game_winning_square(marker)
+  def offense(brd)
+    brd.find_game_winning_square(marker)
   end
 
-  def defense(board)
-    board.find_at_risk_square(!marker || ' ')
+  def defense(brd)
+    brd.find_at_risk_square(!marker || ' ')
   end
 
-  def middle(board)
-    return 5 if board.unmarked_keys.include?(5)
+  def middle(brd)
+    return 5 if brd.unmarked_keys.include?(5)
   end
 
-  def random(board)
-    board.unmarked_keys.sample
+  def random(brd)
+    brd.unmarked_keys.sample
   end
 end
