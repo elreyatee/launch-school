@@ -150,7 +150,7 @@ class TTTGame
 
     moves.each do |move|
       square = send(move)
-      break if square
+      break if square 
     end
 
     board[square] = computer.marker
