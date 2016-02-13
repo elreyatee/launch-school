@@ -3,7 +3,7 @@ Dir.glob("*.rb").each do |file|
 end
 
 class TTTGame
-  SPACING = 40
+  SPACING = 47
 
   attr_accessor :data
   attr_reader :board, :human, :computer
@@ -36,8 +36,7 @@ class TTTGame
 
         display_result
         break if first_to_max?
-        reset
-        display_next_round_message
+        reset_game and display_next_round_message
       end
 
       display_final_scores
@@ -56,12 +55,12 @@ class TTTGame
     print "Hello! What's your name? "
     name = gets.chomp
     puts "Nice to meet you #{name}, lets begin ..."
-    sleep 2
+    sleep 1
     name
   end
 
   def setup_new_game
-    reset
+    reset_game
     human.score = 0
     computer.score = 0
     data[:round] = 1
@@ -84,8 +83,8 @@ class TTTGame
     #{dash_line}
     Total rounds played: #{data[:round]}
     Total number of ties: #{data[:ties]}
-    Final scores:
 
+    Final scores:
     FINAL_STATS
 
     final_scores.each_line { |line| puts line.strip.center(SPACING) }
@@ -191,7 +190,7 @@ class TTTGame
   def play_again?
     answer = nil
     loop do
-      puts "Would you like to play again #{human.name}? (y/n)"
+      print "Would you like to play again #{human.name} (y/n)? "
       answer = gets.chomp.downcase
       break if %(y n).include? answer
       puts "Sorry, must by y or n"
@@ -200,8 +199,8 @@ class TTTGame
     answer == 'y'
   end
 
-  def reset
-    board.reset
+  def reset_game
+    board.reset_game
     data[:current_marker] = data[:first_to_move]
     clear
   end
