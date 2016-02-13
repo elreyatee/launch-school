@@ -1,24 +1,26 @@
-require 'pry'
-
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
 
 class TTTGame
-  MAX = 5
   SPACING = 40
 
   attr_accessor :game_data
   attr_reader :board, :human, :computer
 
   def initialize
+    @data = { round: 1, ties: 0, max: 1, players: [], first_to_move: nil, current_marker: nil }
+
     @board = Board.new
-    @human = Player.new
-    @computer = Computer.new
-    @game_data = {round: 1, ties: 0, first_to_move: human.marker, current_marker: human.marker }
+    @data[:players] << @human = Player.new
+    @data[:players] << @computer = Computer.new
+
+    @data[:first_to_move] = human.marker
+    @data[:current_marker] = human.marker
     @human.name = ask_name
   end
 
+  # rubocop:disable Metrics/AbcSize
   def play
     clear
     display_welcome_message
@@ -45,8 +47,10 @@ class TTTGame
       setup_new_game
     end
 
+    display_winner
     display_goodbye_message
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -62,23 +66,35 @@ class TTTGame
     reset
     human.score = 0
     computer.score = 0
-    game_data[:round] = 1
-    game_data[:ties] = 0
+    data[:round] = 1
+    data[:ties] = 0
+  end
+
+  def display_winner
+    if human.score == data[:max]
+      puts "#{human.name} won the game!"
+    else
+      puts "#{computer.name} won the game!"
+    end
   end
 
   def display_final_scores
     clear
-    puts "Total rounds played: #{game_data[:round]}"
-    puts "Total number of ties: #{game_data[:ties]}"
-    puts "Final score: "
-    puts "#{human.name}: #{human.score}"
-    puts "#{computer.name}: #{computer.score}"
-    puts "#{human.name} won the game!" if human.score == MAX
-    puts "#{computer.name} won the game!" if computer.score == MAX
+
+    final_scores = <<-FINAL_SCORES
+    GAME STATS
+    #{dash_line}
+    Total rounds played: #{data[:round]}
+    Total number of ties: #{data[:ties]}
+    Final scores:
+    FINAL_SCORES
+
+    final_scores.each_line { |line| puts line.strip.center(SPACING) }
+    data[:players].each { |plyr| puts "#{plyr.name}: #{plyr.score}".center(SPACING) }
   end
 
   def first_to_max?
-    human.score == MAX || computer.score == MAX
+    data[:players].any? { |plyr| plyr.score == data[:max] }
   end
 
   def display_welcome_message
@@ -94,24 +110,22 @@ class TTTGame
   end
 
   def scores
-    "#{human.name}: #{human.score}".ljust(SPACING / 2) + 
-    "#{computer.name}: #{computer.score}".rjust(SPACING / 2) 
+    "#{human.name}: #{human.score}".ljust(SPACING / 2) +
+      "#{computer.name}: #{computer.score}".rjust(SPACING / 2)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def display_board
-    game_board = <<-DISPLAY
-      ROUND #{game_data[:round]}
+    game_board = <<-GAME_BOARD
+      ROUND #{data[:round]}
       #{dash_line}
       SCORES
       #{dash_line}
       #{scores}
-    DISPLAY
-    
+    GAME_BOARD
+
     game_board.each_line { |line| puts line.strip.center(SPACING) }
     board.draw(options: SPACING)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def clear_screen_and_display_board
     clear
@@ -157,7 +171,7 @@ class TTTGame
 
     moves.each do |move|
       square = send(move)
-      break if square 
+      break if square
     end
 
     board[square] = computer.marker
@@ -194,14 +208,14 @@ class TTTGame
 
   def reset
     board.reset
-    game_data[:current_marker] = game_data[:first_to_move]
+    data[:current_marker] = data[:first_to_move]
     clear
   end
 
   def display_next_round_message
     puts "Let's play another round!"
     puts ''
-    game_data[:round] += 1
+    data[:round] += 1
   end
 
   def display_play_again_message
@@ -210,12 +224,12 @@ class TTTGame
   end
 
   def current_player_moves
-    if game_data[:current_marker] == human.marker
+    if data[:current_marker] == human.marker
       human_moves
-      game_data[:current_marker] = computer.marker
+      data[:current_marker] = computer.marker
     else
       computer_moves
-      game_data[:current_marker] = human.marker
+      data[:current_marker] = human.marker
     end
   end
 end
