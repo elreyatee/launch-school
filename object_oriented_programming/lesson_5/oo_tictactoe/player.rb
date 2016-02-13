@@ -11,7 +11,7 @@ class Player
 end
 
 class Computer < Player
-  CPU_NAMES = %w(Hal Klaatu Skynet SID6.7 Bishop).freeze
+  CPU_NAMES = %w(Hal Klaatu Skynet SID6.7 Bishop Jarvis).freeze
   COMPUTER_MARKER = "O".freeze
 
   def initialize(marker = COMPUTER_MARKER, name = CPU_NAMES.sample)
@@ -26,6 +26,7 @@ class Computer < Player
       square = send(move, board)
       break if square
     end
+
     square
   end
 

@@ -9,27 +9,23 @@ class TTTGame
   attr_reader :board, :human, :computer
 
   def initialize
-    @data = { round: 1, ties: 0, max: 1, players: [],
-              first_to_move: nil, current_marker: nil }
+    @data = { round: 0, ties: 0, max: 2, players: [],
+              first_to_move: nil, current_player: nil }
 
     @board = Board.new
     @data[:players] << @human = Player.new
     @data[:players] << @computer = Computer.new
 
-    @data[:first_to_move] = human.marker
-    @data[:current_marker] = human.marker
+    @data[:first_to_move] = human
+    @data[:current_player] = human
     @human.name = ask_name
   end
 
-  # rubocop:disable Metrics/AbcSize
   def play
-    clear_screen 
-    display_welcome_message
     main_loop
-    display_winner 
+    display_winner
     display_goodbye_message
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -38,27 +34,28 @@ class TTTGame
       round_loop
       display_final_scores
       break unless play_again?
-      display_play_again_message 
+      display_play_again_message
       setup_new_game
     end
   end
 
-  def round_loop 
+  def round_loop
     loop do
+      data[:round] += 1
+      clear_screen
       display_board
       player_loop
       display_result
       break if first_to_max?
-      reset_game 
+      reset_game
       display_next_round_message
     end
   end
 
   def player_loop
-    loop do
+    until board.someone_won? || board.full?
       current_player_moves
-      break if board.someone_won? || board.full?
-      clear_screen 
+      clear_screen
       display_board
     end
   end
@@ -67,8 +64,10 @@ class TTTGame
     reset_game
     human.score = 0
     computer.score = 0
-    data[:round] = 1
+    data[:round] = 0
     data[:ties] = 0
+    data[:first_to_move] = human
+    data[:current_player] = human
   end
 
   def human_moves
@@ -91,21 +90,23 @@ class TTTGame
 
   def reset_game
     board.reset
-    data[:current_marker] = data[:first_to_move]
+    data[:first_to_move] = human
+    data[:current_player] = human
     clear_screen
   end
 
   def current_player_moves
-    if data[:current_marker] == human.marker
+    if data[:current_player] == human
       human_moves
-      data[:current_marker] = computer.marker
+      data[:current_player] = computer
     else
       computer_moves
-      data[:current_marker] = human.marker
+      data[:current_player] = human
     end
   end
 
   def ask_name
+    display_welcome_message
     print "Hello! What's your name? "
     name = gets.chomp
     puts "Nice to meet you #{name}, lets begin ..."
@@ -160,7 +161,7 @@ class TTTGame
 
   def display_board
     game_board = <<-GAME_BOARD
-      ROUND #{data[:round]}
+      ROUND #{data[:round]}, TURN: #{data[:current_player].name}
       #{display_dash_line}
       SCORES
       #{display_dash_line}
@@ -176,7 +177,8 @@ class TTTGame
   end
 
   def display_result
-    clear_screen and display_board
+    clear_screen
+    display_board
 
     case board.winning_marker
     when human.marker
@@ -187,20 +189,20 @@ class TTTGame
       computer.score += 1
     else
       puts "It's a tie!"
-      game_data[:ties] += 1
+      data[:ties] += 1
     end
+
     sleep 1
   end
 
   def display_next_round_message
     puts "Let's play another round!"
-    puts ''
-    data[:round] += 1
+    sleep 1
   end
 
   def display_play_again_message
     puts "Let's play again!"
-    puts ''
+    sleep 1
   end
 
   def play_again?
