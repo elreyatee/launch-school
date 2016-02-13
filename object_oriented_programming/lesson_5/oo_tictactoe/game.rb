@@ -84,31 +84,8 @@ class TTTGame
     board[square] = human.marker
   end
 
-  # def offense
-  #   board.find_game_winning_square(computer.marker)
-  # end
-
-  # def defense
-  #   board.find_at_risk_square(human.marker)
-  # end
-
-  # def middle
-  #   return 5 if board.unmarked_keys.include?(5)
-  # end
-
-  # def random
-  #   board.unmarked_keys.sample
-  # end
-
   def computer_moves
-    # moves = [:offense, :defense, :middle, :random]
-    # square = nil
-
-    # moves.each do |move|
-    #   square = send(move)
-    #   break if square
-    # end
-    square = @computer.choice_on(board)
+    square = computer.choice_on(board)
     board[square] = computer.marker
   end
 
