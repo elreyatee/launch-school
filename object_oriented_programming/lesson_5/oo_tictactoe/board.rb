@@ -38,7 +38,7 @@ class Board
     (1..9).each { |key| @squares[key] = Square.new }
   end
 
-  def draw
+  def draw(options = {})
     boards = <<-GRID
               |     |
            #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}
@@ -52,7 +52,7 @@ class Board
            #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}
               |     |
     GRID
-    puts boards.center(TTTGame::SPACING || 0)
+    puts boards.center(options[:spacing] || 0)
   end
 
   private

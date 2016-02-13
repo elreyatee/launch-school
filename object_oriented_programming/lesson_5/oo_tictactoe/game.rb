@@ -103,7 +103,7 @@ class TTTGame
     puts ''
     puts "You're an #{human.marker}.  #{computer.name} is an #{computer.marker}.".center(SPACING)
     puts ''
-    board.draw
+    board.draw(options: SPACING)
     puts ''
   end
   # rubocop:enable Metrics/AbcSize
