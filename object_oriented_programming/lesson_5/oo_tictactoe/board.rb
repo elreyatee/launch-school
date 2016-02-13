@@ -1,3 +1,5 @@
+require 'pry'
+
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
@@ -11,6 +13,21 @@ class Board
   def []=(num, marker)
     @squares[num].marker = marker
   end
+
+  def find_at_risk_square(marker)
+    square = nil 
+
+    WINNING_LINES.each do |line|
+      if @squares.values_at(*line).count(marker) == 2
+        square = line.select { |grid| @squares[grid] != marker }
+        break if square
+      end
+    end
+
+    square 
+  end
+  
+  alias :find_game_winning_square :find_at_risk_square
 
   def unmarked_keys
     @squares.keys.select { |key| @squares[key].unmarked? }
