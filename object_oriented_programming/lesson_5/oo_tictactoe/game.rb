@@ -17,7 +17,7 @@ class TTTGame
 
     @data[:first_to_move] = human.marker
     @data[:current_marker] = human.marker
-    @human.name = ask_name
+    @human.name = get_name
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -44,20 +44,11 @@ class TTTGame
       display_play_again_message and setup_new_game
     end
 
-    display_winner
-    display_goodbye_message
+    display_winner and display_goodbye_message
   end
   # rubocop:enable Metrics/AbcSize
 
   private
-
-  def ask_name
-    print "Hello! What's your name? "
-    name = gets.chomp
-    puts "Nice to meet you #{name}, lets begin ..."
-    sleep 1
-    name
-  end
 
   def setup_new_game
     reset_game
@@ -66,6 +57,71 @@ class TTTGame
     data[:round] = 1
     data[:ties] = 0
   end
+
+  def human_moves
+    print "Chose a square between (#{board.unmarked_keys.join(', ')}): "
+
+    square = nil
+    loop do
+      square = gets.chomp.to_i
+      break if board.unmarked_keys.include?(square)
+      puts "Sorry, that's not a valid choice."
+    end
+
+    board[square] = human.marker
+  end
+
+  def offense
+    board.find_game_winning_square(computer.marker)
+  end
+
+  def defense
+    board.find_at_risk_square(human.marker)
+  end
+
+  def middle
+    return 5 if board.unmarked_keys.include?(5)
+  end
+
+  def random
+    board.unmarked_keys.sample
+  end
+
+  def computer_moves
+    moves = [:offense, :defense, :middle, :random]
+    square = nil
+
+    moves.each do |move|
+      square = send(move)
+      break if square
+    end
+
+    board[square] = computer.marker
+  end
+
+  def reset_game
+    board.reset_game
+    data[:current_marker] = data[:first_to_move]
+    clear
+  end
+
+  def current_player_moves
+    if data[:current_marker] == human.marker
+      human_moves
+      data[:current_marker] = computer.marker
+    else
+      computer_moves
+      data[:current_marker] = human.marker
+    end
+  end
+
+  def get_name
+  print "Hello! What's your name? "
+  name = gets.chomp
+  puts "Nice to meet you #{name}, lets begin ..."
+  sleep 1
+  name
+end
 
   def display_winner
     if human.score == data[:max]
@@ -129,47 +185,6 @@ class TTTGame
     system 'clear'
   end
 
-  def human_moves
-    print "Chose a square between (#{board.unmarked_keys.join(', ')}): "
-
-    square = nil
-    loop do
-      square = gets.chomp.to_i
-      break if board.unmarked_keys.include?(square)
-      puts "Sorry, that's not a valid choice."
-    end
-
-    board[square] = human.marker
-  end
-
-  def offense
-    board.find_game_winning_square(computer.marker)
-  end
-
-  def defense
-    board.find_at_risk_square(human.marker)
-  end
-
-  def middle
-    return 5 if board.unmarked_keys.include?(5)
-  end
-
-  def random
-    board.unmarked_keys.sample
-  end
-
-  def computer_moves
-    moves = [:offense, :defense, :middle, :random]
-    square = nil
-
-    moves.each do |move|
-      square = send(move)
-      break if square
-    end
-
-    board[square] = computer.marker
-  end
-
   def display_result
     clear_screen and display_board
 
@@ -187,24 +202,6 @@ class TTTGame
     sleep 1
   end
 
-  def play_again?
-    answer = nil
-    loop do
-      print "Would you like to play again #{human.name} (y/n)? "
-      answer = gets.chomp.downcase
-      break if %(y n).include? answer
-      puts "Sorry, must by y or n"
-    end
-
-    answer == 'y'
-  end
-
-  def reset_game
-    board.reset_game
-    data[:current_marker] = data[:first_to_move]
-    clear
-  end
-
   def display_next_round_message
     puts "Let's play another round!"
     puts ''
@@ -216,14 +213,16 @@ class TTTGame
     puts ''
   end
 
-  def current_player_moves
-    if data[:current_marker] == human.marker
-      human_moves
-      data[:current_marker] = computer.marker
-    else
-      computer_moves
-      data[:current_marker] = human.marker
+  def play_again?
+    answer = nil
+    loop do
+      print "Would you like to play again #{human.name} (y/n)? "
+      answer = gets.chomp.downcase
+      break if %(y n).include? answer
+      puts "Sorry, must by y or n"
     end
+
+    answer == 'y'
   end
 end
 
