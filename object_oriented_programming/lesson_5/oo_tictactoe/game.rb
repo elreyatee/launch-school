@@ -178,13 +178,9 @@ class TTTGame
     system 'clear'
   end
 
-  def owner(mrk)
+  def owner_of(mrk)
     winner = data[:players].find { |plyr| plyr.marker == mrk }
-    if winner
-      winner.score += 1 
-    else
-      data[:ties] += 1
-    end
+    winner ? winner.score += 1 : data[:ties] += 1
     winner
   end
 
@@ -192,7 +188,7 @@ class TTTGame
     clear_screen
     display_board
 
-    winner = owner(board.winning_marker)
+    winner = owner_of(board.winning_marker)
 
     case winner
     when human
