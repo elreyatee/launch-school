@@ -1,3 +1,5 @@
+require 'pry'
+
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -161,7 +163,7 @@ class TTTGame
 
   def display_board
     game_board = <<-GAME_BOARD
-      ROUND #{data[:round]}, TURN: #{data[:current_player].name}
+      ROUND #{data[:round]}
       #{display_dash_line}
       SCORES
       #{display_dash_line}
@@ -176,20 +178,29 @@ class TTTGame
     system 'clear'
   end
 
+  def owner(marker)
+    winner = data[:players].find { |plyr| plyr.marker == marker }
+    if winner
+      winner.score += 1 
+    else
+      data[:ties] += 1
+    end
+    winner
+  end
+
   def display_result
     clear_screen
     display_board
 
-    case board.winning_marker
-    when human.marker
+    winner = owner(board.winning_marker)
+
+    case winner
+    when human
       puts "You won!"
-      human.score += 1
-    when computer.marker
+    when computer
       puts "#{computer.name} won!"
-      computer.score += 1
     else
       puts "It's a tie!"
-      data[:ties] += 1
     end
 
     sleep 1
