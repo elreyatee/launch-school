@@ -17,4 +17,33 @@ class Computer < Player
   def initialize(marker = COMPUTER_MARKER, name = CPU_NAMES.sample)
     super(marker, name)
   end
+
+  def choice_on(board)
+    moves = [:offense, :defense, :middle, :random]
+    square = nil
+
+    moves.each do |move|
+      square = send(move, board)
+      break if square
+    end
+    square
+  end
+
+  private
+
+  def offense(board)
+    board.find_game_winning_square(marker)
+  end
+
+  def defense(board)
+    board.find_at_risk_square(!marker || ' ')
+  end
+
+  def middle(board)
+    return 5 if board.unmarked_keys.include?(5)
+  end
+
+  def random(board)
+    board.unmarked_keys.sample
+  end
 end
