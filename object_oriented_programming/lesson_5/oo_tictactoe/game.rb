@@ -1,3 +1,5 @@
+require 'pry'
+
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -9,7 +11,8 @@ class TTTGame
   attr_reader :board, :human, :computer
 
   def initialize
-    @data = { round: 1, ties: 0, max: 1, players: [], first_to_move: nil, current_marker: nil }
+    @data = { round: 1, ties: 0, max: 1, players: [],
+              first_to_move: nil, current_marker: nil }
 
     @board = Board.new
     @data[:players] << @human = Player.new
@@ -17,13 +20,14 @@ class TTTGame
 
     @data[:first_to_move] = human.marker
     @data[:current_marker] = human.marker
-    @human.name = get_name
+    @human.name = ask_name
   end
 
   # rubocop:disable Metrics/AbcSize
   def play
-    clear_screen and display_welcome_message
-
+    clear_screen 
+    display_welcome_message
+    
     loop do
       loop do
         display_board
@@ -31,20 +35,24 @@ class TTTGame
         loop do
           current_player_moves
           break if board.someone_won? || board.full?
-          clear_screen and display_board
+          clear_screen 
+          display_board
         end
 
         display_result
         break if first_to_max?
-        reset_game and display_next_round_message
+        reset_game 
+        display_next_round_message
       end
 
       display_final_scores
       break unless play_again?
-      display_play_again_message and setup_new_game
+      display_play_again_message 
+      setup_new_game
     end
 
-    display_winner and display_goodbye_message
+    display_winner 
+    display_goodbye_message
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -115,13 +123,13 @@ class TTTGame
     end
   end
 
-  def get_name
-  print "Hello! What's your name? "
-  name = gets.chomp
-  puts "Nice to meet you #{name}, lets begin ..."
-  sleep 1
-  name
-end
+  def ask_name
+    print "Hello! What's your name? "
+    name = gets.chomp
+    puts "Nice to meet you #{name}, lets begin ..."
+    sleep 1
+    name
+  end
 
   def display_winner
     if human.score == data[:max]
@@ -136,7 +144,7 @@ end
 
     final_scores = <<-FINAL_STATS
     GAME STATS
-    #{dash_line}
+    #{display_dash_line}
     Total rounds played: #{data[:round]}
     Total number of ties: #{data[:ties]}
 
@@ -156,14 +164,15 @@ end
   end
 
   def display_goodbye_message
+    binding.pry
     puts "Thanks for playing Tic Tac Toe! Goodbye!"
   end
 
-  def dash_line
+  def display_dash_line
     '=' * SPACING
   end
 
-  def scores
+  def display_scores
     "#{human.name}: #{human.score}".ljust(SPACING / 2) +
       "#{computer.name}: #{computer.score}".rjust(SPACING / 2)
   end
@@ -171,10 +180,10 @@ end
   def display_board
     game_board = <<-GAME_BOARD
       ROUND #{data[:round]}
-      #{dash_line}
+      #{display_dash_line}
       SCORES
-      #{dash_line}
-      #{scores}
+      #{display_dash_line}
+      #{display_scores}
     GAME_BOARD
 
     game_board.each_line { |line| puts line.strip.center(SPACING) }
