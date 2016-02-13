@@ -31,13 +31,14 @@ class TTTGame
     loop do
       loop do
         display_board
+        player_loop
 
-        loop do
-          current_player_moves
-          break if board.someone_won? || board.full?
-          clear_screen 
-          display_board
-        end
+        # loop do
+        #   current_player_moves
+        #   break if board.someone_won? || board.full?
+        #   clear_screen 
+        #   display_board
+        # end
 
         display_result
         break if first_to_max?
@@ -57,6 +58,15 @@ class TTTGame
   # rubocop:enable Metrics/AbcSize
 
   private
+
+  def player_loop
+    loop do
+      current_player_moves
+      break if board.someone_won? || board.full?
+      clear_screen 
+      display_board
+    end
+  end
 
   def setup_new_game
     reset_game
@@ -108,9 +118,9 @@ class TTTGame
   end
 
   def reset_game
-    board.reset_game
+    board.reset
     data[:current_marker] = data[:first_to_move]
-    clear
+    clear_screen
   end
 
   def current_player_moves
