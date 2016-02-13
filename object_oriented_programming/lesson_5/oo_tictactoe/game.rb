@@ -1,5 +1,3 @@
-require 'pry'
-
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -27,37 +25,34 @@ class TTTGame
   def play
     clear_screen 
     display_welcome_message
-    
-    loop do
-      loop do
-        display_board
-        player_loop
-
-        # loop do
-        #   current_player_moves
-        #   break if board.someone_won? || board.full?
-        #   clear_screen 
-        #   display_board
-        # end
-
-        display_result
-        break if first_to_max?
-        reset_game 
-        display_next_round_message
-      end
-
-      display_final_scores
-      break unless play_again?
-      display_play_again_message 
-      setup_new_game
-    end
-
+    main_loop
     display_winner 
     display_goodbye_message
   end
   # rubocop:enable Metrics/AbcSize
 
   private
+
+  def main_loop
+    loop do
+      round_loop
+      display_final_scores
+      break unless play_again?
+      display_play_again_message 
+      setup_new_game
+    end
+  end
+
+  def round_loop 
+    loop do
+      display_board
+      player_loop
+      display_result
+      break if first_to_max?
+      reset_game 
+      display_next_round_message
+    end
+  end
 
   def player_loop
     loop do
@@ -174,7 +169,6 @@ class TTTGame
   end
 
   def display_goodbye_message
-    binding.pry
     puts "Thanks for playing Tic Tac Toe! Goodbye!"
   end
 
