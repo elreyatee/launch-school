@@ -5,7 +5,7 @@ end
 class TTTGame
   SPACING = 40
 
-  attr_accessor :game_data
+  attr_accessor :data
   attr_reader :board, :human, :computer
 
   def initialize
@@ -22,8 +22,7 @@ class TTTGame
 
   # rubocop:disable Metrics/AbcSize
   def play
-    clear
-    display_welcome_message
+    clear_screen and display_welcome_message
 
     loop do
       loop do
@@ -32,7 +31,7 @@ class TTTGame
         loop do
           current_player_moves
           break if board.someone_won? || board.full?
-          clear_screen_and_display_board
+          clear_screen and display_board
         end
 
         display_result
@@ -43,8 +42,7 @@ class TTTGame
 
       display_final_scores
       break unless play_again?
-      display_play_again_message
-      setup_new_game
+      display_play_again_message and setup_new_game
     end
 
     display_winner
@@ -79,15 +77,16 @@ class TTTGame
   end
 
   def display_final_scores
-    clear
+    clear_screen
 
-    final_scores = <<-FINAL_SCORES
+    final_scores = <<-FINAL_STATS
     GAME STATS
     #{dash_line}
     Total rounds played: #{data[:round]}
     Total number of ties: #{data[:ties]}
     Final scores:
-    FINAL_SCORES
+
+    FINAL_STATS
 
     final_scores.each_line { |line| puts line.strip.center(SPACING) }
     data[:players].each { |plyr| puts "#{plyr.name}: #{plyr.score}".center(SPACING) }
@@ -127,12 +126,7 @@ class TTTGame
     board.draw(options: SPACING)
   end
 
-  def clear_screen_and_display_board
-    clear
-    display_board
-  end
-
-  def clear
+  def clear_screen
     system 'clear'
   end
 
@@ -178,7 +172,7 @@ class TTTGame
   end
 
   def display_result
-    clear_screen_and_display_board
+    clear_screen and display_board
 
     case board.winning_marker
     when human.marker
