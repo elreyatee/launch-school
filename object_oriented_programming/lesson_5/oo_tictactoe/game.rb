@@ -3,7 +3,7 @@ Dir.glob("*.rb").each do |file|
 end
 
 class TTTGame
-  SPACING = 47
+  SPACING = 40
 
   attr_accessor :data
   attr_reader :board, :human, :computer
