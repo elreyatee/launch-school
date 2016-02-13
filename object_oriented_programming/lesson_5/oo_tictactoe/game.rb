@@ -3,12 +3,9 @@ Dir.glob("*.rb").each do |file|
 end
 
 class TTTGame
-  HUMAN_MARKER = "X".freeze
-  COMPUTER_MARKER = "O".freeze
-  FIRST_TO_MOVE = HUMAN_MARKER
   MAX = 5
   SPACING = 40
-
+  @@first_to_move = nil
   @@round = 1
   @@ties = 0
 
@@ -16,9 +13,10 @@ class TTTGame
 
   def initialize
     @board = Board.new
-    @human = Player.new(HUMAN_MARKER)
-    @computer = Player.new(COMPUTER_MARKER, Player::CPU_NAMES.sample)
-    @current_marker = FIRST_TO_MOVE
+    @human = Player.new
+    @computer = Computer.new
+    @@first_to_move = human.marker
+    @current_marker = @@first_to_move
     @human.name = ask_name
   end
 
@@ -151,7 +149,8 @@ class TTTGame
     square = nil
 
     moves.each do |move|
-      break if square = send(move)
+      square = send(move)
+      break if square
     end
 
     board[square] = computer.marker
@@ -188,7 +187,7 @@ class TTTGame
 
   def reset
     board.reset
-    @current_marker = FIRST_TO_MOVE
+    @current_marker = @@first_to_move
     clear
   end
 
@@ -204,12 +203,12 @@ class TTTGame
   end
 
   def current_player_moves
-    if @current_marker == HUMAN_MARKER
+    if @current_marker == human.marker
       human_moves
-      @current_marker = COMPUTER_MARKER
+      @current_marker = computer.marker
     else
       computer_moves
-      @current_marker = HUMAN_MARKER
+      @current_marker = human.marker
     end
   end
 end
