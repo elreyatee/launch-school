@@ -1,5 +1,3 @@
-require 'pry'
-
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
