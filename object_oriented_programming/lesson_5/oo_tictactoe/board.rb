@@ -54,8 +54,7 @@ class Board
 
   def draw(options = {})
     grid = <<-GRID
-
-        |-----+-----+-----|
+         _________________
         |     |     |     |
         |  #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}  |
         |     |     |     |
@@ -67,7 +66,7 @@ class Board
         |     |     |     |
         |  #{@squares[7]}  |  #{@squares[8]}  |  #{@squares[9]}  |
         |     |     |     |
-        |-----+-----+-----|
+         -----------------
 
     GRID
     
