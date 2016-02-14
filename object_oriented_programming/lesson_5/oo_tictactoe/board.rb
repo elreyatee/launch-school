@@ -13,7 +13,7 @@ class Board
   end
 
   def find_at_risk_square(marker)
-    square = nil 
+    square = nil
 
     WINNING_LINES.each do |line|
       if @squares.values_at(*line).count(marker) == 2
@@ -22,10 +22,9 @@ class Board
       end
     end
 
-    square 
+    square
   end
-  
-  alias :find_game_winning_square :find_at_risk_square
+  alias find_game_winning_square find_at_risk_square
 
   def unmarked_keys
     @squares.keys.select { |key| @squares[key].unmarked? }
@@ -55,13 +54,13 @@ class Board
 
   def draw(options = {})
     boards = <<-GRID
-    
+
          -----+-----+-----
         |     |     |     |
         |  #{@squares[1]}  |  #{@squares[2]}  |  #{@squares[3]}  |
         |     |     |     |
          -----+-----+-----
-        |     |     |     |     
+        |     |     |     |
         |  #{@squares[4]}  |  #{@squares[5]}  |  #{@squares[6]}  |
         |     |     |     |
          -----+-----+-----
