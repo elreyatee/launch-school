@@ -57,8 +57,6 @@ class Player
 end
 
 class Dealer < Player
-  DEALER_MIN = 17
-
   def initialize(name = 'Dealer')
     super(name)
   end
@@ -116,6 +114,8 @@ class Deck
 end
 
 class Game
+  DEALER_MIN = 17
+
   attr_accessor :player, :dealer, :deck
 
   def initialize
@@ -129,7 +129,7 @@ class Game
     deal_cards
     show_initial_cards
     player_turn
-    # dealer_turn
+    dealer_turn
     # show_result
   end
 
@@ -161,13 +161,32 @@ class Game
       answer = gets.chomp.downcase
 
       if answer.start_with?('h')
+        puts "#{player.name} takes a hit ..."
         player.hand << deck.deal!
       else
+        puts "#{player.name} decides to stay ..."
         break
       end
     end
     
     player.total
+  end
+
+  def dealer_turn
+    loop do 
+      puts "Dealer has #{dealer.show_hand}"
+      break if dealer.twenty_one? || dealer.busted?
+
+      if dealer.total < DEALER_MIN
+        puts "Dealer takes a hit ..."
+        dealer.hand << deck.deal!
+      else
+        puts "Dealer decides to stay ..."
+        break
+      end
+    end
+
+    dealer.total
   end
 end
 
