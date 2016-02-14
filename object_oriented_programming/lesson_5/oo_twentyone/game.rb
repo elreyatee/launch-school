@@ -35,10 +35,6 @@ module Hand
   def show_hand
     hand.map(&:to_s).joinand(', ')
   end
-
-  def clear
-    hand = []
-  end
 end
 
 class Player
@@ -83,17 +79,17 @@ class Card
     "#{rank} of #{suit}"
   end
 
-  private
-
   def calculate_value
     if rank == 'Ace'
       11
     elsif rank.to_i == 0
       10
-    else 
+    else
       rank.to_i
     end
   end
+
+  private :calculate_value
 end
 
 class Deck
@@ -115,31 +111,39 @@ class Deck
   def shuffle!
     cards.shuffle!
   end
+
+  def <<(card)
+    cards << card
+  end
+
+  def size
+    cards.size
+  end
 end
 
 class Game
   DEALER_MIN = 17
 
-  attr_accessor :player, :dealer, :deck, :winner
+  attr_accessor :player, :dealer, :deck
 
   def initialize
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
-    @winner = nil
   end
 
   def start
     display_welcome_message
 
-    loop do 
+    loop do
       deal_cards
       show_initial_cards
-      compare_players
-      show_results
+      result = compare_players
+      show_results(result)
       break unless play_again?
       reset_game
     end
+
     display_goodbye_message
   end
 
@@ -150,7 +154,7 @@ class Game
   def deal_cards
     deck.shuffle!
     puts "Dealing cards ..."
-    
+
     2.times do
       player.hand << deck.deal!
       dealer.hand << deck.deal!
@@ -162,7 +166,7 @@ class Game
   end
 
   def player_turn
-    loop do 
+    loop do
       puts "You have #{player.show_hand}"
       break if player.twenty_one? || player.busted?
       print "Would you like to hit or stay (h or s)? "
@@ -180,7 +184,7 @@ class Game
   end
 
   def dealer_turn
-    loop do 
+    loop do
       puts "Dealer has #{dealer.show_hand}"
       break if dealer.twenty_one? || dealer.busted?
 
@@ -197,31 +201,25 @@ class Game
 
   def compare_players
     player_total = player_turn
-    if player.busted?
-      winner = :player_busted
-      return winner 
+    return :player_busted if player.busted?
+
+    dealer_total = dealer_turn
+    return :dealer_busted if dealer.busted?
+
+    if dealer_total > player_total 
+      :dealer
+    elsif player_total > dealer_total
+      :player
+    else 
+      :tie
     end
-
-    dealer_total = dealer_turn 
-
-    winner = case 
-      when dealer.busted?
-        :dealer_busted
-      when player_total > dealer_total
-        :player_wins
-      when dealer_total > player_total 
-        :dealer_wins
-      else
-        :tie 
-      end
-    winner
   end
 
-  def show_results
-    case winner 
-    when :player_wins
+  def show_results(result)
+    case result
+    when :player
       puts "You win!"
-    when :dealer_wins
+    when :dealer
       puts "Dealer wins!"
     when :player_busted
       puts "Sorry, you busted. Game over."
@@ -237,11 +235,10 @@ class Game
   end
 
   def reset_game
-    deck += dealer.hand
-    deck += player.hand
-    dealer.clear
-    player.clear
-    winner = nil
+    dealer.hand.each { |card| deck << card }
+    player.hand.each { |card| deck << card }
+    dealer.hand.clear
+    player.hand.clear
   end
 
   def display_goodbye_message
@@ -249,9 +246,8 @@ class Game
   end
 
   private :display_welcome_message, :deal_cards, :show_initial_cards, :player_turn,
-          :dealer_turn, :compare_players, :show_results, :play_again?, :reset_game,
-          :display_goodbye_message
-
+          :dealer_turn, :compare_players, :show_results, :play_again?,
+          :reset_game, :display_goodbye_message
 end
 
 Game.new.start
