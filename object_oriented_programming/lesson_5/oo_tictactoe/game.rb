@@ -1,5 +1,3 @@
-require 'pry'
-
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -11,15 +9,15 @@ class TTTGame
   attr_reader :board, :human, :computer
 
   def initialize
-    @data = { round: 0, ties: 0, max: 2, players: [],
+    @data = { round: 0, ties: 0, max: 3, players: [],
               first_to_move: nil, current_player: nil }
 
     @board = Board.new
-    @data[:players] << @human = Player.new
-    @data[:players] << @computer = Computer.new
+    @human = Player.new
+    @computer = Computer.new
+    @data[:players].push(@human, @computer)
 
-    @data[:first_to_move] = human
-    @data[:current_player] = human
+    @data[:first_to_move] = @data[:current_player] = human
     @human.name = ask_name
   end
 
@@ -44,8 +42,7 @@ class TTTGame
   def round_loop
     loop do
       data[:round] += 1
-      clear_screen
-      display_board
+      clear_screen_and_display_board
       player_loop
       display_result
       break if first_to_max?
@@ -55,17 +52,15 @@ class TTTGame
   end
 
   def player_loop
-    until board.someone_won? || board.full?
+    until board.someone_won? or board.full?
       current_player_moves
-      clear_screen
-      display_board
+      clear_screen_and_display_board
     end
   end
 
   def setup_new_game
     reset_game
-    human.score = 0
-    computer.score = 0
+    data[:players].each { |plyr| plyr.score = 0 }
     data[:round] = 0
     data[:ties] = 0
     data[:first_to_move] = human
@@ -92,8 +87,7 @@ class TTTGame
 
   def reset_game
     board.reset
-    data[:first_to_move] = human
-    data[:current_player] = human
+    data[:first_to_move] = data[:current_player] = human
     clear_screen
   end
 
@@ -119,7 +113,7 @@ class TTTGame
   def display_winner
     if human.score == data[:max]
       puts "#{human.name} won the game!"
-    else
+    elsif
       puts "#{computer.name} won the game!"
     end
   end
@@ -184,9 +178,13 @@ class TTTGame
     winner
   end
 
-  def display_result
+  def clear_screen_and_display_board
     clear_screen
     display_board
+  end
+
+  def display_result
+    clear_screen_and_display_board
 
     winner = owner_of(board.winning_marker)
 
