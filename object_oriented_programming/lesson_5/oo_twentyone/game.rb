@@ -48,6 +48,11 @@ class Participant
   def twenty_one?
     total == 21
   end
+
+  def takes_hit(card)
+    hand << card
+  end
+  alias dealt_card takes_hit
 end
 
 class Player < Participant
@@ -67,9 +72,20 @@ class Player < Participant
       print "What's your name? "
       name = gets.chomp
       break unless name.empty?
-      puts "Sorry, please enter your name."
+      print "Sorry, please enter your name. "
     end
     self.name = name
+  end
+
+  # Validate hit or stay
+  def hit_or_stay
+    answer = ''
+    loop do
+      answer = gets.chomp.downcase
+      break if ['h', 's'].include?(answer)
+      print "Sorry, must enter 'h' or 's'. "
+    end
+    answer
   end
 
   private :set_name
@@ -176,8 +192,8 @@ class Game
     sleep 1
 
     2.times do
-      player.hand << deck.deal_card
-      dealer.hand << deck.deal_card
+      player.dealt_card deck.deal_card
+      dealer.dealt_card deck.deal_card
     end
   end
 
@@ -198,16 +214,11 @@ class Game
       print "Would you like to (h)it or (s)tay? "
 
       # validate answer is 'h' or 's'
-      answer = ''
-      loop do 
-        answer = gets.chomp.downcase
-        break if ['h', 's'].include?(answer)
-        puts "Sorry, must enter 'h' or 's'."
-      end
-      
+      answer = player.hit_or_stay
+
       if answer.start_with?('h')
         puts "#{player.name} hits ..."
-        player.hand << deck.deal_card
+        player.takes_hit deck.deal_card
       else
         puts "#{player.name} stays ..."
         break
@@ -229,7 +240,7 @@ class Game
       if dealer.total < DEALER_MIN
         puts "Dealer hits ..."
         sleep 1
-        dealer.hand << deck.deal_card
+        dealer.takes_hit deck.deal_card
       else
         puts "Dealer stays ..."
         sleep 1
@@ -274,11 +285,11 @@ class Game
 
   def play_again?
     answer = ''
-    loop do 
+    loop do
       print "Want to play again (y)es or (n)o? "
       answer = gets.chomp.downcase
       break if ['y', 'n'].include?(answer)
-      puts "Sorry, must enter 'y' or 'n'."
+      print "Sorry, must enter 'y' or 'n'. "
     end
     answer.start_with?('y')
   end
