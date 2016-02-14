@@ -4,13 +4,14 @@
 # - The dealer must keep hitting until his cards add up to at least 17
 # - If the dealer busts, the player wins. If both the dealer and player stays, the highest total wins
 module Hand
-  def self.included(klass)
-    Array.class_eval do 
+  def self.included(*)
+    Array.class_eval do
       def joinand(delimiter)
+        arr = dup
         conjunction = 'and'
-        return join(" #{conjunction} ") if size == 2
-        self[-1] = "#{conjunction} #{self[-1]}" if size > 2
-        join(delimiter)
+        return arr.join(" #{conjunction} ") if arr.size == 2
+        arr[-1] = "#{conjunction} #{arr[-1]}" if arr.size > 2
+        arr.join(delimiter)
       end
     end
   end
@@ -23,14 +24,14 @@ module Hand
     hand.each do |card|
       if result > 21 && card == 'Ace'
         result -= 10
-      end 
+      end
     end
 
     result
   end
 
   def show_hand
-    hand.map { |card| card.to_s }.joinand(', ')
+    hand.map(&:to_s).joinand(', ')
   end
 end
 
@@ -49,7 +50,7 @@ class Player
   end
 end
 
-class Dealer < Player 
+class Dealer < Player
   DEALER_MIN = 17
 
   def initialize(name = 'Dealer')
@@ -57,7 +58,7 @@ class Dealer < Player
   end
 end
 
-class Card 
+class Card
   attr_reader :suit, :rank, :value
 
   def initialize(rank, suit)
@@ -71,7 +72,7 @@ class Card
   end
 
   def calculate_value
-    case rank 
+    case rank
     when 2..10
       rank.to_i
     when 'Ace'
@@ -82,16 +83,16 @@ class Card
   end
 end
 
-class Deck 
-  SUITS = %W(\u2660 \u2663 \u2665 \u2666)
-  RANKS = %w(2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
+class Deck
+  SUITS = %W(\u2660 \u2663 \u2665 \u2666).freeze
+  RANKS = %w(2 3 4 5 6 7 8 9 10 Jack Queen King Ace).freeze
 
   attr_reader :cards
 
   def initialize
     @cards = RANKS.product(SUITS).collect do |(rank, suit)|
-              Card.new(rank, suit)
-            end
+      Card.new(rank, suit)
+    end
     @cards.shuffle!
   end
 
@@ -101,8 +102,12 @@ class Deck
 end
 
 class Game
-  def initialize
+  attr_reader :player, dealer, :deck
 
+  def initialize
+    @deck = Deck.new
+    @player = Player.new
+    @dealer = Dealer.new
   end
 
   def start
