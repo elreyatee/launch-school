@@ -1,10 +1,3 @@
-require 'pry'
-
-# - Both players are initially dealt two cards from a 52 card deck
-# - The player takes the first turn and decides whether to 'stay' or 'hit'
-# - If the player busts, he loses. If he stays, it's the dealer's turn
-# - The dealer must keep hitting until his cards add up to at least 17
-# - If the dealer busts, the player wins. If both the dealer and player stays, the highest total wins
 module Hand
   def self.included(*)
     Array.class_eval do
@@ -168,6 +161,7 @@ class Game
   def player_turn
     loop do
       puts "You have #{player.show_hand}"
+      puts "Total value: #{player.total}"
       break if player.twenty_one? || player.busted?
       print "Would you like to hit or stay (h or s)? "
       answer = gets.chomp.downcase
@@ -186,6 +180,7 @@ class Game
   def dealer_turn
     loop do
       puts "Dealer has #{dealer.show_hand}"
+      puts "Total value: #{dealer.total}"
       break if dealer.twenty_one? || dealer.busted?
 
       if dealer.total < DEALER_MIN
@@ -206,11 +201,11 @@ class Game
     dealer_total = dealer_turn
     return :dealer_busted if dealer.busted?
 
-    if dealer_total > player_total 
+    if dealer_total > player_total
       :dealer
     elsif player_total > dealer_total
       :player
-    else 
+    else
       :tie
     end
   end
@@ -239,15 +234,20 @@ class Game
     player.hand.each { |card| deck << card }
     dealer.hand.clear
     player.hand.clear
+    clear_screen
   end
 
   def display_goodbye_message
     puts "Thank for playing! Good-bye!"
   end
 
+  def clear_screen
+    system 'clear'
+  end
+
   private :display_welcome_message, :deal_cards, :show_initial_cards, :player_turn,
           :dealer_turn, :compare_players, :show_results, :play_again?,
-          :reset_game, :display_goodbye_message
+          :reset_game, :display_goodbye_message, :clear_screen
 end
 
 Game.new.start
