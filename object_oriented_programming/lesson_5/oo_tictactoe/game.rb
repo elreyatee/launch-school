@@ -1,3 +1,5 @@
+require 'pry'
+
 Dir.glob("*.rb").each do |file|
   require_relative file unless file == __FILE__
 end
@@ -169,7 +171,7 @@ class TTTGame
     GAME_BOARD
 
     game_board.each_line { |line| puts line.strip.center(SPACING) }
-    board.draw(options: SPACING)
+    board.draw(line_width: SPACING)
   end
 
   def clear_screen
