@@ -1,6 +1,6 @@
 module Displayable
   SPACING = 40
-  
+
   private 
 
   def display_winner
@@ -44,6 +44,10 @@ module Displayable
       "#{computer.name}: #{computer.score}".rjust(SPACING / 2)
   end
 
+  def clear_screen
+    system 'clear'
+  end
+
   def display_board
     game_board = <<-GAME_BOARD
       ROUND #{data[:round]}
@@ -83,5 +87,10 @@ module Displayable
   def display_play_again_message
     puts "Let's play again!"
     sleep 1
+  end
+
+  def clear_screen_and_display_board
+    clear_screen
+    display_board
   end
 end
