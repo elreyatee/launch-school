@@ -1,4 +1,5 @@
 module Hand
+  # Add joinand method when Hand module included
   def self.included(*)
     Array.class_eval do
       def joinand(delimiter)
@@ -11,13 +12,14 @@ module Hand
     end
   end
 
+  # Calculate total of hand
   def total
     result = 0
     hand.each { |card| result += card.value }
 
     # Correct for Aces
     hand.each do |card|
-      if result > 21 && card == 'Ace'
+      if result > 21 && card.ace?
         result -= 10
       end
     end
@@ -30,13 +32,12 @@ module Hand
   end
 end
 
-class Player
+class Participant
   include Hand
 
-  attr_accessor :hand, :name
+  attr_accessor :hand
 
-  def initialize(name = 'Player')
-    @name = name
+  def initialize
     @hand = []
   end
 
@@ -49,11 +50,32 @@ class Player
   end
 end
 
-class Dealer < Player
-  def initialize(name = 'Dealer')
-    super(name)
+class Player < Participant
+  include Hand
+
+  attr_accessor :hand, :name
+
+  def initialize
+    @hand = []
+    set_name
   end
 
+  # Validate input for player name
+  def set_name
+    name = ''
+    loop do
+      print "What's your name? "
+      name = gets.chomp
+      break unless name.empty?
+      puts "Sorry, please enter your name."
+    end
+    self.name = name
+  end
+
+  private :set_name
+end
+
+class Dealer < Participant
   def show_face_up_card
     "Dealer's face up card is a #{hand.last}"
   end
@@ -68,10 +90,15 @@ class Card
     @value = calculate_value
   end
 
+  def ace?
+    rank == 'Ace'
+  end
+
   def to_s
     "#{rank} of #{suit}"
   end
 
+  # Assign value to card
   def calculate_value
     if rank == 'Ace'
       11
@@ -97,7 +124,7 @@ class Deck
     end
   end
 
-  def deal!
+  def deal_card
     cards.pop
   end
 
@@ -120,14 +147,13 @@ class Game
   attr_accessor :player, :dealer, :deck
 
   def initialize
+    display_welcome_message
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
   end
 
   def start
-    display_welcome_message
-
     loop do
       deal_cards
       show_initial_cards
@@ -136,61 +162,82 @@ class Game
       break unless play_again?
       reset_game
     end
-
     display_goodbye_message
   end
 
   def display_welcome_message
-    puts "Welcome to Twenty-One! Let's play!"
+    puts "Welcome to Twenty-One!"
   end
 
   def deal_cards
     deck.shuffle!
     puts "Dealing cards ..."
+    puts ''
+    sleep 1
 
     2.times do
-      player.hand << deck.deal!
-      dealer.hand << deck.deal!
+      player.hand << deck.deal_card
+      dealer.hand << deck.deal_card
     end
   end
 
   def show_initial_cards
+    puts "------ Dealer's Face Up Card ------"
     puts dealer.show_face_up_card
+    puts ''
   end
 
   def player_turn
+    puts "---------- #{player.name}'s Turn ----------"
+
     loop do
       puts "You have #{player.show_hand}"
       puts "Total value: #{player.total}"
       break if player.twenty_one? || player.busted?
-      print "Would you like to hit or stay (h or s)? "
-      answer = gets.chomp.downcase
 
+      print "Would you like to (h)it or (s)tay? "
+
+      # validate answer is 'h' or 's'
+      answer = ''
+      loop do 
+        answer = gets.chomp.downcase
+        break if ['h', 's'].include?(answer)
+        puts "Sorry, must enter 'h' or 's'."
+      end
+      
       if answer.start_with?('h')
-        puts "#{player.name} takes a hit ..."
-        player.hand << deck.deal!
+        puts "#{player.name} hits ..."
+        player.hand << deck.deal_card
       else
-        puts "#{player.name} decides to stay ..."
+        puts "#{player.name} stays ..."
         break
       end
     end
+
+    puts ''
     player.total
   end
 
   def dealer_turn
+    puts "---------- Dealer's Turn ----------"
+
     loop do
       puts "Dealer has #{dealer.show_hand}"
       puts "Total value: #{dealer.total}"
       break if dealer.twenty_one? || dealer.busted?
 
       if dealer.total < DEALER_MIN
-        puts "Dealer takes a hit ..."
-        dealer.hand << deck.deal!
+        puts "Dealer hits ..."
+        sleep 1
+        dealer.hand << deck.deal_card
       else
-        puts "Dealer decides to stay ..."
+        puts "Dealer stays ..."
+        sleep 1
         break
       end
     end
+
+    puts ''
     dealer.total
   end
 
@@ -213,19 +260,26 @@ class Game
   def show_results(result)
     case result
     when :player
-      puts "You win!"
+      puts "#{player.name} wins!"
     when :dealer
       puts "Dealer wins!"
     when :player_busted
       puts "Sorry, you busted. Game over."
     when :dealer_busted
-      puts "Dealer busts, you win!"
+      puts "Dealer busts, #{player.name} wins!"
+    when :tie
+      puts "It's a tie!"
     end
   end
 
   def play_again?
-    print "Want to play again (y or n)? "
-    answer = gets.chomp.downcase
+    answer = ''
+    loop do 
+      print "Want to play again (y)es or (n)o? "
+      answer = gets.chomp.downcase
+      break if ['y', 'n'].include?(answer)
+      puts "Sorry, must enter 'y' or 'n'."
+    end
     answer.start_with?('y')
   end
 
