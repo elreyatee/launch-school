@@ -1,3 +1,5 @@
+require 'pry'
+
 # - Both players are initially dealt two cards from a 52 card deck
 # - The player takes the first turn and decides whether to 'stay' or 'hit'
 # - If the player busts, he loses. If he stays, it's the dealer's turn
@@ -46,7 +48,11 @@ class Player
   end
 
   def busted?
-    hand.total > 21
+    total > 21
+  end
+
+  def twenty_one?
+    total == 21
   end
 end
 
@@ -55,6 +61,10 @@ class Dealer < Player
 
   def initialize(name = 'Dealer')
     super(name)
+  end
+
+  def show_face_up_card
+    "Dealer's face up card is a #{hand.last}"
   end
 end
 
@@ -71,14 +81,15 @@ class Card
     "#{rank} of #{suit}"
   end
 
+  private
+
   def calculate_value
-    case rank
-    when 2..10
-      rank.to_i
-    when 'Ace'
+    if rank == 'Ace'
       11
-    else
+    elsif rank.to_i == 0
       10
+    else 
+      rank.to_i
     end
   end
 end
@@ -93,16 +104,19 @@ class Deck
     @cards = RANKS.product(SUITS).collect do |(rank, suit)|
       Card.new(rank, suit)
     end
-    @cards.shuffle!
   end
 
-  def deal
+  def deal!
     cards.pop
+  end
+
+  def shuffle!
+    cards.shuffle!
   end
 end
 
 class Game
-  attr_reader :player, dealer, :deck
+  attr_accessor :player, :dealer, :deck
 
   def initialize
     @deck = Deck.new
@@ -111,10 +125,50 @@ class Game
   end
 
   def start
+    display_welcome_message
     deal_cards
     show_initial_cards
     player_turn
-    dealer_turn
-    show_result
+    # dealer_turn
+    # show_result
+  end
+
+  private
+
+  def display_welcome_message
+    puts "Welcome to Twenty-One! Let's play!"
+  end
+
+  def deal_cards
+    deck.shuffle!
+    puts "Dealing cards ..."
+    
+    2.times do
+      player.hand << deck.deal!
+      dealer.hand << deck.deal!
+    end
+  end
+
+  def show_initial_cards
+    puts dealer.show_face_up_card
+  end
+
+  def player_turn
+    loop do 
+      puts "You have #{player.show_hand}"
+      break if player.twenty_one? || player.busted?
+      print "Would you like to hit or stay (h or s)? "
+      answer = gets.chomp.downcase
+
+      if answer.start_with?('h')
+        player.hand << deck.deal!
+      else
+        break
+      end
+    end
+    
+    player.total
   end
 end
+
+Game.new.start
