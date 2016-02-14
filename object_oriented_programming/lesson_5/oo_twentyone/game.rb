@@ -35,6 +35,10 @@ module Hand
   def show_hand
     hand.map(&:to_s).joinand(', ')
   end
+
+  def clear
+    hand = []
+  end
 end
 
 class Player
@@ -116,24 +120,28 @@ end
 class Game
   DEALER_MIN = 17
 
-  attr_accessor :player, :dealer, :deck
+  attr_accessor :player, :dealer, :deck, :winner
 
   def initialize
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
+    @winner = nil
   end
 
   def start
     display_welcome_message
-    deal_cards
-    show_initial_cards
-    player_turn
-    dealer_turn
-    # show_result
-  end
 
-  private
+    loop do 
+      deal_cards
+      show_initial_cards
+      compare_players
+      show_results
+      break unless play_again?
+      reset_game
+    end
+    display_goodbye_message
+  end
 
   def display_welcome_message
     puts "Welcome to Twenty-One! Let's play!"
@@ -168,7 +176,6 @@ class Game
         break
       end
     end
-    
     player.total
   end
 
@@ -185,9 +192,66 @@ class Game
         break
       end
     end
-
     dealer.total
   end
+
+  def compare_players
+    player_total = player_turn
+    if player.busted?
+      winner = :player_busted
+      return winner 
+    end
+
+    dealer_total = dealer_turn 
+
+    winner = case 
+      when dealer.busted?
+        :dealer_busted
+      when player_total > dealer_total
+        :player_wins
+      when dealer_total > player_total 
+        :dealer_wins
+      else
+        :tie 
+      end
+    winner
+  end
+
+  def show_results
+    case winner 
+    when :player_wins
+      puts "You win!"
+    when :dealer_wins
+      puts "Dealer wins!"
+    when :player_busted
+      puts "Sorry, you busted. Game over."
+    when :dealer_busted
+      puts "Dealer busts, you win!"
+    end
+  end
+
+  def play_again?
+    print "Want to play again (y or n)? "
+    answer = gets.chomp.downcase
+    answer.start_with?('y')
+  end
+
+  def reset_game
+    deck += dealer.hand
+    deck += player.hand
+    dealer.clear
+    player.clear
+    winner = nil
+  end
+
+  def display_goodbye_message
+    puts "Thank for playing! Good-bye!"
+  end
+
+  private :display_welcome_message, :deal_cards, :show_initial_cards, :player_turn,
+          :dealer_turn, :compare_players, :show_results, :play_again?, :reset_game,
+          :display_goodbye_message
+
 end
 
 Game.new.start
