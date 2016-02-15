@@ -49,10 +49,9 @@ class Participant
     total == 21
   end
 
-  def takes_hit(card)
+  def dealt_card(card)
     hand << card
   end
-  alias dealt_card takes_hit
 end
 
 class Player < Participant
@@ -65,6 +64,29 @@ class Player < Participant
     set_name
   end
 
+  # Validate hit or stay
+  def hit_or_stay
+    print "Would you like to (h)it or (s)tay? "
+    answer = ''
+    loop do
+      answer = gets.chomp.downcase
+      break if ['h', 's'].include?(answer)
+      print "Sorry, must enter 'h' or 's'. "
+    end
+    answer
+  end
+
+  def takes_hit(card)
+    puts "#{name} hits ..."
+    hand << card
+  end
+
+  def stays
+    puts
+  end
+
+  private
+
   # Validate input for player name
   def set_name
     name = ''
@@ -76,24 +98,22 @@ class Player < Participant
     end
     self.name = name
   end
-
-  # Validate hit or stay
-  def hit_or_stay
-    answer = ''
-    loop do
-      answer = gets.chomp.downcase
-      break if ['h', 's'].include?(answer)
-      print "Sorry, must enter 'h' or 's'. "
-    end
-    answer
-  end
-
-  private :set_name
 end
 
 class Dealer < Participant
   def show_face_up_card
     "Dealer's face up card is a #{hand.last}"
+  end
+
+  def takes_hit(card)
+    puts "Dealer hits ..."
+    sleep 1
+    hand << card
+  end
+
+  def stays
+    puts "Dealer stays ..."
+    sleep 1
   end
 end
 
@@ -181,6 +201,8 @@ class Game
     display_goodbye_message
   end
 
+  private
+
   def display_welcome_message
     puts "Welcome to Twenty-One!"
   end
@@ -188,7 +210,7 @@ class Game
   def deal_cards
     deck.shuffle!
     puts "Dealing cards ..."
-    puts ''
+    puts
     sleep 1
 
     2.times do
@@ -200,7 +222,7 @@ class Game
   def show_initial_cards
     puts "------ Dealer's Face Up Card ------"
     puts dealer.show_face_up_card
-    puts ''
+    puts
   end
 
   def player_turn
@@ -211,21 +233,17 @@ class Game
       puts "Total value: #{player.total}"
       break if player.twenty_one? || player.busted?
 
-      print "Would you like to (h)it or (s)tay? "
-
-      # validate answer is 'h' or 's'
-      answer = player.hit_or_stay
+      answer = player.hit_or_stay # validate answer is 'h' or 's'
 
       if answer.start_with?('h')
-        puts "#{player.name} hits ..."
         player.takes_hit deck.deal_card
       else
-        puts "#{player.name} stays ..."
+        player.stays
         break
       end
     end
 
-    puts ''
+    puts
     player.total
   end
 
@@ -238,17 +256,14 @@ class Game
       break if dealer.twenty_one? || dealer.busted?
 
       if dealer.total < DEALER_MIN
-        puts "Dealer hits ..."
-        sleep 1
         dealer.takes_hit deck.deal_card
       else
-        puts "Dealer stays ..."
-        sleep 1
+        dealer.stays
         break
       end
     end
 
-    puts ''
+    puts
     dealer.total
   end
 
@@ -309,10 +324,6 @@ class Game
   def clear_screen
     system 'clear'
   end
-
-  private :display_welcome_message, :deal_cards, :show_initial_cards, :player_turn,
-          :dealer_turn, :compare_players, :show_results, :play_again?,
-          :reset_game, :display_goodbye_message, :clear_screen
 end
 
 Game.new.start
