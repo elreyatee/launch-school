@@ -1,8 +1,5 @@
 require 'minitest/autorun'
 require_relative 'pig_latin'
-require 'minitest/reporters'
-
-Minitest::Reporters.use!
 
 class PigLatinTest < Minitest::Test
   def test_word_beginning_with_a
