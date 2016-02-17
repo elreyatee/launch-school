@@ -37,19 +37,16 @@ class Luhn
 
   def valid?
     (checksum % 10).zero?
-  end 
+  end
 
-  def self.create(val)
-    return val if new(val).valid?
+  def self.create(number)
+    candidate = number * 10
+    possible_luhn = Luhn.new(candidate)
 
-    possible_number = nil
-    arr = val.digits
-    check_digits = [*0..9]
-
-    check_digits.each do |check_digit|
-      possible_number = (arr + [check_digit]).join.to_i
-      break if new(possible_number).valid?
+    if possible_luhn.valid?
+      candidate
+    else
+      candidate + (10 - possible_luhn.checksum % 10)
     end
-    possible_number
   end
 end
