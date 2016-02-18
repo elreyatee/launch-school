@@ -21,13 +21,9 @@ class Translation
     result = []
     arr.each do |rna|
       fail InvalidCodonError if of_codon(rna).nil?
-      break if stop?(rna)
+      break if of_codon(rna) == 'STOP'
       result << of_codon(rna)
     end
     result
-  end
-
-  def self.stop?(rna)
-    of_codon(rna) == 'STOP'
   end
 end
