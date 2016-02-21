@@ -12,53 +12,74 @@ class OCR
     " _\n  |\n  |\n" => '7',
     " _\n|_|\n|_|\n" => '8',
     " _\n|_|\n _|\n" => '9'
-  }.freeze
+  }
+
+  NEW_LINE = "\n"
+  GARBLE = '?'
 
   attr_reader :text
 
   def initialize(text)
     @text = text
+    @collection = []
   end
 
   def convert
-    # anyskipped lines?
-    if text.include?("\n\n")
-      arr = text.split("\n\n")
-      arr.each { |string| string.concat("\n") }
-      arr.map do |number_string|
-        self.class.new(number_string).convert
-      end
-         .join(',')
-    else
+    return split_up_lines.collect { |line| self.class.new(line).convert }.join(',') if multiple_lines?
 
-      # collect each line
-      collector = text.each_line.collect.to_a
+    split_each_line_into_threes
+    dump_new_lines
+    transpose_collection
+    format_collection_to_numbers
+    convert_to_digits
+  end
 
-      # split lines into threes
-      collector.map! do |line|
-        line.chars.each_slice(3).map(&:join)
-      end
+  private
 
-      # dump sole new_line characters
-      collector.each do |group|
-        group.reject! { |string| string == "\n" unless group[0] == string && group[-1] == string }
-      end
+  attr_accessor :collection
 
-      # transpose
-      collector = collector.transpose
+  def multiple_lines?
+    !!text.match(/\n\n/)
+  end
 
-      # scrub up formatting to get array of numbers
-      collector.map! do |group|
-        group.each do |item|
-          item.replace("\n") if item == '   '
-          item[-1] = "\n" if item[-1].blank?
-          item << "\n" unless item[-1] == "\n"
-        end
-             .join
-      end
+  # split up multiple lines and append with new_line character
+  def split_up_lines
+    text.split("\n\n").each { |string| string.concat(NEW_LINE) }
+  end
 
-      # map array to numbers
-      collector.map! { |text_string| DIGITS[text_string] || '?' }.join
+  # collect each line and split into threes
+  def split_each_line_into_threes
+    self.collection = text.each_line.collect { |line| line.chars.each_slice(3).map(&:join) }
+  end
+
+  # dump sole new_line characters
+  def dump_new_lines
+    collection.each do |group_of_chars|
+      group_of_chars.reject! { |string| string == NEW_LINE unless group_of_chars.size == 1 }
     end
+  end
+
+  def transpose_collection
+    self.collection = collection.transpose
+  end
+
+  # scrub up formatting to get array of numbers
+  def format_collection_to_numbers
+    collection.map! do |group|
+      group.each do |item|
+        item.replace(NEW_LINE) if item == '   '
+        item[-1] = NEW_LINE if item[-1].blank?
+        item << NEW_LINE unless item[-1] == NEW_LINE
+      end
+           .join
+    end
+  end
+
+  def convert_to_digits
+    collection.collect { |digit_string| convert_to_digit(digit_string) }.join
+  end
+
+  def convert_to_digit(digit)
+    DIGITS[digit] || GARBLE
   end
 end
