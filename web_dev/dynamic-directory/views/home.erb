@@ -1,0 +1,14 @@
+<h1> Heroes </h1>
+<ul>
+  <% @heroes.each do |hero| %>
+    <li><a href="<%= "#{hero}" %>"><%= hero %></a></li>
+  <% end %>
+</ul>
+
+<div>
+  <% if params[:sort] == 'desc' %>
+    <a href="/">Ascending</a>
+  <% else %>
+    <a href="/?sort=desc">Descending</a>
+  <% end %>
+</div>
