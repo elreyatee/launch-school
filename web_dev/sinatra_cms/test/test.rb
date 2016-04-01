@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "rack/test"
 require "fileutils"
 require "pry"
+require "yaml"
 
 require_relative "../cms.rb"
 
@@ -34,6 +35,14 @@ class CMSTest < Minitest::Test
 
   def admin_session
     { "rack.session" => { username: "admin" } }
+  end
+
+  def delete_mock_user
+    hash = YAML.load_file("./test/users.yml")
+    hash.delete("matt")
+    File.open("./test/users.yml", "w") do |file|
+      YAML.dump(hash, file)
+    end
   end
 
   def test_index
@@ -209,11 +218,14 @@ class CMSTest < Minitest::Test
   end
 
   def test_signup
+    delete_mock_user
     post "/users/signup", { username: "matt", password: "murdock" }
 
     assert_equal 302, last_response.status
-    assert_includes last_response.body, "Welcome!"
+    assert_equal "Welcome!", session[:message]
     assert_equal "matt", session[:username]
+
+    delete_mock_user
   end
 
   def test_signup_bad_credentials
