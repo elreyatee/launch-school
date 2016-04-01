@@ -229,7 +229,7 @@ class CMSTest < Minitest::Test
 
     post "/original_file.txt/duplicate"
 
-    assert_equal 422, last_response.status
+    assert_equal 302, last_response.status
     assert_equal nil, session[:username]
     assert_equal "You must be signed in to do that.", session[:message]
   end
@@ -237,10 +237,10 @@ class CMSTest < Minitest::Test
   def test_duplicate_file
     create_document("original_file.txt", "copy this file")
 
-    post "/original_file.txt/duplicate", { username: "admin", password: "secret" }, { filename: "original_file.txt" }
+    post "/original_file.txt/duplicate", { filename: "original_file.txt" }, admin_session
 
-    assert_equal 302, last_session.status
-    assert_equal "original_file.txt duplicated.", session[:message]
+    assert_equal 302, last_response.status
+    assert_equal "original_file.txt was duplicated.", session[:message]
     assert_includes "original_file_1.txt", last_response.body
   end
 end
