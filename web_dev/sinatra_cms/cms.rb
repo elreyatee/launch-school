@@ -51,9 +51,8 @@ def valid_credentials?(username, password)
 end
 alias user_exists? valid_credentials?
 
-def render_markdown(text, options = {})
-  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-  markdown.render(text, options)
+def render_markdown(text)
+  Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text)
 end
 
 def data_files
@@ -94,7 +93,7 @@ def load_content(path)
   case File.extname(path)
   when ".md"
     render_markdown(content)
-  else
+  when ".txt"
     headers["Content-Type"] = "text/plain"
     content
   end
@@ -144,7 +143,7 @@ post "/create" do
 end
 
 get "/:filename" do
-  file_path = File.join(data_path, params[:filename])
+  file_path = File.join(data_path, File.basename(params[:filename]))
 
   if File.exist?(file_path)
     load_content(file_path)
