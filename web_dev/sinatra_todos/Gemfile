@@ -6,10 +6,6 @@ gem "erubis"
 
 ruby "2.2.3"
 
-group :development do 
-  gem "pry"
-end
-
 group :production do 
   gem "puma"
 end

@@ -7,6 +7,7 @@ require "pry"
 # enable use of sessions
 configure do
   enable :sessions
+  set :erb, :escape_html => true
   set :sessions_secret, 'secret'
 end
 
@@ -89,17 +90,26 @@ post "/lists" do
   end
 end
 
+def load_list(index)
+  list = session[:lists][index]
+  return list if list
+
+  session[:error] = "The specified list was not found."
+  redirect "/lists"
+  halt
+end
+
 # List show page
 get "/lists/:id" do
   @list_id = params[:id].to_i
-  @list = session[:lists][@list_id]
+  @list = load_list(@list_id)
   erb :list, layout: :layout
 end
 
 # Edit an existing todo list
 get "/lists/:id/edit" do
   id = params[:id].to_i
-  @list = session[:lists][id]
+  @list = load_list(id)
   erb :edit_list, layout: :layout
 end
 
@@ -107,7 +117,7 @@ end
 post "/lists/:id" do
   list_name = params[:list_name].strip
   id = params[:id].to_i
-  @list = session[:lists][id]
+  @list = load_list(id)
 
   error = error_for_list_name(list_name)
   if error
@@ -124,8 +134,12 @@ end
 post "/lists/:id/destroy" do
   id = params[:id].to_i
   session[:lists].delete_at(id)
-  session[:success] = "The list has been deleted."
-  redirect "/lists"
+  if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+    "/lists"
+  else
+    session[:success] = "The list has been deleted."
+    redirect "/lists"
+  end
 end
 
 # Return an error message if the name is invalid. Return nil if valid.
@@ -138,7 +152,7 @@ end
 # Add a new todo to a list
 post "/lists/:list_id/todos" do
   @list_id = params[:list_id].to_i
-  @list = session[:lists][@list_id]
+  @list = load_list(@list_id)
   text = params[:todo].strip
 
   error = error_for_todo(text)
@@ -155,18 +169,22 @@ end
 # Delete a todo from a list
 post "/lists/:list_id/todos/:todo_id/destroy" do
   @list_id = params[:list_id].to_i
-  @list = session[:lists][@list_id]
+  @list = load_list(@list_id)
+
   todo_id = params[:todo_id].to_i
   @list[:todos].delete_at(todo_id)
-
-  session[:success] = "The todo has been deleted."
-  redirect "/lists/#{@list_id}"
+  if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+    status 204
+  else
+    session[:success] = "The todo has been deleted."
+    redirect "/lists/#{@list_id}"
+  end
 end
 
 # Update status of a todo
 post "/lists/:list_id/todos/:id" do
   @list_id = params[:list_id].to_i
-  @list = session[:lists][@list_id]
+  @list = load_list(@list_id)
 
   todo_id = params[:id].to_i
   is_completed = params[:completed] == "true"
@@ -179,7 +197,7 @@ end
 # Mark all todos as complete
 post "/lists/:id/complete_all" do
   @list_id = params[:id].to_i
-  @list = session[:lists][@list_id]
+  @list = load_list(@list_id)
 
   @list[:todos].each do |todo|
     todo[:completed] = "true"

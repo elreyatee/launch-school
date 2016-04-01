@@ -1,0 +1,21 @@
+<h2><%= @user[:name] %>'s Page</h2>
+
+<ul>
+  <li><strong>Email</strong>: <%= @user[:email] %></li>
+  <li><strong>Interests</strong>: <%= list(@user[:interests]) %></li>
+</ul>
+
+<h3>Other Users:</h3>
+<ul>
+  <% @users.keys.each do |name| %>
+    <% unless name.to_s.capitalize == @user[:name] %>
+      <li>
+        <a href="/<%= name.to_s %>">
+          <%= name.to_s.capitalize %>
+        </a>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<a href="/">HOME</a>

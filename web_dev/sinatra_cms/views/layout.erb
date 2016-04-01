@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sinatra CMS</title>
+    <link rel="stylesheet" type="text/css" href="/cms.css">
+  </head>
+  <body>
+    <% if session[:error] %>
+      <p class="message"><%= session.delete(:error) %></p>
+    <% end %>
+
+    <% if session[:message] %>
+      <p class="message"><%= session.delete(:message) %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
