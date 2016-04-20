@@ -6,7 +6,7 @@
       #positioned {
         position: absolute;
         width: 400px;
-        top: 0;
+        top: 10px;
         left: 50%;
         margin-left: -200px;
         background: #fcfac9;
@@ -22,6 +22,14 @@
         height: 100vh;
         background: rgba(0, 0, 0, .6);
         z-index: 1;
+      }
+      span {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        top: -10px;
+        left: -10px;
       }
     </style>
   </head>
@@ -39,7 +47,10 @@
          Integer finibus lacus lacus, vitae elementum quam efficitur vitae. Nam in enim interdum, egestas nisl sed,
          euismod est. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer
          lobortis risus sit amet eleifend lobortis. Aliquam ornare sem vel magna rutrum tincidunt.</p>
-    <div id="fixed"></div>
     </section>
-    <div id="positioned">I'm positioned</div>
+    <div id="fixed"></div>
+    <div id="positioned">
+      <span></span>
+      I'm positioned
+    </div>
 </html>
