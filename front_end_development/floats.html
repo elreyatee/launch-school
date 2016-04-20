@@ -9,25 +9,29 @@
       section {
         max-width: 1200px;
         margin: 0 auto;
-        background-color: white;
+        background: white;
         overflow: hidden;
       }
       article {
         float: left;
         width: 70%;
-        background-color: yellow;
+        background: yellow;
         padding-right: 30px;
         box-sizing: border-box;
       }
       aside {
         overflow: hidden;
-        background-color: green;
+        background: green;
       }
-      section::after {
+      footer {
+        clear: both;
+        background: red;
+      }
+      /*section::after {
         content: "";
         display: block;
         clear: both;
-      }
+      }*/
     </style>
   </head>
   <body>
@@ -77,6 +81,16 @@
            sed massa a, varius consequat lorem. Quisque orci diam, tristique in sodales auctor, malesuada eu nisi. Cum
            sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
       </aside>
+      <footer>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin velit urna, euismod sit amet dui vel, cursus
+           malesuada mauris. Etiam maximus mauris rutrum ante commodo maximus. Aliquam fermentum bibendum feugiat. Cras
+           tristique suscipit velit, quis mollis neque vestibulum et. Donec maximus massa ac orci auctor vehicula.
+           Praesent efficitur elementum purus placerat feugiat. Aliquam eget tempus mi. Donec ut volutpat quam. Mauris
+           ac nisi ultrices, molestie odio vel, aliquet sem. Quisque vulputate sem ac elit fringilla, et ornare sapien
+           tempus. Proin massa ante, viverra a dolor sit amet, convallis molestie sapien. Aliquam justo diam, feugiat
+           sed massa a, varius consequat lorem. Quisque orci diam, tristique in sodales auctor, malesuada eu nisi. Cum
+           sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+      </footer>
     </section>
   </body>
 </html>
