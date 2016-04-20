@@ -5,10 +5,23 @@
     <style>
       #positioned {
         position: absolute;
+        width: 400px;
         top: 0;
-        right: 0;
+        left: 50%;
+        margin-left: -200px;
         background: #fcfac9;
         padding: 30px;
+        box-sizing: border-box;
+        z-index: 2;
+      }
+      #fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .6);
+        z-index: 1;
       }
     </style>
   </head>
@@ -26,6 +39,7 @@
          Integer finibus lacus lacus, vitae elementum quam efficitur vitae. Nam in enim interdum, egestas nisl sed,
          euismod est. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer
          lobortis risus sit amet eleifend lobortis. Aliquam ornare sem vel magna rutrum tincidunt.</p>
+    <div id="fixed"></div>
     </section>
     <div id="positioned">I'm positioned</div>
 </html>
