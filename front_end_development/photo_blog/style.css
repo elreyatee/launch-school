@@ -53,25 +53,32 @@ header::after {
 }
 
 main {
-  width: 960px;
+  width: 900px;
   margin: 0 auto;
-  box-sizing: border-box;
   padding: 30px;
   background: #ffffff;
   box-shadow: 0 5px 5px #b5b5b5;
 }
 
-main h1 {
-  font-size: 32px;
-  font-weight: normal;
-  padding: 30px 0;
+.masthead {
+  display: block;
+  width: 100%;
+  margin: 0 0 40px 0;
 }
 
-.article {
-  display: block;
+main h2 {
+  font-size: 32px;
+  font-weight: normal;
+  padding: 0 0 25px 0;
+}
+
+main p {
+  padding: 0 0 20px 0;
+}
+
+figure {
   float: right;
-  padding-left: 30px;
-  padding-bottom: 20px;
+  padding: 0 0 20px 30px;
 }
 
 main::after {
@@ -83,6 +90,11 @@ main::after {
 footer {
   width: 960px;
   margin: 0 auto;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
+  padding: 15px 0;
+}
+
+footer p {
+  padding: 0 0 20px 0;
 }
