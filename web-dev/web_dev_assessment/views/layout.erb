@@ -1,0 +1,11 @@
+<!doctype html>
+<head>
+  <title>Assessment</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<html>
+  <% if session[:message] %>
+    <p class="message"><%= session.delete(:message) %></p>
+  <% end %>
+  <%= yield %>
+</html>

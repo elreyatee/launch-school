@@ -1,0 +1,21 @@
+<p><a href="/new">Add a payment</a></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created</th>
+      <th>Card Number</th>
+      <th>Expiration Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% settings.purchases.each do |purchase| %>
+      <tr>
+          <td><%= purchase["purchase_name"] %></td>
+          <td><%= purchase["purchase_created"] %></td>
+          <td><%= purchase["purchase_card"] %></td>
+          <td><%= purchase["purchase_expiry"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
