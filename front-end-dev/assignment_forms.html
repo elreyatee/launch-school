@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <!-- 1. Create a contact form that collects the user's first name, last name, email address, and phone number.
+       Be sure to use appropriate input types, and prevent iOS devices from modifying the email input. -->
+    <form action="" method="post">
+      <fieldset>
+        <dl>
+          <dt>
+            <label for="first-name">First Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="first-name" id="first-name"/>
+          </dd>
+          <dt>
+            <label for="last-name">Last Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="last-name" id="last-name"/>
+          </dd>
+          <dt>
+            <label for="email">Email</label>
+          </dt>
+          <dd>
+            <input type="email" name="email" id="email" autocomplete="off" autocapitalize="off" autocorrect="off"/>
+          </dd>
+          <dt>
+            <label for="phone">Phone Number</label>
+          </dt>
+          <dd>
+            <input type="tel" name="phone" id="phone"/>
+          </dd>
+        </dl>
+        <input type="submit" value="Submit"/>
+      </fieldset>
+    </form>
+  </body>
+</html>
