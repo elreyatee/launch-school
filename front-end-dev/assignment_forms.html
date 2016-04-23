@@ -41,7 +41,7 @@
 
     <!-- 2. Add a select box to the form for phone type, with options of home, business, and mobile. Make sure the home
        option is pre-selected. -->
-      <form action="" method="post">
+      <!-- <form action="" method="post">
         <fieldset>
           <dl>
             <dt>
@@ -80,6 +80,72 @@
             </dd>
           </dl>
         <input type="submit" value="Submit"/>
+      </fieldset>
+    </form> -->
+
+    <!-- 3. Create a form for filtering news articles by a single category and any number of selected tags. Use radios for
+       the category and checkboxes for tags. Make sure your form method is get to ensure the user can save and share
+       the filtered URL. -->
+       <!-- Categories: Core, Plugins and Libraries, Conventions, Reviews, Opinion, People
+
+       Tags: HTML, CSS, Javascript, Ruby, Rails, Python, Django -->
+    <form action="" method="get">
+      <fieldset>
+        <h3>Category</h3>
+        <label>
+          <input type="radio" name="category" value="Core"/>
+          Core
+        </label>
+        <label>
+          <input type="radio" name="category" value="Plugins and Libraries"/>
+          Plugins and Libraries
+        </label>
+        <label>
+          <input type="radio" name="category" value="Conventions"/>
+          Conventions
+        </label>
+        <label>
+          <input type="radio" name="category" value="Reviews"/>
+          Reviews
+        </label>
+        <label>
+          <input type="radio" name="category" value="Opinion"/>
+          Opinion
+        </label>
+        <label>
+          <input type="radio" name="category" value="People"/>
+          People
+        </label>
+
+        <h3>Tags</h3>
+        <label>
+          <input type="checkbox" name="tags" value="HTML"/>
+          HTML
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="CSS"/>
+          CSS
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="JavaScript"/>
+          JavaScript
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="Ruby"/>
+          Ruby
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="Rails"/>
+          Rails
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="Python"/>
+          Python
+        </label>
+        <label>
+          <input type="checkbox" name="tags" value="Django"/>
+          Django
+        </label>
       </fieldset>
     </form>
   </body>
