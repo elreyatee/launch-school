@@ -17,7 +17,7 @@ ul {
   list-style: none;
 }
 #column {
-  margin: 0 120px 0 160px;
+  margin: 0 140px 0 160px;
 }
 header {
   float: left;
@@ -44,10 +44,10 @@ main {
 }
 footer {
   float: right;
-  width: 130px;
+  width: 140px;
   height: 100vh;
   padding: 15px;
-  margin-right: -130px;
+  margin-right: -140px;
   font-size: 12px;
   background: #e74c3c;
   box-sizing: border-box;
