@@ -44,7 +44,23 @@
       header li {
         padding-bottom: 15px;
       }
-
+      header ul a:before {
+        content: "";
+        width: 27px;
+        height: 26px;
+        background: transparent url("icons_nav.png") 0 0 no-repeat;
+        display: inline-block;
+        margin: 0 5px 0 0;
+        vertical-align: middle;
+      }
+      .photos:before {
+        height: 20px;
+        background-position: 0 -26px;
+      }
+      .contact:before {
+        height: 16px;
+        background-position: 0 -46px;
+      }
       main {
         float: left;
         width: 100%;
@@ -80,9 +96,9 @@
         <h1><a href="">My Blog</a></h1>
         <nav>
           <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">My Photos</a></li>
-            <li><a href="">Contact Me</a></li>
+            <li><a href="" class="home">Home</a></li>
+            <li><a href="" class="photos">My Photos</a></li>
+            <li><a href="" class="contact">Contact Me</a></li>
           </ul>
         </nav>
       </header>
