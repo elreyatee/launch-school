@@ -16,11 +16,9 @@ ul {
   margin: 0;
   list-style: none;
 }
-
 #column {
   margin: 0 120px 0 160px;
 }
-
 header {
   float: left;
   width: 160px;
@@ -38,39 +36,12 @@ header a {
 header li {
   padding-bottom: 15px;
 }
-header ul a:before {
-  content: "";
-  width: 27px;
-  height: 26px;
-  background: transparent url("icons_nav.png") 0 0 no-repeat;
-  display: inline-block;
-  margin: 0 5px 0 0;
-  vertical-align: middle;
-}
-header ul a.photos:before {
-  height: 20px;
-  background-position: 0 -26px;
-}
-header ul a.contact:before {
-  height: 16px;
-  background-position: 0 -46px;
-}
-header ul a.home:hover:before {
-  background-position: 100% 0;
-}
-header ul a.photos:hover:before {
-  background-position: 100% -26px;
-}
-header ul a.contact:hover:before {
-  background-position: 100% 100%;
-}
 main {
   float: left;
   width: 100%;
   padding: 25px;
   box-sizing: border-box;
 }
-
 footer {
   float: right;
   width: 130px;
@@ -91,20 +62,48 @@ footer a {
   color: #2980b9;
   background: #ffffff;
 }
-footer a:before {
+
+/* Pseudo element CSS */
+header ul a:before {
+  display: inline-block;
+  width: 27px;
+  height: 26px;
+  margin: 0 5px 0 0;
+  vertical-align: middle;
   content: "";
+  background: transparent url("icons_nav.png") 0 0 no-repeat;
+}
+header ul a.photos:before {
+  height: 20px;
+  background-position: 0 -26px;
+}
+header ul a.contact:before {
+  height: 16px;
+  background-position: 0 -46px;
+}
+header ul a.home:hover:before {
+  background-position: 100% 0;
+}
+header ul a.photos:hover:before {
+  background-position: 100% -26px;
+}
+header ul a.contact:hover:before {
+  background-position: 100% 100%;
+}
+footer a:before {
   display: inline-block;
   width: 24px;
   height: 24px;
   margin: 0 5px 0 0;
   vertical-align: middle;
+  content: "";
   background: transparent url("icons_social.png") 0 0 no-repeat;
   background-size: 24px;
 }
-.facebook:before {
-  background-position: 0 50%;
+footer a.facebook:before {
+  background-position: 0 -24px;
 }
-.instagram:before {
+footer a.instagram:before {
   background-position: 0 100%;
 }
 footer a:hover:before {
