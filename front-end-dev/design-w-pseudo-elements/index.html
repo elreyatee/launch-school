@@ -53,13 +53,22 @@
         margin: 0 5px 0 0;
         vertical-align: middle;
       }
-      .photos:before {
+      header ul a.photos:before {
         height: 20px;
         background-position: 0 -26px;
       }
-      .contact:before {
+      header ul a.contact:before {
         height: 16px;
         background-position: 0 -46px;
+      }
+      header ul a.home:hover:before {
+        background-position: 100% 0;
+      }
+      header ul a.photos:hover:before {
+        background-position: 100% -26px;
+      }
+      header ul a.contact:hover:before {
+        background-position: 100% 100%;
       }
       main {
         float: left;
@@ -88,6 +97,25 @@
         color: #2980b9;
         background: #ffffff;
       }
+      footer a:before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin: 0 5px 0 0;
+        background: transparent url("icons_social.png") 0 0 no-repeat;
+        background-size: 24px;
+        vertical-align: middle;
+      }
+      .facebook:before {
+        background-position: 0 50%;
+      }
+      .instagram:before {
+        background-position: 0 100%;
+      }
+      footer a:hover:before {
+        background-color: #00bf8f;
+      }
     </style>
   </head>
   <body>
@@ -111,9 +139,9 @@
 
       <footer>
         <ul>
-          <li><a href="">Twitter</a></li>
-          <li><a href="">Facebook</a></li>
-          <li><a href="">Instagram</a></li>
+          <li><a href="" class="twitter">Twitter</a></li>
+          <li><a href="" class="facebook">Facebook</a></li>
+          <li><a href="" class="instagram">Instagram</a></li>
         </ul>
       </footer>
     </div>
