@@ -4,9 +4,10 @@ body {
   background-image: url("images/bg_body.gif");
   font: normal 20px Avenir, sans-serif;
   padding: 75px 0 0 0;
+  color: #45494d;
 }
 
-header, main, footer {
+header, .column {
   width: 1000px;
   margin: 0 auto;
 }
@@ -35,17 +36,21 @@ h1 {
 }
 
 h2 {
+  padding:0 0 40px 0;
   font-size: 36px;
 }
 
 h3 {
   font-size: 24px;
+  color: #3e59b2;
 }
 
 main {
+  padding: 100px 0 0 0;
   background-color: white;
 }
 
 footer {
   background-color: #e7e7e7;
+  color: #b2b2b2;
 }
