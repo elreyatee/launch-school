@@ -1,1 +1,51 @@
 @import url("whitespace-reset.css");
+
+body {
+  background-image: url("images/bg_body.gif");
+  font: normal 20px Avenir, sans-serif;
+  padding: 75px 0 0 0;
+}
+
+header, main, footer {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+header nav li {
+  display: inline-block;
+  padding: 0 42px;
+  font: normal 26px Avenir, sans-serif;
+}
+
+nav {
+  padding: 0 0 50px 0;
+}
+
+header nav li a {
+  text-decoration: none;
+  color: #cacaca;
+}
+
+header, main, footer {
+  text-align: center
+}
+
+h1 {
+  padding: 0 0 75px 0;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+main {
+  background-color: white;
+}
+
+footer {
+  background-color: #e7e7e7;
+}
