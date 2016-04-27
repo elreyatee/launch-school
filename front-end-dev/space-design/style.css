@@ -28,7 +28,15 @@ header nav li a {
 }
 
 header, main, footer {
-  text-align: center
+  text-align: center;
+}
+
+article {
+  padding: 0 110px 100px 110px;
+}
+
+article p {
+  text-align: justify;
 }
 
 h1 {
@@ -43,6 +51,7 @@ h2 {
 h3 {
   font-size: 24px;
   color: #3e59b2;
+  padding: 0 0 30px 0;
 }
 
 main {
@@ -53,4 +62,34 @@ main {
 footer {
   background-color: #e7e7e7;
   color: #b2b2b2;
+  padding: 75px 0;
+}
+
+footer li {
+  display: inline-block;
+  padding: 0 65px;
+}
+
+footer p {
+  padding: 0 0 40px 0;
+}
+
+footer a:before {
+  display: inline-block;
+  content: "";
+  height: 46px;
+  width: 46px;
+  background: url("images/icons_social-media.png") 0 0 no-repeat;
+}
+
+footer a.facebook:before {
+  background-position: 0 -46px;
+}
+
+footer a.email:before {
+  background-position: 0 -92px;
+}
+
+footer a.instagram:before {
+  background-position: 0 100%;
 }
