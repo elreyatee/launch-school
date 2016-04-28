@@ -8,10 +8,6 @@ body {
   background: #2f2840 url("images/bg_body.gif");
 }
 
-header {
-
-}
-
 header h1 {
   margin: 0 0 115px 0;
 }
@@ -110,4 +106,28 @@ footer li a.instagram { background-position: 0 100%; }
 
 #projects figure img {
   display: block;
+}
+
+#team p {
+  padding: 0 120px 120px 120px;
+}
+
+#team ul {
+  padding: 0 0 225px 0;
+}
+
+#team li {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 24px;
+}
+
+#team li img {
+  display: block;
+  padding: 0 0 25px 0;
+}
+
+#team li a {
+  text-decoration: none;
+  color: #3e59b2;
 }
