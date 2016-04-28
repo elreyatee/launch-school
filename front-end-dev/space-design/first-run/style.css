@@ -31,6 +31,10 @@ header, main, footer {
   text-align: center;
 }
 
+header h1 {
+  
+}
+
 article {
   padding: 0 110px 100px 110px;
 }
@@ -119,4 +123,12 @@ article li {
 article img {
   display: block;
   margin: 0 0 20px 0;
+}
+
+#team p {
+  padding: 0 110px 100px 110px;
+}
+
+#team article {
+  padding: 0 0 100px 0;
 }
