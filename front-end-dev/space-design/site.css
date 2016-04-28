@@ -17,6 +17,7 @@ header h1 {
 }
 
 nav {
+  padding: 0 0 45px 0;
   font-size: 26px;
   text-transform: uppercase;
 }
@@ -35,3 +36,66 @@ nav a.active {
   font-weight: bold;
   color: #6db9ff;
 }
+
+main {
+  padding: 100px 0 0 0;
+  background: #ffffff;
+}
+
+h2 {
+  padding: 0 0 40px 0;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+h2:before,
+h2:after {
+  display: inline-block;
+  padding: 0 24px;
+  font-size: 22px;
+  vertical-align: 5px;
+  content: "\2022";
+}
+
+.column {
+  width: 800px;
+  margin: 0 auto;
+}
+
+h3 {
+  padding: 0 0 20px 0;
+  font-size: 24px;
+  color: #3e59b2;
+}
+
+article {
+  padding: 0 0 100px 0;
+}
+
+footer {
+  padding: 80px 0;
+  color: #b2b2b2;
+  background: #e7e7e7;
+}
+
+footer p {
+  padding: 0 0 35px 0;
+}
+
+footer li {
+  display: inline-block;
+  padding: 0 62px;
+}
+
+footer li a {
+  display: block;
+  width: 46px;
+  height: 46px;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: transparent url("images/icons_social-media.png");
+}
+
+footer li a.facebook { background-position: 0 -46px; }
+footer li a.email { background-position: 0 92px; }
+footer li a.instagram { background-position: 0 100%; }
