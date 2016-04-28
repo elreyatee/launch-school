@@ -12,6 +12,13 @@ header h1 {
 }
 header h1 a {
   display: inline-block;
+  width: 298px;
+  height: 243px;
+  text-indent: -9999px;
+  background: transparent url("images/logo.png") no-repeat;
+}
+header h1 a {
+  display: inline-block;
 }
 nav {
   padding: 0 0 45px 0;
@@ -129,10 +136,10 @@ footer li a.instagram { background-position: 0 100%; }
   body {
     padding-top: 65px;
   }
-  header h1 {
+  header h1 a {
     width: 223px;
     height: 182px;
-    margin: 0 auto 30px auto;
+    background-size: cover;
   }
   header img {
     width: 100%;
@@ -155,5 +162,52 @@ footer li a.instagram { background-position: 0 100%; }
   }
   footer li {
     padding: 0 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 0;
+    font-size: 16px;
+  }
+  header {
+    padding: 20px 15px;
+  }
+  header h1 {
+    float: left;
+    margin: 20px 0 0 0;
+    font-size: 20px;
+  }
+  header h1 a {
+    width: auto;
+    height: 40px;
+    padding: 10px 0 0 55px;
+    text-indent: 0;
+    color: #ffffff;
+    text-decoration: none;
+    background-position: -20px 0;
+    background-size: 90px auto;
+  }
+  nav {
+    text-align: right;
+    padding-bottom: 0;
+  }
+  nav li {
+    display: block;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h2:before,
+  h2:after {
+    vertical-align: 0;
+  }
+  #team p {
+    padding: 0 30px 40px 30px;
+  }
+  footer li {
+    padding: 0 18px;
   }
 }
