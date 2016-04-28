@@ -93,3 +93,8 @@ footer a.email:before {
 footer a.instagram:before {
   background-position: 0 100%;
 }
+
+.current {
+  font-weight: bold;
+  color: #6db9ff;
+}
