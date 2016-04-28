@@ -39,6 +39,16 @@ article p {
   text-align: justify;
 }
 
+article img {
+  display: block;
+  width: 100%;
+}
+
+article figure {
+  padding: 0 30px 20px 30px;
+  margin: 0;
+}
+
 h1 {
   padding: 0 0 75px 0;
 }
