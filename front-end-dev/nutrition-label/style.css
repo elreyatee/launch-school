@@ -1,7 +1,5 @@
-@import url("whitespace-reset.css");
-
-body {
-  font: 28px "Myriad Pro", Helvetica, Arial, sans-serif;
+html, body {
+  font: normal 28px Helvetica, Arial, sans-serif;
   background: #ffffff;
 }
 article {
@@ -11,24 +9,84 @@ article {
   border: 2px solid #000000;
 }
 h1 {
+  margin: 0;
+  padding: 0;
   font-size: 56px;
 }
 h2 {
+  font-size: 28px;
+  margin: 5px 0 0 0;
   padding: 10px 0;
   border-top: 30px solid #000000;
   border-bottom: 1px solid #000000;
 }
+dl {
+  display: inline;
+  margin: 0;
+}
+dt {
+  display: inline;
+}
+dd {
+  margin: 0;
+  display: inline;
+}
 header {
   border-bottom: 15px solid #000000;
+  margin-bottom: 10px;
+}
+header p {
+  margin: 0;
 }
 header dl {
+  display: inline-block;
   padding: 5px 0;
   width: 50%;
-  display: inline-block;
+}
+header dl:first-of-type dt, tbody th dt {
+  font-weight: 600;
 }
 header dl + dl {
   text-align: right;
 }
 header dt, header dd {
   display: inline;
+  margin: 0;
+}
+header dl + dl dt {
+  font-weight: 500;
+}
+sup {
+  vertical-align: top;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  font-weight: 500;
+}
+thead th {
+  font-weight: 600;
+  text-align: right;
+}
+tbody th {
+  text-align: left;
+}
+tr td:last-of-type {
+  font-weight: 600;
+  text-align: right;
+}
+tbody th, tbody td {
+  border-top: 1px solid #000000;
+}
+tbody td {
+  padding: 2px;
+}
+em {
+  font-style: italic;
+}
+.indent {
+  width: 24px;
+  border-top: none;
 }
