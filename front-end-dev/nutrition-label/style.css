@@ -73,7 +73,7 @@ thead th {
 tbody th {
   text-align: left;
 }
-tr td:last-of-type {
+table:first-of-type tbody tr td:last-of-type {
   font-weight: 600;
   text-align: right;
 }
@@ -100,4 +100,22 @@ tfoot td:last-of-type {
   text-align: left;
   text-indent: -0.7rem;
   border-top: 1px solid #000000;
+}
+table + table {
+  font-size: 0.8rem;
+}
+table + table thead th {
+  font-weight: normal;
+  width: 37%;
+  text-align: left;
+  border-bottom: 1px solid #000000;
+}
+table + table thead th + th {
+  width: 21%;
+}
+table + table tr td {
+  border-style: none;
+}
+table + table td.indent {
+  text-indent: 1.2rem;
 }
