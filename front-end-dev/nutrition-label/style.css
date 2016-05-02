@@ -90,3 +90,14 @@ em {
   width: 24px;
   border-top: none;
 }
+tbody + tbody {
+  border-top: 20px solid #000000;
+}
+tfoot td:last-of-type {
+  font-size: 0.9rem;
+  padding: 0.5rem 0 0.5rem 0.7rem;
+  font-weight: normal;
+  text-align: left;
+  text-indent: -0.7rem;
+  border-top: 1px solid #000000;
+}
