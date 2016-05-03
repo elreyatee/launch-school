@@ -10,6 +10,21 @@ a {
   color: #50c3af;
 }
 
+h2 {
+  font-size: 36px;
+  padding: 0 0 20px 0;
+}
+
+h3 {
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 0 0 25px 0;
+}
+
+p {
+  line-height: 150%;
+}
+
 body > header {
   padding: 130px 0 50px 0;
   background: #3d3d3d;
@@ -51,6 +66,7 @@ main {
   max-width: 1000px;
   padding: 80px 0;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #content {
@@ -63,4 +79,62 @@ main {
   overflow: hidden;
   padding: 35px;
   background: #f6f7f8;
+}
+
+#sidebar ul {
+  padding: 0 0 105px 20px;
+  list-style: url("images/blt_arrow.png");
+  font-size: 14px;
+}
+
+#sidebar li {
+  padding: 0 0 5px 0;
+}
+
+#sidebar li a {
+  color: #787b80;
+}
+
+#sidebar p {
+  font-size: 14px;
+  color: #787b80;
+}
+
+article {
+  padding: 0 0 65px 0;
+}
+
+article p {
+  padding: 0 0 15px 0;
+}
+
+article h2 a {
+  color: inherit;
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 25px;
+  font-size: 15px;
+  color: #f5f5f5;
+  border-radius: 20px;
+  background: #50c3af;
+}
+
+.pagination a.disabled {
+  cursor: default;
+  background: #d2d5da;
+}
+
+.pagination a.next {
+  margin-left: 25px;
+}
+
+footer {
+  max-width: 1000px;
+  padding: 15px 0 30px 0;
+  margin: 0 auto;
+  font-size: 12px;
+  color: #7e8287;
+  border-top: 1px solid #d0d0d0;
 }
