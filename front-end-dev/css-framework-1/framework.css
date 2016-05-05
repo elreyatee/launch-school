@@ -57,4 +57,63 @@ h4 {
 .row {
   max-width: 1200px;
   margin: 0 auto 20px auto;
+  box-sizing: border-box;
+}
+
+.row:after {
+  display: block;
+  content: "";
+  clear: both;
+  line-height: 0;
+}
+
+.sixth, .fourth, .third, .half, .two_third, .five_sixth {
+  float: left;
+  box-sizing: border-box;
+}
+
+.sixth { width: 16.666667%; }
+.fourth { width: 25%; }
+.third { width: 33.333333%; }
+.half { width: 50%; }
+.two_third { width: 66.666667%; }
+.five_sixth { width: 83.333333%; }
+
+.margin_row .half + .half,
+.margin_row .half + .third,
+.margin_row .half + .fourth,
+.margin_row .half + .sixth,
+.margin_row .half + .two_third,
+.margin_row .half + .five_sixth,
+.margin_row .third + .third,
+.margin_row .third + .half,
+.margin_row .third + .fourth,
+.margin_row .third + .sixth,
+.margin_row .third + .two_third,
+.margin_row .third + .five_sixth,
+.margin_row .fourth + .third,
+.margin_row .fourth + .half,
+.margin_row .fourth + .fourth,
+.margin_row .fourth + .sixth,
+.margin_row .fourth + .two_third,
+.margin_row .fourth + .five_sixth,
+.margin_row .sixth + .third,
+.margin_row .sixth + .half,
+.margin_row .sixth + .fourth,
+.margin_row .sixth + .sixth,
+.margin_row .sixth + .two_third,
+.margin_row .sixth + .five_sixth,
+.margin_row .two_third + .third,
+.margin_row .two_third + .half,
+.margin_row .two_third + .fourth,
+.margin_row .two_third + .sixth,
+.margin_row .two_third + .two_third,
+.margin_row .two_third + .five_sixth,
+.margin_row .five_sixth, + .third,
+.margin_row .five_sixth, + .half,
+.margin_row .five_sixth, + .fourth,
+.margin_row .five_sixth, + .sixth,
+.margin_row .five_sixth, + .two_third,
+.margin_row .five_sixth, + .five_sixth, {
+
 }
