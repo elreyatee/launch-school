@@ -109,11 +109,18 @@ h4 {
 .margin_row .two_third + .sixth,
 .margin_row .two_third + .two_third,
 .margin_row .two_third + .five_sixth,
-.margin_row .five_sixth, + .third,
-.margin_row .five_sixth, + .half,
-.margin_row .five_sixth, + .fourth,
-.margin_row .five_sixth, + .sixth,
-.margin_row .five_sixth, + .two_third,
-.margin_row .five_sixth, + .five_sixth, {
-
+.margin_row .five_sixth + .third,
+.margin_row .five_sixth + .half,
+.margin_row .five_sixth + .fourth,
+.margin_row .five_sixth + .sixth,
+.margin_row .five_sixth + .two_third,
+.margin_row .five_sixth + .five_sixth {
+  margin-left: 2%;
 }
+
+.margin_row .sixth { width: 15%; }
+.margin_row .fourth { width: 23.5%; }
+.margin_row .third { width: 32%; }
+.margin_row .half { width: 49%; }
+.margin_row .two_third { width: 66%; }
+.margin_row .five_sixth { width: 82.96%; }
