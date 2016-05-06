@@ -45,7 +45,7 @@ div.todos a {
 
 div.todos,
 div.completed {
-  padding-top: 62px;
+  padding-top: 70px;
 }
 
 div.completed li * {
@@ -92,14 +92,17 @@ header span {
 
 main {
   overflow: hidden;
+  padding-top: 70px;
 }
 
-main img {
-  padding: 20px 30px 30px 30px;
+main img.menu {
+  position: absolute;
+  top: 20px;
+  left: 365px;
 }
 
 main h1 {
-  padding: 0 30px 40px 30px;
+  padding: 0 30px 15px 30px;
 }
 
 main h1 span {
@@ -115,6 +118,14 @@ main h1 span {
   border: 1px solid #1984c5;
   border-radius: 50%;
   vertical-align: middle;
+}
+
+main button.new_todo {
+  background: url("images/plus_icon.png") no-repeat;
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  border: none;
 }
 
 main div#header label,
@@ -144,32 +155,31 @@ main li form:last-child {
   float: right;
 }
 
-main div#header form {
-  padding-left: 30px;
-  padding-bottom: 16px;
-}
-
-#add_todo {
-  display: inline-block;
-}
-
-div#add_todo input[type="submit"],
-div#delete input[type="submit"] {
+div.delete input[type="submit"],
+div.new_todo input[type="submit"] {
   cursor: pointer;
   width: 20px;
   height: 20px;
   border: none;
 }
 
-div#add_todo input[type="submit"] {
-  background: url("images/plus_icon.png") no-repeat;
+div.delete input[type="submit"] {
+  background: url("images/trash_bin.png") no-repeat;
 }
 
-div#delete input[type="submit"] {
-  background: url("images/trash_bin.png") no-repeat;
+div.new_todo input[type="submit"] {
+  background: url("images/plus_icon.png") no-repeat;
 }
 
 main input:checked + label{
   color: #b9b9b9;
   text-decoration: line-through;
 }
+
+main li:first-child {
+  border: none;
+  color: #3498d8;
+}
+
+main li:first-child form {
+  float: none;
