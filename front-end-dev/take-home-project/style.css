@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font: 100 16px Helvetica, Arial, sans-serif;
   max-width: 1200px;
   height: 818px;
@@ -62,6 +62,7 @@ div.completed li * {
 
 header li {
   padding: 11px 0;
+  cursor: pointer;
 }
 
 header li * {
@@ -116,7 +117,8 @@ main h1 span {
   vertical-align: middle;
 }
 
-main div#header label {
+main div#header label,
+main li:hover {
   color: #3498d8;
 }
 
@@ -127,6 +129,7 @@ main ul {
 main li {
   border-top: 1px solid #e7e7e7;
   padding: 18px 0;
+  cursor: pointer;
 }
 
 main label {
@@ -145,4 +148,9 @@ div#add_todo input[type="submit"] {
   width: 14px;
   height: 14px;
   border: none;
+}
+
+main input:checked + label{
+  color: #b9b9b9;
+  text-decoration: line-through;
 }
