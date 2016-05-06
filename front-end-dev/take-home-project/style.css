@@ -136,18 +136,37 @@ main label {
   padding-left: 12px;
 }
 
-#add_todo {
+main li form {
   display: inline-block;
+}
+
+main li form:last-child {
+  float: right;
+}
+
+main div#header form {
   padding-left: 30px;
   padding-bottom: 16px;
 }
 
-div#add_todo input[type="submit"] {
-  background: url("images/plus_icon.png");
+#add_todo {
+  display: inline-block;
+}
+
+div#add_todo input[type="submit"],
+div#delete input[type="submit"] {
   cursor: pointer;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border: none;
+}
+
+div#add_todo input[type="submit"] {
+  background: url("images/plus_icon.png") no-repeat;
+}
+
+div#delete input[type="submit"] {
+  background: url("images/trash_bin.png") no-repeat;
 }
 
 main input:checked + label{
