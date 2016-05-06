@@ -5,10 +5,16 @@
 }
 
 body {
-  font: normal 16px Helvetica, Arial, sans-serif;
+  font: 100 16px Helvetica, Arial, sans-serif;
   max-width: 1200px;
   height: 818px;
-  color: #050505;
+  color: #2c2c2c;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 21px;
+  font-weight: 100;
 }
 
 header {
@@ -21,7 +27,7 @@ header {
 
 header div.todos h2,
 header div.completed h2 {
-  font-weight: 500;
+  font-weight: 100;
   color: #ffffff;
   vertical-align: middle;
   padding-bottom: 10px;
@@ -74,15 +80,69 @@ header span {
   width: 20px;
   height: 20px;
   background: #6b7292;
-  border: 2px solid #6b7292;
+  border: 1px solid #6b7292;
   border-radius: 50%;
 }
 
 .selected span {
   background: #1984c5;
-  border: 2px solid #1984c5;
+  border: 1px solid #1984c5;
 }
 
 main {
   overflow: hidden;
+}
+
+main img {
+  padding: 20px 30px 30px 30px;
+}
+
+main h1 {
+  padding: 0 30px 40px 30px;
+}
+
+main h1 span {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  background: #1984c5;
+  border: 1px solid #1984c5;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+main div#header label {
+  color: #3498d8;
+}
+
+main ul {
+  padding: 0 100px 18px 20px;
+}
+
+main li {
+  border-top: 1px solid #e7e7e7;
+  padding: 18px 0;
+}
+
+main label {
+  padding-left: 12px;
+}
+
+#add_todo {
+  display: inline-block;
+  padding-left: 30px;
+  padding-bottom: 16px;
+}
+
+div#add_todo input[type="submit"] {
+  background: url("images/plus_icon.png");
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  border: none;
 }
