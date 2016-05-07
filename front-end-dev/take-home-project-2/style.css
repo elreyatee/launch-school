@@ -20,6 +20,12 @@ header {
   width: 335px;
   height: 100%;
   float: left;
+  background: #464f77;
+}
+
+nav {
+  margin: 0 auto;
+  text-align: center;
 }
 
 main {
