@@ -4,12 +4,14 @@
   box-sizing: border-box;
 }
 
-html, body {
+body {
   font: 100 16px Helvetica, Arial, sans-serif;
   max-width: 1200px;
+  min-width: 480px;
   height: 818px;
   color: #2c2c2c;
   letter-spacing: 1px;
+  z-index: 1;
 }
 
 h1 {
@@ -91,18 +93,28 @@ header span {
 }
 
 main {
+  width: auto;
   overflow: hidden;
-  padding-top: 70px;
+  padding: 70px 100px 0 30px;
 }
 
-main img.menu {
+#nav-toggle {
+  display: none;
+}
+
+body > label {
   position: absolute;
+  display: inline-block;
+  cursor: pointer;
+  background: transparent url("images/menu_icon.png") no-repeat;
+  height: 24px;
+  width: 24px;
   top: 20px;
-  left: 365px;
+  left: 30px;
 }
 
 main h1 {
-  padding: 0 30px 15px 30px;
+  padding-bottom: 15px;
 }
 
 main h1 span {
@@ -121,7 +133,7 @@ main h1 span {
 }
 
 main button.new_todo {
-  background: url("images/plus_icon.png") no-repeat;
+  background: transparent url("images/plus_icon.png") no-repeat;
   background-size: cover;
   width: 15px;
   height: 15px;
@@ -133,13 +145,9 @@ main li:hover {
   color: #3498d8;
 }
 
-main ul {
-  padding: 0 100px 18px 20px;
-}
-
 main li {
   border-top: 1px solid #e7e7e7;
-  padding: 18px 0;
+  padding: 18px 0 18px 10px;
   cursor: pointer;
 }
 
@@ -164,11 +172,11 @@ div.new_todo input[type="submit"] {
 }
 
 div.delete input[type="submit"] {
-  background: url("images/trash_bin.png") no-repeat;
+  background: transparent url("images/trash_bin.png") no-repeat;
 }
 
 div.new_todo input[type="submit"] {
-  background: url("images/plus_icon.png") no-repeat;
+  background: transparent url("images/plus_icon.png") no-repeat;
 }
 
 main input:checked + label{
@@ -183,3 +191,24 @@ main li:first-child {
 
 main li:first-child form {
   float: none;
+} 
+
+.modal {
+  display: none;
+  width: 575px;
+  height: 400px;
+}
+
+@media (max-width: 768px) {
+  header {
+    display: none;
+  }
+
+  body > label {
+    display: block;
+  }
+
+  #nav-toggle:checked + header {
+    display: block;
+  }
+}

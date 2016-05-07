@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <label for="nav-toggle"></label>
+    <input type="checkbox" id="nav-toggle" />
     <header>
       <nav>
         <div class="todos">
@@ -33,7 +35,6 @@
     </header>
     <main>
       <div id="header">
-        <img src="images/menu_icon.png" alt="menu" class="menu" />
         <h1>02/16<span>8</span></h1>
       </div>
       <ul>
@@ -155,5 +156,42 @@
         </li>
       </ul>
     </main>
+    <div class="modal">
+      <form action="" method="post">
+        <dl>
+          <dt>
+            <label for="title">Title</label>
+          </dt>
+          <dd>
+            <input type="text" id="title" />
+          </dd>
+          <dt>
+            <label for="due-date">Due Date</label>
+          </dt>
+          <dd>
+            <select name="day">
+            <option value="16">1</option>
+          </dd>
+          /
+          <dd>
+            <select name="month">
+            <option value="Month" selected>Month</option>
+          </dd>
+          /
+          <dd>
+            <select name="year">
+            <option value="Year" selected>Year</option>
+          </dd>
+          <dt>
+            <label for="description">Description</label>
+          </dt>
+          <dd>
+            <textarea></textarea>
+          </dd>
+        </dl>
+        <input type="submit" value="Save" />
+        <button type="submit" formaction="">Mark As Complete</button>
+      </form>
+    </div>
   </body>
 </html>
