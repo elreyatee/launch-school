@@ -4,6 +4,32 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html, body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  color: #b2b5c3;
+  width: 1200px;
+  height: 818px;
+}
+
+header {
+  width: 335px;
+  height: 100%;
+  float: left;
+}
+
+main {
+  overflow: hidden;
+}
+
 #new-todo {
   display: none;
+}
+
+textarea {
+  resize: none;
 }
