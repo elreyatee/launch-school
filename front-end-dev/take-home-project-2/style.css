@@ -1,0 +1,9 @@
+@import url("whitespace-reset.css");
+
+* {
+  box-sizing: border-box;
+}
+
+#new-todo {
+  display: none;
+}
