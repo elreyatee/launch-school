@@ -64,18 +64,19 @@ nav li a img {
 }
 
 nav span {
-  display: inline-block;
+  display: table-cell;
   position: absolute;
   text-align: center;
   right: 35px;
   top: 10px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #6b7292;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
   border-radius: 50%;
   background: #6b7292;
   color: #b2b5c3;
   font-size: 14px;
+  padding: 0;
 }
 
 li.selected span {
@@ -95,33 +96,28 @@ main {
   padding: 60px 100px 0 20px;
 }
 
-main ul li:first-of-type span {
+main h1 span {
+  position: relative;
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  left: 19px;
+  bottom: 2px;
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
   background: #148fd5;
-  border: 1px solid #148fd5;
   border-radius: 50%;
   color: #ffffff;
   font-size: 14px;
   text-align: center;
-}
-
-main h1 span {
-  margin-left: 19px;
   vertical-align: middle;
 }
 
 main li {
   width: 100%;
   padding-left: 10px;
-  padding-top: 17px;
-  padding-bottom: 17px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-top: 1px solid #e7e7e7;
-}
-
-main li + li:hover {
-  color: #3498d8;
 }
 
 main li:first-of-type,
@@ -152,21 +148,8 @@ main li form:last-of-type {
   float: right;
 }
 
-input:checked + label {
-  color: #cecece;
-  text-decoration: line-through;
-}
-
 input[type="checkbox"] {
   display: none;
-}
-
-.custom-checkbox {
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url("images/unchecked-box.png") no-repeat;
 }
 
 span.mycheckbox {
@@ -180,6 +163,15 @@ span.mycheckbox {
 
 input[type="checkbox"]:checked + span.mycheckbox {
   background: url("images/checked-box.png") no-repeat;
+}
+
+input[type="checkbox"]:checked ~ label {
+  color: #cecece;
+  text-decoration: line-through;
+}
+
+main li + li label:hover {
+  color: #3498d8;
 }
 
 button {
