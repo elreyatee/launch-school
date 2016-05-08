@@ -6,10 +6,9 @@
 
 html, body {
   font: normal 16px Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
   max-width: 1200px;
-  min-width: 480px;
   height: 818px;
   color: #b2b5c3;
 }
@@ -90,6 +89,7 @@ ul#completed li + li {
 }
 
 main {
+  position: relative;
   width: auto;
   height: 100%;
   overflow: hidden;
@@ -185,10 +185,49 @@ button span {
   display: none;
 }
 
+main > img {
+  visibility: hidden;
+  position: absolute;
+  top: 23px;
+  left: 32px;
+}
+
 #new-todo {
+  position: absolute;
+  top: 107px;
+  left: 442px;
+  visibility: hidden;
+  width: 575px;
+  height: auto;
+  z-index: 2;
+}
+
+main li:nth-of-type(2) input[type="checkbox"] {
   display: none;
+}
+
+main li:nth-of-type(2) label {
+  padding: 0;
+}
+
+main li:nth-of-type(2) input:checked #new-todo {
+  visibility: visible;
 }
 
 textarea {
   resize: none;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    min-width: 480px;
+  }
+
+  header {
+    display: none;
+  }
+
+  main > img {
+    visibility: visible;
+  }
 }
