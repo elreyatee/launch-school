@@ -6,11 +6,17 @@
 
 html, body {
   font: normal 16px Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 1px;
   width: 1200px;
+  min-width: 768px;
   height: 818px;
   color: #b2b5c3;
+}
+
+h1 {
+  font-size: 21px;
+  font-weight: inherit;
 }
 
 a {
@@ -83,7 +89,109 @@ ul#completed li + li {
 }
 
 main {
+  width: auto;
   overflow: hidden;
+  color: #050505;
+  padding: 60px 100px 0 20px;
+}
+
+main ul li:first-of-type span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #148fd5;
+  border: 1px solid #148fd5;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+}
+
+main h1 span {
+  margin-left: 19px;
+  vertical-align: middle;
+}
+
+main li {
+  width: 100%;
+  padding-left: 10px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  border-top: 1px solid #e7e7e7;
+}
+
+main li + li:hover {
+  color: #3498d8;
+}
+
+main li:first-of-type,
+main li:nth-of-type(2) {
+  border-style: none;
+}
+
+main li:first-of-type {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+main li label {
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+main li a {
+  color: #3498d8;
+  padding-left: 15px;
+}
+
+main form {
+  display: inline-block;
+}
+
+main li form:last-of-type {
+  float: right;
+}
+
+input:checked + label {
+  color: #cecece;
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url("images/unchecked-box.png") no-repeat;
+}
+
+span.mycheckbox {
+  content: "";
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url("images/unchecked-box.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + span.mycheckbox {
+  background: url("images/checked-box.png") no-repeat;
+}
+
+button {
+  background: transparent url("images/trash-bin.png") no-repeat;
+  border: none;
+  width: 17px;
+  height: 17px;
+  background-position: 50% 50%;
+}
+
+button span {
+  display: none;
 }
 
 #new-todo {
