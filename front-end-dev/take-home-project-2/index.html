@@ -38,22 +38,6 @@
             <label for="add-todo">
               <input type="checkbox" id="add-todo" />
               <img src="images/plus-icon.png" alt="add-todo" /><a href="#">Add new to do</a>
-              <div id="new-todo">
-                <form action="" method="post">
-                  <fieldset>
-                    <dt><label for="title">Title</label></dt>
-                      <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
-                    <dt><label for="due-date">Due Date</label></dt>
-                      <dd><input type="text" name="day" id="due-date" placeholder="Day" required />/</dd>
-                      <dd><input type="text" name="month" id="due-date" placeholder="Month" required />/</dd>
-                      <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
-                    <dt><label for="description">Description</label></dt>
-                      <dd><textarea name="description" id="description" placeholder="Description" required></textarea></dd>
-                    <button type="submit">Save</button>
-                    <button type="submit" formaction="">Mark as Complete</button>
-                  </fieldset>
-                </form>
-              </div>
             </label>
           </li>
           <li>
@@ -158,5 +142,21 @@
         </ul>
       </article>
     </main>
+    <div id="new-todo">
+      <form action="" method="post">
+        <dl>
+          <dt><label for="title">Title</label></dt>
+            <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
+          <dt><label for="due-date">Due Date</label></dt>
+            <dd><input type="text" name="day" id="due-date" placeholder="Day" required />/</dd>
+            <dd><input type="text" name="month" id="due-date" placeholder="Month" required />/</dd>
+            <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
+          <dt><label for="description">Description</label></dt>
+            <dd><textarea name="description" id="description" placeholder="Description" required></textarea></dd>
+          <button type="submit">Save</button>
+          <button type="submit" formaction="">Mark as Complete</button>
+        </dl>
+      </form>
+    </div>
   </body>
 </html>

@@ -192,6 +192,10 @@ main > img {
   left: 32px;
 }
 
+main li:nth-of-type(2) {
+  padding-left: 0;
+}
+
 #new-todo {
   position: absolute;
   top: 107px;
@@ -199,19 +203,13 @@ main > img {
   visibility: hidden;
   width: 575px;
   height: auto;
+  background: #ffffff;
+  color: #060606;
+  padding-left: 30px;
+  padding-top: 36px;
+  padding-right: 40px;
+  padding-bottom: 40px;
   z-index: 2;
-}
-
-main li:nth-of-type(2) input[type="checkbox"] {
-  display: none;
-}
-
-main li:nth-of-type(2) label {
-  padding: 0;
-}
-
-main li:nth-of-type(2) input:checked #new-todo {
-  visibility: visible;
 }
 
 textarea {
