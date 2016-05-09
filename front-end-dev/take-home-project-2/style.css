@@ -11,6 +11,7 @@ html, body {
   max-width: 1200px;
   height: 818px;
   color: #b2b5c3;
+  z-index: 2;
 }
 
 h1 {
@@ -169,7 +170,7 @@ main li + li label:hover {
   color: #3498d8;
 }
 
-main li button {
+main li:nth-of-type(2) ~ li button {
   background: transparent url("images/trash-bin.png") no-repeat;
   border: none;
   width: 17px;
@@ -190,13 +191,13 @@ main > img {
 
 div#new-todo {
   position: absolute;
-  top: 100px;
-  left: 100px;
+  top: 105px;
+  left: 105px;
   width: 575px;
   height: auto;
   background: #ffffff;
   color: #060606;
-  z-index: 2;
+  z-index: 3;
 }
 
 div#new-todo textarea {
@@ -223,6 +224,17 @@ main li:nth-of-type(2) input[type="checkbox"]:checked ~ div#new-todo {
   visibility: visible;
 }
 
+/*main li:nth-of-type(2) input[type="checkbox"]:checked ~ div#new-todo:after {
+  position: fixed;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+}*/
+
 main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
   color: #148fd5;
   text-decoration: none;
@@ -230,6 +242,12 @@ main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
 
 main li:nth-of-type(2) input ~ div#new-todo {
   visibility: hidden;
+}
+
+div#new-todo button {
+  background: #148fd5;
+  color: #ffffff;
+  border: 1px solid #148fd5;
 }
 
 @media (max-width: 768px) {
