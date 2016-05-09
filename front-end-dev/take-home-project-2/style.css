@@ -147,10 +147,6 @@ main li form:last-of-type {
   float: right;
 }
 
-main input[type="checkbox"] {
-  display: none;
-}
-
 span.mycheckbox {
   content: "";
   width: 15px;
@@ -160,11 +156,11 @@ span.mycheckbox {
   background: transparent url("images/unchecked-box.png") no-repeat;
 }
 
-input[type="checkbox"]:checked + span.mycheckbox {
+main input[type="checkbox"]:checked + span.mycheckbox {
   background: transparent url("images/checked-box.png") no-repeat;
 }
 
-input[type="checkbox"]:checked ~ label {
+main input[type="checkbox"]:checked ~ label {
   color: #cecece;
   text-decoration: line-through;
 }
@@ -173,7 +169,7 @@ main li + li label:hover {
   color: #3498d8;
 }
 
-button {
+main li button {
   background: transparent url("images/trash-bin.png") no-repeat;
   border: none;
   width: 17px;
@@ -181,7 +177,7 @@ button {
   background-position: 50% 50%;
 }
 
-button span {
+main li button span {
   display: none;
 }
 
@@ -192,28 +188,48 @@ main > img {
   left: 32px;
 }
 
-main li:nth-of-type(2) {
-  padding-left: 0;
-}
-
-#new-todo {
+div#new-todo {
   position: absolute;
-  top: 107px;
-  left: 442px;
-  visibility: hidden;
+  top: 100px;
+  left: 100px;
   width: 575px;
   height: auto;
   background: #ffffff;
   color: #060606;
-  padding-left: 30px;
-  padding-top: 36px;
-  padding-right: 40px;
-  padding-bottom: 40px;
   z-index: 2;
 }
 
-textarea {
+div#new-todo textarea {
   resize: none;
+}
+
+main input[type="checkbox"] {
+  display: none;
+}
+
+main li:nth-of-type(2) {
+  padding-left: 0;
+}
+
+main li:nth-of-type(2) label img {
+  padding-right: 8px;
+}
+
+main li:nth-of-type(2) label {
+  color: #148fd5;
+}
+
+main li:nth-of-type(2) input[type="checkbox"]:checked ~ div#new-todo {
+  visibility: visible;
+}
+
+main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
+  color: #148fd5;
+  text-decoration: none;
+}
+
+main li:nth-of-type(2) input ~ div#new-todo {
+  visibility: hidden;
 }
 
 @media (max-width: 768px) {
