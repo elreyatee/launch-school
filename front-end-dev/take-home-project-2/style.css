@@ -11,7 +11,6 @@ html, body {
   max-width: 1200px;
   height: 818px;
   color: #b2b5c3;
-  z-index: 2;
 }
 
 h1 {
@@ -189,27 +188,8 @@ main > img {
   left: 32px;
 }
 
-div#new-todo {
-  position: absolute;
-  top: 105px;
-  left: 105px;
-  width: 575px;
-  height: auto;
-  background: #ffffff;
-  color: #060606;
-  z-index: 3;
-}
-
-div#new-todo textarea {
-  resize: none;
-}
-
 main input[type="checkbox"] {
   display: none;
-}
-
-main li:nth-of-type(2) {
-  padding-left: 0;
 }
 
 main li:nth-of-type(2) label img {
@@ -220,34 +200,103 @@ main li:nth-of-type(2) label {
   color: #148fd5;
 }
 
-main li:nth-of-type(2) input[type="checkbox"]:checked ~ div#new-todo {
+main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new-todo {
   visibility: visible;
 }
-
-/*main li:nth-of-type(2) input[type="checkbox"]:checked ~ div#new-todo:after {
-  position: fixed;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.4);
-}*/
 
 main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
   color: #148fd5;
   text-decoration: none;
 }
 
-main li:nth-of-type(2) input ~ div#new-todo {
+main li:nth-of-type(2) input ~ form#new-todo {
   visibility: hidden;
 }
 
-div#new-todo button {
+form#new-todo {
+  position: absolute;
+  top: 107px;
+  left: 105px;
+  width: 575px;
+  height: 400px;
+  padding-left: 30px;
+  padding-top: 36px;
+  padding-right: 40px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+form#new-todo dl {
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+form#new-todo dt,
+form#new-todo dd {
+  display: inline-block;
+}
+
+form#new-todo dd {
+
+}
+
+form#new-todo dt {
+  width: 90px;
+  height: 36px;
+  text-align: left;
+  vertical-align: top;
+  padding-top: 10px;
+  margin: 0;
+  padding-left: 0;
+}
+
+form#new-todo label {
+  font-weight: 400;
+  color: #060606;
+  padding: 0;
+}
+
+form#new-todo input,
+form#new-todo textarea {
+  font-size: 16px;
+  border: 1px solid #b3b3b3;
+}
+
+form#new-todo button {
+  width: 182px;
+  height: 34px;
+  font-size: 16px;
   background: #148fd5;
   color: #ffffff;
   border: 1px solid #148fd5;
+  border-radius: 4px;
+  margin-right: 18px;
+}
+
+form#new-todo textarea {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  resize: none;
+  width: 396px;
+  height: 144px;
+  padding: 8px;
+}
+
+form#new-todo input[id="title"] {
+  width: 396px;
+  height: 36px;
+  padding: 8px;
+}
+
+form#new-todo input[id="due-date"] {
+  width: 116px;
+  height: 36px;
+  padding: 8px;
+}
+
+form#new-todo span {
+  display: inline-block;
+  width: 13px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
