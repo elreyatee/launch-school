@@ -197,6 +197,7 @@ main li:nth-of-type(2) label img {
 }
 
 main li:nth-of-type(2) label {
+  padding-left: 0;
   color: #148fd5;
 }
 
