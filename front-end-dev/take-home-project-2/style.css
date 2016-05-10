@@ -177,18 +177,8 @@ main li:nth-of-type(2) ~ li button {
   background-position: 50% 50%;
 }
 
-main li button span {
-  display: none;
-}
-
-main > img {
-  visibility: hidden;
-  position: absolute;
-  top: 23px;
-  left: 32px;
-}
-
-main input[type="checkbox"] {
+main li button span,
+main input[type="checkbox"]  {
   display: none;
 }
 
@@ -225,6 +215,7 @@ form#new-todo {
   padding-right: 40px;
   background: #ffffff;
   border: 1px solid #ffffff;
+  z-index: 2;
 }
 
 form#new-todo dl {
@@ -235,10 +226,6 @@ form#new-todo dl {
 form#new-todo dt,
 form#new-todo dd {
   display: inline-block;
-}
-
-form#new-todo dd {
-
 }
 
 form#new-todo dt {
@@ -300,6 +287,25 @@ form#new-todo span {
   text-align: center;
 }
 
+body > form {
+  visibility: hidden;
+  position: absolute;
+  top: 20px;
+  left: 365px;
+}
+
+body > form input {
+  display: none;
+}
+
+body > form label {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background: transparent url("images/menu-icon.png") no-repeat;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   html, body {
     min-width: 480px;
@@ -309,7 +315,12 @@ form#new-todo span {
     display: none;
   }
 
-  main > img {
+  body > form {
     visibility: visible;
+    left: 30px;
+  }
+
+  body > form label input:checked + header {
+    display: block;
   }
 }
