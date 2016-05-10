@@ -302,7 +302,6 @@ body > form label {
   width: 24px;
   height: 24px;
   display: inline-block;
-  background: transparent url("images/menu-icon.png") no-repeat;
   cursor: pointer;
 }
 
