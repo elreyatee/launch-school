@@ -287,21 +287,17 @@ form#new-todo span {
   text-align: center;
 }
 
-body > form {
-  visibility: hidden;
-  position: absolute;
-  top: 20px;
-  left: 365px;
+body > label {
+  display: none;
+  padding-top: 20px;
+  padding-left: 30px;
 }
 
-body > form input {
+body > input[id="panel-toggle"] {
   display: none;
 }
 
-body > form label {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
+body > label {
   cursor: pointer;
 }
 
@@ -314,12 +310,15 @@ body > form label {
     display: none;
   }
 
-  body > form {
-    visibility: visible;
-    left: 30px;
+  body > label[for="panel-toggle"] {
+    display: inline-block;
   }
 
-  body > form label input:checked + header {
+  body > input[id="panel-toggle"]:checked + header {
     display: block;
+  }
+
+  main {
+    padding-top: 18px;
   }
 }
