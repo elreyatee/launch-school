@@ -28,6 +28,7 @@ header {
   height: 100%;
   float: left;
   background: #464f77;
+  z-index: 2;
 }
 
 nav ul {
@@ -95,6 +96,7 @@ main {
   overflow: hidden;
   color: #050505;
   padding: 60px 100px 0 20px;
+  z-index: 2;
 }
 
 main h1 span {
@@ -200,6 +202,17 @@ main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
   text-decoration: none;
 }
 
+/*main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new-todo:before {
+  position: fixed;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}*/
+
 main li:nth-of-type(2) input ~ form#new-todo {
   visibility: hidden;
 }
@@ -215,7 +228,7 @@ form#new-todo {
   padding-right: 40px;
   background: #ffffff;
   border: 1px solid #ffffff;
-  z-index: 2;
+  z-index: 3;
 }
 
 form#new-todo dl {
@@ -316,6 +329,7 @@ body > label {
 
   body > input[id="panel-toggle"]:checked + header {
     display: block;
+    cursor: pointer;
   }
 
   main {
