@@ -28,7 +28,6 @@ header {
   height: 100%;
   float: left;
   background: #464f77;
-  z-index: 2;
 }
 
 nav ul {
@@ -96,7 +95,6 @@ main {
   overflow: hidden;
   color: #050505;
   padding: 60px 100px 0 20px;
-  z-index: 2;
 }
 
 main h1 span {
@@ -195,6 +193,7 @@ main li:nth-of-type(2) label {
 
 main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new-todo {
   visibility: visible;
+  z-index: 2;
 }
 
 main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
@@ -202,7 +201,7 @@ main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
   text-decoration: none;
 }
 
-/*main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new-todo:before {
+main li:nth-of-type(2) input[type="checkbox"]:checked + label:after{
   position: fixed;
   content: "";
   top: 0;
@@ -211,7 +210,7 @@ main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
   right: 0;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1;
-}*/
+}
 
 main li:nth-of-type(2) input ~ form#new-todo {
   visibility: hidden;
