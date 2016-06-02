@@ -37,16 +37,11 @@
       },
       // _.without
       without: function() {
-        var new_arr = [],
-            args = Array.prototype.slice.call(arguments);
+        var args = Array.prototype.slice.call(arguments);
 
-        element.forEach(function(el) {
-          if (args.indexOf(el) === -1) {
-            new_arr.push(el);
-          }
+        return element.map(function(el){
+          if (args.indexOf(el) === -1) { return el; }
         });
-
-        return new_arr;
       },
       // _.lastIndexOf
       lastIndexOf: function(search) {
@@ -92,6 +87,15 @@
         return element.map(function(obj) {
           if (obj[query]) { return obj[query]; }
         });
+      },
+      // _.keys
+      keys: function() {
+        var result = [];
+
+        for(var prop in element) {
+          result.push(prop);
+        }
+        return result;
       }
     };
 
