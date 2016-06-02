@@ -1,4 +1,30 @@
 (function() {
+
+  var findObjs = function(element, props, multiple) {
+    var match = multiple ? [] : undefined;
+
+    element.some(function(obj) {
+      var all_match = true;
+
+      for (var prop in props) {
+        if (!(prop in obj) || obj[prop] !== props[prop]) {
+          all_match = false;
+        }
+      }
+
+      if (all_match) {
+        if (multiple) {
+          match.push(obj);
+        } else {
+          match = obj;
+          return true;
+        }
+      }
+    });
+
+    return match;
+  };
+
   var _ = function(element) {
     u = {
       // _.first
@@ -52,6 +78,20 @@
         }
 
         return sampled;
+      },
+      // _.findWhere
+      findWhere: function(props) {
+        return findObjs(element, props, false);
+      },
+      // _.where
+      where: function(props) {
+        return findObjs(element, props, true);
+      },
+      // _.pluck
+      pluck: function(query) {
+        return element.map(function(obj) {
+          if (obj[query]) { return obj[query]; }
+        });
       }
     };
 
