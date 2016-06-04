@@ -129,6 +129,9 @@
         });
 
         return new_obj;
+      },
+      has: function(prop) {
+        return element[prop] !== undefined;
       }
     };
 
