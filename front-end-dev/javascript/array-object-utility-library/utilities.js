@@ -108,12 +108,25 @@
       },
       // _.pick
       pick: function() {
-        var args = Array.prototype.slice.call(arguments);
-        var new_obj = new Object();
+        var args = Array.prototype.slice.call(arguments),
+            new_obj = {};
 
-        for(var prop in element) {
-          if (args.includes(prop)) { new_obj[prop] = element[prop]; }
-        }
+        args.forEach(function(prop) {
+          if (prop in element) {
+            new_obj[prop] = element[prop];
+          }
+        });
+
+        return new_obj;
+      },
+      omit: function() {
+        var args = Array.prototype.slice.call(arguments),
+            new_obj = {};
+        args.forEach(function(prop) {
+          if (!(prop in element)) {
+            new_obj[prop] = element[prop];
+          }
+        });
 
         return new_obj;
       }
