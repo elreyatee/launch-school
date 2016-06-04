@@ -119,6 +119,7 @@
 
         return new_obj;
       },
+      // _.omit
       omit: function() {
         var args = Array.prototype.slice.call(arguments),
             new_obj = {};
@@ -130,10 +131,15 @@
 
         return new_obj;
       },
+      // _.has
       has: function(prop) {
-        return element[prop] !== undefined;
+        return {}.hasOwnProperty.call(element, prop);
       }
     };
+
+    (["isElement", "isArray", "isObject", "isFunction", "isBoolean", "isString", "isNumber"]).forEach(function(method) {
+      u[method] = function() { _[method].call(u, element); };
+    });
 
     return u;
   };
@@ -165,6 +171,34 @@
 
     return args.length === 1 ? new_obj : _.extend.apply(_, args);
   };
+
+  // _.isElement
+  _.isElement = function(obj) {
+    return obj && obj.nodeType === 1;
+  };
+
+  // _.isArray
+  _.isArray = Array.isArray || function(obj) {
+    return toString.call(obj) === "[object Array]";
+  };
+
+  // _.isObject
+  _.isObject = function(obj) {
+    var type = typeof obj;
+    return type === "function" || type === "object" && !!obj;
+  };
+
+  // _.isFunction
+  _.isFunction = function(obj) {
+    var type = typeof obj;
+    return type === "function";
+  };
+
+  (["Boolean", "String", "Number"]).forEach(function(method) {
+    _["is" + method] = function(obj) {
+      return toString.call(obj) === "[object " + method + "]";
+    };
+  });
 
   window._ = _;
 })();
