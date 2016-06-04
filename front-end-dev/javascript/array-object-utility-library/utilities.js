@@ -90,12 +90,32 @@
       },
       // _.keys
       keys: function() {
-        var result = [];
+        var keys = [];
+
+        for (var prop in element) {
+          keys.push(prop);
+        }
+        return keys;
+      },
+      // _.values
+      values: function() {
+        var vals = [];
+
+        for (var prop in element) {
+          vals.push(element[prop]);
+        }
+        return vals;
+      },
+      // _.pick
+      pick: function() {
+        var args = Array.prototype.slice.call(arguments);
+        var new_obj = new Object();
 
         for(var prop in element) {
-          result.push(prop);
+          if (args.includes(prop)) { new_obj[prop] = element[prop]; }
         }
-        return result;
+
+        return new_obj;
       }
     };
 
@@ -115,6 +135,19 @@
     }
 
     return range;
+  };
+
+  // _.extend
+  _.extend = function() {
+    var args = Array.prototype.slice.call(arguments),
+        old_obj = args.pop(),
+        new_obj = args[args.length - 1];
+
+    for (var prop in old_obj) {
+      new_obj[prop] = old_obj[prop];
+    }
+
+    return args.length === 1 ? new_obj : _.extend.apply(_, args);
   };
 
   window._ = _;
