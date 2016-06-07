@@ -1,11 +1,17 @@
 window.onload = init;
 
 function init() {
-  var image = document.getElementById("zero");
-  image.onclick = showImage;
+  var images = document.getElementsByTagName("img");
+
+  for (var i = 0; i < images.length; i++) {
+    images[i].onclick = showAnswer;
+  }
 }
 
-function showImage() {
-  var image = document.getElementById("zero");
-  image.src = "zero.jpg";
+function showAnswer(event) {
+  var image = event.target,
+      name = image.id;
+
+  name += ".jpg";
+  image.src = name
 }
