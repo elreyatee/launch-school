@@ -9,17 +9,17 @@ $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
 
-    var guess = +$("#guess").val();
-    guess_count += 1;
+    var guess = +$("#guess").val(),
+        message;
 
-    if(guess < 0 || guess > 100) {
-      message = "Invalid number, please choose another."
-    } else if(guess > answer) {
-      message = "My number is lower than " + guess;
-    } else if(guess < answer) {
-      message = "My number is higher than " + guess;
-    } else {
+    guess_count++;
+
+    if(guess === answer) {
       message = "You've won! It took you " + guess_count + " guesses.";
+    } else if(guess > answer) {
+      message = "My number is lower than " + guess + ".";
+    } else if(guess < answer) {
+      message = "My number is higher than " + guess + ".";
     }
 
     $("p").text(message);
