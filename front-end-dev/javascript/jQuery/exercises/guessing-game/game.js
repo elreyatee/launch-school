@@ -1,7 +1,10 @@
 $(document).ready(function() {
-  var answer = Math.floor(Math.random() * 100) + 1;
-  var message = "Guess a number from 1 to 100";
-  var guess_count = 0;
+  function randomNumber() {
+    return Math.floor(Math.random() * 100) + 1;
+  }
+
+  var answer = randomNumber(),
+      guess_count = 0;
 
   $("form").submit(function(event) {
     event.preventDefault();
@@ -9,7 +12,9 @@ $(document).ready(function() {
     var guess = +$("#guess").val();
     guess_count += 1;
 
-    if(guess > answer) {
+    if(guess < 0 || guess > 100) {
+      message = "Invalid number, please choose another."
+    } else if(guess > answer) {
       message = "My number is lower than " + guess;
     } else if(guess < answer) {
       message = "My number is higher than " + guess;
@@ -22,8 +27,10 @@ $(document).ready(function() {
 
   $("a").click(function(event) {
     event.preventDefault();
-    answer = Math.floor(Math.random() * 100) + 1;
+
+    answer = randomNumber();
     $("p").text("Guess a number from 1 to 100");
     guess_count = 0;
+    $("#guess").val('');
   });
 });
