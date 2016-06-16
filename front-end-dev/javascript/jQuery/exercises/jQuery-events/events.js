@@ -1,18 +1,17 @@
 $(function() {
-  $("form").submit(function(e) {
-    e.preventDefault();
+  $("form").submit(function(event) {
+    event.preventDefault();
 
-    var key = $("input[type='text']").val();
-    var character_code = key.charCodeAt(0);  // char code for input character
+    var character_code = $("#key").val().charCodeAt(0); // char code for input character
 
-    $(document).off("keypress").on("keypress", function(e) {
-      if (e.which !== character_code) { return; }
+    $(document).off("keypress").on("keypress", function(event) {
+      if (event.which !== character_code) { return; }
       $("a").trigger("click");
     });
   });
 
-  $("a").click(function(e) {
-    e.preventDefault();
+  $("a").click(function(event) {
+    event.preventDefault();
     $("#accordion").slideToggle();
   });
 });
