@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Events</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="events.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #800000;
+      }
+
+      div#wrapper {
+        background-color: #ffffff;
+        margin: 0 auto;
+        width: 400px;
+        height: 400px;
+        border-radius: 5px;
+        padding: 15px;
+      }
+
+      div#wrapper h3 {
+        text-align: center;
+        color: #00cc66;
+      }
+
+      a {
+        color: #00cc66;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      form input {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      div#accordion p {
+        text-align: justify;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h3>Enter key to toggle accordion with</h3>
+      <form action="" method="post">
+        <input type="text" name="char" size="1" />
+        <input type="submit" value="Set"/>
+      </form>
+
+      <a href="#">Toggle accordion</a>
+
+      <div id="accordion">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+           irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+           nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+           officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+  </body>
+</html>
