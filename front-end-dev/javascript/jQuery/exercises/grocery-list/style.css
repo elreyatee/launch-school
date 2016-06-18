@@ -50,6 +50,10 @@ h2, label, li {
   color: #3333cc;
 }
 
+li {
+  margin-bottom: 10px;
+}
+
 h1 {
   color: #cc0000;
   text-align: center;
