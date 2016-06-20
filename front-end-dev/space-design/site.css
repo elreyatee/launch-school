@@ -121,6 +121,60 @@ footer li a.instagram { background-position: 0 100%; }
   color: #3e59b2;
 }
 
+.modal_layer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  z-index: 3;
+  width: 660px;
+  margin-left: -400px;
+  padding: 125px 70px 70px 70px;
+  text-align: left;
+  background: #ffffff;
+}
+
+#team .modal p {
+  padding: 0;
+  font-size: 20px;
+}
+
+#team .modal img {
+  display: inline-block;
+  width: 96px;
+  margin: 0 30px 20px 0;
+  vertical-align: middle;
+}
+
+#team .modal h3 {
+  display: inline-block;
+  font-weight: normal;
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.modal a.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  text-indent: -9000px;
+  background: transparent url("images/icon_close.png") 0 0 no-repeat;
+}
+
 /* Media Queries */
 @media (max-width: 875px) {
   #team li {
@@ -162,6 +216,13 @@ footer li a.instagram { background-position: 0 100%; }
   }
   footer li {
     padding: 0 32px;
+  }
+  .modal {
+    left: 0;
+    margin: 0;
+    padding: 50px 30px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
