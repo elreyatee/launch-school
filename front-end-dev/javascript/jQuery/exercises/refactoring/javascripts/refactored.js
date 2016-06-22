@@ -12,7 +12,7 @@ $(function() {
     "October": "opal or tourmaline",
     "November": "topaz or citrine",
     "December": "turquoise, zircon, or tanzanite"
-  }
+  };
 
   $("nav a").on("mouseenter", function() {
     $(this).next("ul").addClass("visible");
@@ -36,6 +36,7 @@ $(function() {
 
   $("form").on("submit", function(e) {
     e.preventDefault();
+
     var cc_number = $(this).find("[type=text]").val(),
         total = getLuhnTotal(cc_number),
         is_valid = total % 10 === 0;
@@ -54,13 +55,11 @@ $(function() {
         num = (+num * 2) + "";
         if (num.length > 1) {
           num = +num[0] + +num[1];
-        }
-        else {
+        } else {
           num = +num;
         }
         odd_total += num;
-      }
-      else {
+      } else {
         even_total += +num;
       }
     });
