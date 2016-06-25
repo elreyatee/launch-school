@@ -1,0 +1,54 @@
+body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  background-color: #eee196;
+}
+
+#page {
+  overflow: hidden;
+  width: 1000px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+main {
+  float: right;
+  width: 80%;
+}
+
+main ul {
+  padding: 0 20px 20px 0;
+}
+
+main li {
+  padding: 15px 20px;
+}
+
+main li:hover {
+  background-color: #99f099;
+}
+
+main li + li {
+  border-top: 1px solid #ececec;
+}
+
+.sidebar {
+  padding: 80px 20px 0 20px;
+}
+
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar input {
+  margin-right: 8px;
+}

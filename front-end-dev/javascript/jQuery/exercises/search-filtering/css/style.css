@@ -1,7 +1,7 @@
 html {
   background-color: #eee196;
   padding: 15px;
-  font: normal 16px Helvetica, Arial, sans-serif;
+  font: normal 13px Helvetica, Arial, sans-serif;
   height: 100%;
 }
 
@@ -20,6 +20,10 @@ ul {
 .sidebar {
   float: left;
   width: 20%;
+}
+
+fieldset {
+  border: none;
 }
 
 main {
