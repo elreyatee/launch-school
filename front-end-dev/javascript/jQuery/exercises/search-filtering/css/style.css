@@ -1,0 +1,46 @@
+html {
+  background-color: #eee196;
+  padding: 15px;
+  font: normal 16px Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0 25px;
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar {
+  float: left;
+  width: 20%;
+}
+
+main {
+  float: right;
+  width: 80%;
+}
+
+body::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+main li {
+  padding: 15px 25px;
+}
+
+main li:not(:last-child) {
+  border-bottom: 1px solid #dddddd;
+}
+
+.sidebar input {
+  margin-right: 8px;
+}
