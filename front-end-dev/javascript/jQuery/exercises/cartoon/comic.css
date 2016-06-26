@@ -22,6 +22,12 @@
 
 #panel_4 { width: 173px; }
 
+p {
+  width: 705px;
+  margin: 0 auto;
+  padding-top: 5px;
+}
+
 [id^="blind"] {
   position: absolute;
   background: #ffffff;
