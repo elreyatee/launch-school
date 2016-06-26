@@ -42,19 +42,19 @@ $(function() {
   }];
 
   var $items = $("main li"),
-      $categories = $(":checkbox");
+      $categories = $(":checked");
 
   $categories.on("change", function() {
     var $checkbox = $(this),
         checked = $checkbox.is(":checked"),
         category = $checkbox.val(),
-        category_items;
+        selected_categories;
 
-    category_items = catalog.filter(function(item) {
+    selected_categories = catalog.filter(function(item) {
       return item.category === category;
     });
 
-    category_items.forEach(function(item) {
+    selected_categories.forEach(function(item) {
       $items.filter("[data-id=" + item.id + "]").toggle(checked);
     });
   });
