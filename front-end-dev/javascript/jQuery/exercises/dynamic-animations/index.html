@@ -10,33 +10,50 @@
   <body>
     <main>
       <div id="canvas"></div>
-      <a href="#">Start</a> | <a href="#">Stop</a>
+      <p>
+        <a href="#">Start</a> | <a href="#">Stop</a>
+      </p>
 
-      <h1>Add a shape</h1>
       <form action="" method="get">
         <fieldset>
-          <label>
-            <input type="radio" value="square">
-            Square
-          </label>
-          <label>
-            <input type="radio" value="circle">
-            Circle
-          </label>
-          <label>
-            <input type="radio" value="star">
-            Star
-          </label>
-          <label>
-            Starting Point
-            <input type="number" placeholder="x:" min="0" max="500" maxlength="3" required>
-            <input type="number" placeholder="y:" min="0" max="500" maxlength="3" required>
-          </label>
-          <label>
-            Ending Point
-            <input type="number" placeholder="x:" min="0" max="500" maxlength="3" required>
-            <input type="number" placeholder="y:" min="0" max="500" maxlength="3" required>
-          </label>
+          <h1>Add a shape</h1>
+          <h2>Type</h2>
+          <ul>
+            <li>
+              <label>
+                <input type="radio" value="square">
+                Square
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" value="circle">
+                Circle
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" value="star">
+                Star
+              </label>
+            </li>
+          </ul>
+          <dl>
+            <dt>
+              <label for="start_x">Starting Point</label>
+            </dt>
+            <dd>
+              <input type="number" name="start_x" placeholder="x:" min="0" max="500" maxlength="3" required>
+              <input type="number" name="start_y" placeholder="y:" min="0" max="500" maxlength="3" required>
+            </dd>
+            <dt>
+              <label for="end_x">Ending Point</label>
+            </dt>
+            <dd>
+              <input type="number" name="end_x" placeholder="x:" min="0" max="500" maxlength="3" required>
+              <input type="number" name="end_y" placeholder="y:" min="0" max="500" maxlength="3" required>
+            </dd>
+          </dl>
           <input type="submit" value="Add">
         </fieldset>
       </form>

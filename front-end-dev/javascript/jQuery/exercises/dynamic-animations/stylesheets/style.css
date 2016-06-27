@@ -1,0 +1,48 @@
+body {
+  font: normal 14px Helvetica, Arial, sans-serif;
+  background: #780e24;
+}
+
+main {
+  background: #ffffff;
+  margin: 0 auto;
+  width: 800px;
+  padding: 25px;
+}
+
+#canvas {
+  height: 600px;
+  width: 100%;
+  background: linear-gradient(to bottom, #ffffff 0%, #0066cc 100%);
+  border: 1px solid #cccccc;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+input[type="number"] {
+  width: 70px;
+  height: 30px;
+  box-sizing: border-box;
+  font: normal 14px Helvetica, Arial, sans-serif;
+  padding: 5px;
+}
+
+dl, dd {
+  margin: 0;
+}
+
+dt {
+  padding-bottom: 5px;
+}
+
+dd {
+  padding-bottom: 20px;
+}
