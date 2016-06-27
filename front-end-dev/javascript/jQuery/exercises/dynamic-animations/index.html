@@ -8,5 +8,38 @@
     <script src="javascripts/animate.js"></script>
   </head>
   <body>
+    <main>
+      <div id="canvas"></div>
+      <a href="#">Start</a> | <a href="#">Stop</a>
+
+      <h1>Add a shape</h1>
+      <form action="" method="get">
+        <fieldset>
+          <label>
+            <input type="radio" value="square">
+            Square
+          </label>
+          <label>
+            <input type="radio" value="circle">
+            Circle
+          </label>
+          <label>
+            <input type="radio" value="star">
+            Star
+          </label>
+          <label>
+            Starting Point
+            <input type="number" placeholder="x:" min="0" max="500" maxlength="3" required>
+            <input type="number" placeholder="y:" min="0" max="500" maxlength="3" required>
+          </label>
+          <label>
+            Ending Point
+            <input type="number" placeholder="x:" min="0" max="500" maxlength="3" required>
+            <input type="number" placeholder="y:" min="0" max="500" maxlength="3" required>
+          </label>
+          <input type="submit" value="Add">
+        </fieldset>
+      </form>
+    </main>
   </body>
 </html>
