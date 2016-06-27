@@ -11,29 +11,29 @@
     <main>
       <div id="canvas"></div>
       <p>
-        <a href="#">Start</a> | <a href="#">Stop</a>
+        <a href="#" id="animate">Start</a> | <a href="#" id="stop">Stop</a>
       </p>
 
-      <form action="" method="get">
+      <form action="" method="post">
         <fieldset>
           <h1>Add a shape</h1>
           <h2>Type</h2>
           <ul>
             <li>
               <label>
-                <input type="radio" value="square">
+                <input type="radio" name="shape" value="square">
                 Square
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" value="circle">
+                <input type="radio" name="shape" value="circle">
                 Circle
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" value="star">
+                <input type="radio"  name="shape" value="star">
                 Star
               </label>
             </li>
@@ -52,6 +52,12 @@
             <dd>
               <input type="number" name="end_x" placeholder="x:" min="0" max="500" maxlength="3" required>
               <input type="number" name="end_y" placeholder="y:" min="0" max="500" maxlength="3" required>
+            </dd>
+            <dt>
+              <label for="duration">Duration</label>
+            </dt>
+            <dd>
+              <input type="number" name="duration" value="250">
             </dd>
           </dl>
           <input type="submit" value="Add">

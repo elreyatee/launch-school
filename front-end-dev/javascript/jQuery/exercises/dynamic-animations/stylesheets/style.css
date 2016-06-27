@@ -6,7 +6,7 @@ body {
 main {
   background: #ffffff;
   margin: 0 auto;
-  width: 800px;
+  width: 802px;
   padding: 25px;
 }
 
@@ -16,6 +16,23 @@ main {
   width: 100%;
   background: linear-gradient(to bottom, #ffffff 0%, #0066cc 100%);
   border: 1px solid #cccccc;
+}
+
+#canvas > div {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+  background: #dde338;
+}
+
+#canvas .circle {
+  border-radius: 100%;
+}
+
+#canvas .star {
+  background: transparent url("../images/star.png");
+  background-size: 100% auto;
 }
 
 fieldset {
@@ -33,7 +50,7 @@ input[type="number"] {
   height: 30px;
   box-sizing: border-box;
   font: normal 14px Helvetica, Arial, sans-serif;
-  padding: 5px;
+  padding: 5px 0 5px 5px;
 }
 
 dl, dd {
