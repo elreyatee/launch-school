@@ -75,7 +75,8 @@ p {
   font-size: 20px;
 }
 
-p:empty {
+#messages:empty,
+#messages:empty + p > a {
   display: none;
 }
 
