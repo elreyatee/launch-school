@@ -2,7 +2,7 @@ var randomWord = (function() {
   var words = ["rhythm", "exodus", "voyeurism", "haphazard", "jiujitsu", "kilobyte"];
 
   return function() {
-    var word = words[Math.floor(Math.random() * word.length)];
+    var word = words[Math.floor(Math.random() * words.length)];
     words.splice(words.indexOf(word), 1);
     return word;
   };
@@ -27,6 +27,7 @@ function Game() {
 }
 
 Game.prototype = {
+  constructor: Game,
   createBlanks: function() {
     var blank_spans = "<span></span>".repeat(this.word.length + 1);
 
