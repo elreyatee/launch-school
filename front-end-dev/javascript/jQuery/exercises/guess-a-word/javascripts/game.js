@@ -16,9 +16,9 @@ var $message = $("#message"),
 function Game() {
   this.word = randomWord().split(""); // word broken up into letters
   this.letters_guessed = [];
-  this.allowed_wrong_guesses = 6;
-  this.correct_letters = 0;
-  this.incorrect_letters = 0;
+  this.max_wrong_guesses = 6;
+  this.correct = 0;
+  this.incorrect = 0;
   this.init();
 
   if (!this.word) {
@@ -40,7 +40,7 @@ Game.prototype = {
     this.createBlanks();
   },
   isGameOver: function() {
-    return (this.incorrect_letters === this.allowed_wrong_guesses) ||
-           (this.correct_letters === this.word.length);
+    return (this.incorrect === this.max_wrong_guesses) ||
+           (this.correct === this.word.length);
   }
 };
