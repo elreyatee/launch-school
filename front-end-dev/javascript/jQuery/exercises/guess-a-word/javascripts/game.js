@@ -45,3 +45,5 @@ Game.prototype = {
            (this.correct === this.word.length);
   }
 };
+
+new Game();
