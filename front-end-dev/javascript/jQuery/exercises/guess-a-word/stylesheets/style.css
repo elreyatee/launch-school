@@ -64,7 +64,7 @@ main {
 #apples.guess_6 { display: none; }
 
 #guesses,
-#word_spaces,
+#spaces,
 #replay,
 p {
   padding: 0 0 40px 0;
@@ -75,8 +75,8 @@ p {
   font-size: 20px;
 }
 
-#messages:empty,
-#messages:empty + p > a {
+#message:empty,
+#message:empty + p > a {
   display: none;
 }
 
