@@ -1,5 +1,11 @@
+var $message = $("#message"),
+    $spaces  = $("#spaces"),
+    $guesses = $("#guesses"),
+    $apples  = $("#apples");
+
 var randomWord = (function() {
   var words = ["rhythm", "exodus", "voyeurism", "haphazard", "jiujitsu", "kilobyte"];
+  console.log(words);
 
   return function() {
     var word = words[Math.floor(Math.random() * words.length)];
@@ -8,75 +14,100 @@ var randomWord = (function() {
   };
 })();
 
-var $message = $("#message"),
-    $spaces  = $("#spaces"),
-    $guesses = $("#guesses"),
-    $apples  = $("#apples");
-
 function Game() {
-  this.word = randomWord().split(""); // word broken up into letters
-  this.letters_guessed = [];
-  this.max_wrong_guesses = 6;
-  this.correct = 0;
-  this.incorrect = 0;
-  this.init();
+  this.word = randomWord();
+  this.guesses = [];
+  this.correct_spaces = 0;
+  this.total_incorrect = 0;
 
   if (!this.word) {
     this.displayMessage("Sorry, I've run out of words!");
   }
+
+  this.word = this.word.split("");
+  this.init();
 }
 
 Game.prototype = {
   constructor: Game,
+  total_guesses: 6,
   createBlanks: function() {
     var blank_spans = "<span></span>".repeat(this.word.length);
 
     $spaces.find("span").remove();
-    $guesses.find("span").remove();
     $spaces.append(blank_spans);
+  },
+  clearGuesses: function() {
+    $guesses.find("span").remove();
+  },
+  setClass: function() {
+    $apples.removeAttr("class").addClass("guess_" + this.total_incorrect);
+  },
+  resetClass: function() {
+    $apples.removeAttr("class");
   },
   displayMessage: function(msg) {
     $message.text(msg);
   },
   init: function() {
     this.createBlanks();
+    this.clearGuesses();
+    this.resetClass();
+    this.displayMessage("");
+  },
+  renderGuess: function(letter) {
+    $guesses.append("<span>" + letter + "</span>");
+  },
+  renderCorrectGuess: function(letter, index) {
+    this.correct_spaces++;
+    $spaces.find("span").eq(index).text(letter);
+  },
+  renderIncorrectGuess: function(letter) {
+    this.total_incorrect++;
+    this.setClass();
+  },
+  invalidGuess: function(letter) {
+    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    return !alphabet.includes(letter);
+  },
+  addGuess: function(letter) {
+    var self = this;
+
+    if (self.guesses.includes(letter)) { return; }
+    if (self.invalidGuess(letter)) { return; }
+
+    self.guesses.push(letter);
+    self.renderGuess(letter);
+
+    if (self.word.includes(letter)) {
+      self.word.forEach(function(l, i) {
+        if (letter === l) { self.renderCorrectGuess(l, i); }
+      });
+    } else {
+      self.renderIncorrectGuess(letter);
+    }
+
+    self.isGameOver();
   },
   isGameOver: function() {
-    return (this.incorrect === this.max_wrong_guesses) ||
-           (this.correct === this.word.length);
-  },
-  addGuessedLetter: function(letter) {
-    if (!this.letters_guessed.includes(letter)) {
-      this.letters_guessed.push(letter);
-      $guesses.append("<span>" + letter + "</span>");
-
-      if (this.word.indexOf(letter) !== -1) {
-        this.word.forEach(function(character, index) {
-          if (character === letter) {
-            $spaces.find("span").eq(index).text(character);
-          }
-        });
-      } else {
-        this.incorrect++;
-        $apples.removeAttr("class").addClass("guess_" + this.incorrect);
-      }
+    if (this.total_incorrect === this.total_guesses) {
+      this.displayMessage("Sorry you lost.");
+    } else if (this.correct_spaces === this.word.length) {
+      this.displayMessage("You won!");
     }
   }
 };
 
 var game = new Game();
 
-function range(start, end) {
-  return new Array((end + 1) - start).fill().map(function(_, index) {
-    return start + index;
-  });
-}
-
 $(document).on("keypress", function(event) {
-  var key = event.which,
-      key_range = range(97, 122);
+  var letter = String.fromCharCode(event.which)
 
-  if(key_range.includes(key)) {
-    game.addGuessedLetter(String.fromCharCode(key));
-  }
+  game.addGuess(letter);
+});
+
+$("#replay").on("click", function(event) {
+  event.preventDefault();
+
+  game = new Game();
 });
