@@ -29,7 +29,7 @@ function Game() {
 Game.prototype = {
   constructor: Game,
   createBlanks: function() {
-    var blank_spans = "<span></span>".repeat(this.word.length + 1);
+    var blank_spans = "<span></span>".repeat(this.word.length);
 
     $spaces.find("span").remove();
     $guesses.find("span").remove();
@@ -49,6 +49,17 @@ Game.prototype = {
     if (!this.letters_guessed.includes(letter)) {
       this.letters_guessed.push(letter);
       $guesses.append("<span>" + letter + "</span>");
+
+      if (this.word.indexOf(letter) !== -1) {
+        this.word.forEach(function(character, index) {
+          if (character === letter) {
+            $spaces.find("span").eq(index).text(character);
+          }
+        });
+      } else {
+        this.incorrect++;
+        $apples.removeAttr("class").addClass("guess_" + this.incorrect);
+      }
     }
   }
 };
@@ -63,7 +74,7 @@ function range(start, end) {
 
 $(document).on("keypress", function(event) {
   var key = event.which,
-      key_range = range(97, 112);
+      key_range = range(97, 122);
 
   if(key_range.includes(key)) {
     game.addGuessedLetter(String.fromCharCode(key));
