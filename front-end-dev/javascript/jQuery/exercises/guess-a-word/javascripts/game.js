@@ -32,6 +32,7 @@ Game.prototype = {
     var blank_spans = "<span></span>".repeat(this.word.length + 1);
 
     $spaces.find("span").remove();
+    $guesses.find("span").remove();
     $spaces.append(blank_spans);
   },
   displayMessage: function(msg) {
@@ -43,7 +44,28 @@ Game.prototype = {
   isGameOver: function() {
     return (this.incorrect === this.max_wrong_guesses) ||
            (this.correct === this.word.length);
+  },
+  addGuessedLetter: function(letter) {
+    if (!this.letters_guessed.includes(letter)) {
+      this.letters_guessed.push(letter);
+      $guesses.append("<span>" + letter + "</span>");
+    }
   }
 };
 
-new Game();
+var game = new Game();
+
+function range(start, end) {
+  return new Array((end + 1) - start).fill().map(function(_, index) {
+    return start + index;
+  });
+}
+
+$(document).on("keypress", function(event) {
+  var key = event.which,
+      key_range = range(97, 112);
+
+  if(key_range.includes(key)) {
+    game.addGuessedLetter(String.fromCharCode(key));
+  }
+});
