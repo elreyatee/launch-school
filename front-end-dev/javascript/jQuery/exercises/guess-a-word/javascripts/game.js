@@ -5,7 +5,6 @@ var $message = $("#message"),
 
 var randomWord = (function () {
   var words = ["rhythm", "exodus", "voyeurism", "haphazard", "jiujitsu", "kilobyte"];
-  console.log(words);
 
   return function () {
     var word = words[Math.floor(Math.random() * words.length)];
