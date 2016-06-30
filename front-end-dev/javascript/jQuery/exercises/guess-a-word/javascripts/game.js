@@ -90,8 +90,10 @@ Game.prototype = {
   },
   isGameOver: function () {
     if (this.total_incorrect === this.total_guesses) {
+      $(document).off("keypress");
       this.displayMessage("Sorry you lost.");
     } else if (this.correct_spaces === this.word.length) {
+      $(document).off("keypress");
       this.displayMessage("You won!");
     }
   }
