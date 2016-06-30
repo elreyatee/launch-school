@@ -49,10 +49,18 @@ Game.prototype = {
     $message.text(msg);
   },
   init: function () {
+    var self = this;
+    this.resetGameColor();
     this.createBlanks();
     this.clearGuesses();
     this.resetClass();
     this.displayMessage("");
+
+    $(document).on("keypress", function (event) {
+      var letter = String.fromCharCode(event.which);
+
+      self.addGuess(letter);
+    });
   },
   renderGuess: function (letter) {
     $guesses.append("<span>" + letter + "</span>");
@@ -88,24 +96,41 @@ Game.prototype = {
 
     self.isGameOver();
   },
+  resetGameColor: function() {
+    $("body").removeAttr("class");
+  },
+  setWinColor: function() {
+    $("body").addClass("win");
+  },
+  setLoseColor: function() {
+    $("body").addClass("lose");
+  },
+  win: function() {
+    $(document).off("keypress");
+    this.displayMessage("You won!");
+    this.setWinColor();
+  },
+  lose: function() {
+    $(document).off("keypress");
+    this.displayMessage("Sorry you lost.");
+    this.setLoseColor();
+  },
   isGameOver: function () {
     if (this.total_incorrect === this.total_guesses) {
-      $(document).off("keypress");
-      this.displayMessage("Sorry you lost.");
+      this.lose();
     } else if (this.correct_spaces === this.word.length) {
-      $(document).off("keypress");
-      this.displayMessage("You won!");
+      this.win();
     }
   }
 };
 
 var game = new Game();
 
-$(document).on("keypress", function (event) {
-  var letter = String.fromCharCode(event.which);
-
-  game.addGuess(letter);
-});
+// $(document).on("keypress", function (event) {
+//   var letter = String.fromCharCode(event.which);
+//
+//   game.addGuess(letter);
+// });
 
 $("#replay").on("click", function (event) {
   event.preventDefault();
