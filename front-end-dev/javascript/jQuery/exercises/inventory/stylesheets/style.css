@@ -21,6 +21,10 @@ h2 {
   margin: 0 0 20px 0;
 }
 
+dl {
+  margin: 10px 0;
+}
+
 dt {
   padding: 0 0 5px 0;
   font-weight: bold;
@@ -62,6 +66,10 @@ input {
 .partial {
   display: inline-block;
   padding-right: 15px;
+}
+
+#order_date {
+  margin-bottom: 10px;
 }
 
 #inventory {
