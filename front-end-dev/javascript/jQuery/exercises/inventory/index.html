@@ -2,6 +2,7 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8">
+    <title>Inventory Order Form</title>
     <link rel="stylesheet" href="stylesheets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/inventory.js"></script>
@@ -13,7 +14,8 @@
           <h1>Inventory Order Form</h1>
           <dl>
             <dt>Date Ordered</dt>
-            <dd id="order_date"></dd>
+            <dd id="order_date">
+            </dd>
             <dt>
               <label for="requester_name">Requester Name</label>
             </dt>
@@ -35,30 +37,30 @@
             </dd>
           </dl>
 
-          <dl>
+          <dl class="partial">
             <dt>
               <label for="city">City</label>
             </dt>
             <dd>
-              <input name="text" id="city">
+              <input type="text" id="city">
             </dd>
           </dl>
 
-          <dl>
+          <dl class="partial">
             <dt>
               <label for="state">State</label>
             </dt>
             <dd>
-              <input name="text" id="state">
+              <input type="text" id="state" maxlength="2">
             </dd>
           </dl>
 
-          <dl>
+          <dl class="partial">
             <dt>
               <label for="zipcode">Zipcode</label>
             </dt>
             <dd>
-              <input name="text" id="zipcode">
+              <input type="text" id="zipcode" maxlength="5">
             </dd>
           </dl>
 
