@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/inventory.js"></script>
+  </head>
+  <body>
+    <main>
+      <form action="" method="post">
+        <fieldset>
+          <h1>Inventory Order Form</h1>
+          <dl>
+            <dt>Date Ordered</dt>
+            <dd id="order_date"></dd>
+            <dt>
+              <label for="requester_name">Requester Name</label>
+            </dt>
+            <dd>
+              <input type="text" id="requester_name">
+            </dd>
+          </dl>
+
+          <h2>Shipping Address</h2>
+          <dl>
+            <dt>
+              <label for="address_1">Street Address</label>
+            </dt>
+            <dd>
+              <input type="text" id="address_1">
+            </dd>
+            <dd>
+              <input type="text" id="address_2">
+            </dd>
+          </dl>
+
+          <dl>
+            <dt>
+              <label for="city">City</label>
+            </dt>
+            <dd>
+              <input name="text" id="city">
+            </dd>
+          </dl>
+
+          <dl>
+            <dt>
+              <label for="state">State</label>
+            </dt>
+            <dd>
+              <input name="text" id="state">
+            </dd>
+          </dl>
+
+          <dl>
+            <dt>
+              <label for="zipcode">Zipcode</label>
+            </dt>
+            <dd>
+              <input name="text" id="zipcode">
+            </dd>
+          </dl>
+
+          <h2>Items to order</h2>
+          <table id="inventory"></table>
+          <button type="button" id="add_item">Add Item</button>
+          <div class="actions">
+            <input type="submit" value="order inventory">
+          </div>
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>
