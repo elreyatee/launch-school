@@ -65,6 +65,26 @@
           </dl>
 
           <h2>Items to order</h2>
+          <script type="text/template" id="inventory_item">
+            <tr>
+              <td>
+                <input type="hidden" name="item_id_ID" value="ID">
+                <label for="item_name_ID">Name</label>
+                <input type="text" name="item_name_ID">
+              </td>
+              <td>
+                <label for="item_stock_number_ID">Stock Number</label>
+                <input type="text" name="item_stock_number_ID">
+              </td>
+              <td>
+                <label for="item_quantity_ID">QTY</label>
+                <input type="number" name="item_quantity_ID" value="1">
+              </td>
+              <td>
+                <a href="#" class="delete">Delete</a>
+              </td>
+            </tr>
+          </script>
           <table id="inventory"></table>
           <button type="button" id="add_item">Add Item</button>
           <div class="actions">
