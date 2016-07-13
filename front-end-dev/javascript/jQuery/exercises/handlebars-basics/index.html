@@ -5,8 +5,15 @@
     <title>Handlebars Basics</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="handlebars-v4.0.5.js"></script>
+    <script src="practice.js"></script>
   </head>
   <body>
-
+    <script id="post" type="text/x-handlebars" >
+      <article>
+        <h1>{{ title }}</h1>
+        <time>Posted on {{ published_date }}</time>
+        <p>{{ body }}</p>
+      </article>
+    </script>
   </body>
 </html>
