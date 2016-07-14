@@ -13,7 +13,16 @@
         <h1>{{title}}</h1>
         <p><time>Posted on {{published}}</time></p>
         {{{body}}}
+        <footer>
+          {{#each tags}}
+          {{>tag}}
+          {{/each}}
+        </footer>
       </article>
+    </script>
+
+    <script id="tag" type="text/x-handlebars">
+      <strong>#{{.}}</strong>
     </script>
   </body>
 </html>
