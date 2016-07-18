@@ -13,7 +13,7 @@
         <h1>Amanda Rose's Photos</h1>
         <div id="slideshow">
           <div id="slides">
-            <figure>
+            <figure data-id="1">
               <img src="https://placehold.it/1280x1024">
             </figure>
             <figcaption>
@@ -34,10 +34,10 @@
               <time>Taken on 3/31/15</time>
             </p>
             <div class="action">
-              <a href="#" class="button likes">
+              <a href="#" class="button like" data-id="1">
                 &#9825; 5 Likes
               </a>
-              <a href="#" class="button favorites">
+              <a href="#" class="button favorite" data-id="1">
                 &#9734; 2 Favorites
               </a>
             </div>
@@ -87,11 +87,12 @@
           <form action="" method="post">
             <fieldset>
               <h4>Your Comment</h4>
+              <input type="hidden" name="photo_id" value="">
               <dl>
                 <dt><label for="name">Your Name</label></dt>
-                <dd><input type="text" name="name"></dd>
+                <dd><input type="text" id="name" name="name"></dd>
                 <dt><label for="email">Email Address</label></dt>
-                <dd><input type="email" name="email" placeholder="you@example.com"></dd>
+                <dd><input type="email" id="email" name="email" placeholder="you@example.com"></dd>
                 <dt><label for="body">Comment</label></dt>
                 <dd><textarea id="body" name="body" rows="6" cols="40"></textarea></dd>
               </dl>
@@ -100,5 +101,60 @@
           </form>
         </section>
       </main>
+
+      <script id="photos" type="text/x-handlebars">
+        {{#each photos}}
+        <figure data-id="{{id}}">
+          <img src="{{src}}">
+          <figcaption>{{caption}}</figcaption>
+        </figure>
+        {{/each}}
+      </script>
+
+      <script id="photo_info" type="text/x-handlebars">
+        <h2>{{title}}</h2>
+        <p><time>Taken on {{created_at}}</time></p>
+        <div class="action">
+          <a href="#" class="button like" data-id="{{id}}" data-property="likes">
+            &#9825;
+            {{#if likes}}
+            {{likes}}
+            {{else}}
+            0
+            {{/if}}
+            Likes
+          </a>
+          <a href="#" class="button favorite" data-id="{{id}}" data-property="favorites">
+            &#9734;
+            {{#if favorites}}
+            {{favorites}}
+            {{else}}
+            0
+            {{/if}}
+            Favorites
+          </a>
+        </div>
+      </script>
+
+      <script id="comments" type="text/x-handlebars">
+        {{#each comments}}
+        {{> comment}}
+        {{/each}}
+      </script>
+
+      <script id="comment" data-type="partial" type="text/x-handlebars">
+        <li>
+          <article>
+            <figure>
+              <img src="{{gravatar}}">
+            </figure>
+            <header>
+              <h4>{{name}}</h4>
+              <p><time>Posted {{date}}</time></p>
+            </header>
+            <p>{{body}}</p>
+          </article>
+        </li>
+      </script>
     </body>
   </html>
