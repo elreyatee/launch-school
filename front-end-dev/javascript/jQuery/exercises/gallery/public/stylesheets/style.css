@@ -1,0 +1,182 @@
+body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  color: #333333;
+  background-color: #181818;
+}
+
+main {
+  width: 980px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+h1 {
+  font-size: 32px;
+  padding: 0 0 25px 0;
+}
+
+#slideshow {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+#slideshow ul {
+  list-style: none;
+}
+
+#slideshow a.prev, a.next {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  width: 48px;
+  height: 80px;
+  margin-top: -40px;
+  text-indent: -9000px;
+  background: url("../images/icon_pager.png") 0 0 no-repeat;
+}
+
+#slideshow a.prev {
+  left: 20px;
+}
+
+#slideshow a.next {
+  right: 20px;
+  background-position: 100% 100%;
+}
+
+#slides {
+  position: relative;
+  width: 100%;
+  height: 784px;
+  overflow: hidden;
+}
+
+#slideshow figure {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 784px;
+}
+
+#slideshow figure img {
+  display: block;
+  width: 100%;
+}
+
+#slideshow figcaption {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  left: 0;
+  padding: 15px;
+  color: #ffffff;
+  background-color: #3d3d3d;
+  line-height: 140%;
+}
+
+section > header {
+  position: relative;
+  padding: 0 0 40px 0;
+}
+
+h2 {
+  font-size: 28px;
+  padding: 0 0 15px 0;
+}
+
+.action {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.button, input[type="submit"] {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.likes {
+  background-color: #c5eafa;
+  color: #2a8bb8;
+}
+
+.favorites {
+  background-color: #b70e85;
+  color: #ffffff;
+}
+
+#comments li {
+  padding: 20px 0;
+}
+
+#comments li + li {
+  margin-top: 20px;
+  border-top: 1px solid #cecece;
+}
+
+#comments figure {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+#comments figure img {
+  width: 48px;
+  border-radius: 100%;
+}
+
+#comments header {
+  padding: 8px 0;
+}
+
+#comments header p{
+  font-size: 14px;
+}
+
+#comments article header + p {
+  padding: 15px 0 0 0;
+  margin-left: 68px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+fieldset {
+  border: none;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"] {
+  font-size: 14px;
+  padding: 5px;
+  width: 250px;
+  border: 1px solid #cecece;
+  border-radius: 4px;
+}
+
+textarea {
+  border: 1px solid #cecece;
+  border-radius: 4px;
+}
+
+form h4,
+dd {
+  padding: 0 0 15px 0;
+}

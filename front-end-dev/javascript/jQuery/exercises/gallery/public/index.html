@@ -2,18 +2,21 @@
   <html lang="en-US">
     <head>
       <meta charset="utf-8">
-      <link rel="stylesheet" href="../stylesheets/style.css">
+      <link rel="stylesheet" href="stylesheets/reset.css">
+      <link rel="stylesheet" href="stylesheets/style.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-      <script src="../javascripts/gallery.js"></script>
+      <script src="javascripts/gallery.js"></script>
     </head>
     <body>
       <main>
         <h1>Amanda Rose's Photos</h1>
         <div id="slideshow">
           <div id="slides">
-            <figure></figure>
-            <figcaption></figcaption>
+            <figure>
+              <img src="https://placehold.it/1280x1024">
+            </figure>
+            <figcaption>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</figcaption>
           </div>
           <ul>
             <li><a class="prev" href="#">Prev</a></li>
@@ -23,22 +26,46 @@
         <section>
           <header>
             <h2>City Lights</h2>
-            <p>Taken on 3/31/15</p>
             <p>
-              <button disabled>
-                &#9825; 5 Likes
-              </button>
-              <button disabled>
-                &#9734; 2 Favorites
-              </button>
+              <time>Taken on 3/31/15</time>
             </p>
+            <div class="action">
+              <a href="#" class="button likes">
+                &#9825; 5 Likes
+              </a>
+              <a href="#" class="button favorites">
+                &#9734; 2 Favorites
+              </a>
+            </div>
           </header>
           <div id="comments">
             <h3>Comments</h3>
-            <img src=""></img>
-            <h4>Shane Riley</h4>
-            <p>Posted 3/31/15</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <ul>
+              <li>
+                <article>
+                  <figure>
+                    <img src="http://gravatar.com/avatar/0af2673451bb2c52eda2a7aa1f2467c9">
+                  </figure>
+                  <header>
+                    <h4>Shane Riley</h4>
+                    <p><time>Posted 3/31/15</time></p>
+                  </header>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <article>
+              </li>
+              <li>
+                <article>
+                  <figure>
+                    <img src="http://gravatar.com/avatar/0af2673451bb2c52eda2a7aa1f2467c9">
+                  </figure>
+                  <header>
+                    <h4>Constance Zemicky</h4>
+                    <p><time>Posted 3/31/15</time></p>
+                  </header>
+                  <p>Keffiyeh next level readymade, hashtag chillwave tofu freegan PBR&B cray four dollar toast Echo Park art party American Apparel Portland skateboard. Semiotics Bushwick flexitarian, plaid drinking vinegar deep v keytar lomo squid banjo sustainable try-hard PBR cronut ethical. Scenester bitters roof party tofu, disrupt flannel deep v Brooklyn meditation actually blog Austin pop-up Thundercats wayfarers. Fingerstache High Life brunch VHS, sriracha Bushwick hashtag Helvetica banh mi raw denim. Flannel Etsy keffiyeh blog stumptown bespoke leggings cornhole. Heirloom PBR&B letterpress blog Odd Future readymade messenger bag, aesthetic literally. Yr Banksy banh mi authentic PBR.</p>
+                </article>
+              </li>
+            </ul>
           </div>
           <form action="" method="post">
             <fieldset>
@@ -47,12 +74,12 @@
                 <dt><label for="name">Your Name</label></dt>
                 <dd><input type="text" name="name"></dd>
                 <dt><label for="email">Email Address</label></dt>
-                <dd><input type="email" name="email"></dd>
-                <dt><label for="comment">Comment</label></dt>
-                <dd><input type="textarea" name="comment"></dd>
+                <dd><input type="email" name="email" placeholder="you@example.com"></dd>
+                <dt><label for="body">Comment</label></dt>
+                <dd><textarea id="body" name="body" rows="6" cols="40"></textarea></dd>
               </dl>
             </fieldset>
-            <input type="submit" value="Post Comment">
+            <input type="submit" class="likes" value="Post Comment">
           </form>
         </section>
       </main>
