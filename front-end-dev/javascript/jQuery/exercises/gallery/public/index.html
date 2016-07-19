@@ -24,10 +24,10 @@
             <h3>Comments</h3>
             <ul></ul>
           </div>
-          <form action="" method="post">
+          <form action="/comments/new" method="post">
             <fieldset>
               <h4>Your Comment</h4>
-              <input type="hidden" name="photo_id" value="">
+              <input type="hidden" name="photo_id" value="1">
               <dl>
                 <dt><label for="name">Your Name</label></dt>
                 <dd><input type="text" id="name" name="name"></dd>
@@ -55,7 +55,7 @@
         <h2>{{title}}</h2>
         <p><time>Taken on {{created_at}}</time></p>
         <div class="action">
-          <a href="#" class="button like" data-id="{{id}}" data-property="likes">
+          <a href="/photos/like" class="button like" data-id="{{id}}" data-property="likes">
             &#9825;
             {{#if likes}}
             {{likes}}
@@ -64,7 +64,7 @@
             {{/if}}
             Likes
           </a>
-          <a href="#" class="button favorite" data-id="{{id}}" data-property="favorites">
+          <a href="/photos/favorite" class="button favorite" data-id="{{id}}" data-property="favorites">
             &#9734;
             {{#if favorites}}
             {{favorites}}
