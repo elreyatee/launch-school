@@ -1,0 +1,45 @@
+body {
+	font: normal 16px Helvetica, Arial, sans-serif;
+	background-color: #181818;
+}
+
+main {
+	width: 980px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #ffffff;
+
+}
+
+h1 {
+	font-size: 32px;
+	padding: 0 0 25px 0;
+}
+
+#slideshow {
+	position: relative;
+	width: 980px;
+	height: 784px;
+}
+
+#slides {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#slides figure img {
+	width: 100%;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#slides figcaption {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+	padding: 20px 15px;
+	color: #ffffff;
+	background-color: #3d3d3d;
+}
