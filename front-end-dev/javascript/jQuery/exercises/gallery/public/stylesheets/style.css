@@ -95,13 +95,13 @@ section > header {
   padding: 0 0 40px 0;
 }
 
-.action {
+div.action {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.button, input[type="submit"] {
+a.button, input[type="submit"] {
   font: normal 16px Helvetica, Arial, sans-serif;
   border: none;
   text-decoration: none;
@@ -111,12 +111,12 @@ section > header {
   cursor: pointer;
 }
 
-.likes {
+a.likes {
   background-color: #c5eafa;
   color: #2a8bb8;
 }
 
-.favorites {
+a.favorites {
   background-color: #b70e85;
   color: #ffffff;
 }
