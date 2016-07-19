@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
+		<script src="javascripts/jquery-1.12.4.min.js"></script>
+		<script src="javascripts/handlebars-v4.0.5.js"></script>
+		<script src="javascripts/gallery.js"></script>
+	</head>
+	<body>
+		<main>
+			<h1>Amanda Rose's Photos</h1>
+			<div id="slideshow">
+				<div id="slides">
+					
+				</div>
+			</div>
+			<section>
+				<header>
+
+				</header>
+				<div id="comments">
+				  <ul>
+
+				  </ul>
+				</div>
+				<form action="" method="post">
+					<fieldset>
+						<h4>Your Comment</h4>
+						<input type="hidden" data-id="" value="" />
+						<dl>
+							<dt><label for="name">Your Name</label></dt>
+							<dd><input type="text" id="name" name="name" /></dd>
+							<dt><label for="email">Email Address</label></dt>
+							<dd><input type="email" id="email" name="email" /></dd>
+							<dt><label for="body">Comment</label></dt>
+							<dd><textarea id="body" name="body" rows="6" cols="40"></textarea></dd>
+						</dl>
+						<input type="submit" value="Post Comment" />
+					</fieldset>
+				</form>
+			</section>
+		</main>
+	</body>
+
+	<!-- photo slides template -->
+	<script id="photos" type="text/x-handlebars">
+		<figure data-id="{{id}}">
+			<img src="{{src}}"/>
+		</figure>
+		<figcaption>{{caption}}</figcaption>
+		<ul>
+			<li>
+				<a href="#" class="prev">Prev</a>
+			</li>
+			<li>
+				<a href="#" class="next">Next</a>
+			</li>
+		</ul>
+	</script>
+
+	<!-- photo information template -->
+	<script id="photo_information" type="text/x-handlebars">
+		<h2>{{title}}</h2>
+		<p>Taken on<time>{{date}}</time></p>
+		<div class="actions">
+			<a href="#" class="button likes">
+				&#9825;
+				{{#if likes}}
+				{{likes}}
+				{{else}}
+				0
+				{{/if}}
+				Likes
+			</a>
+			<a href="#" class="button favorites">
+			  &#9734;
+			  {{#if favorites}}
+			  {{favorites}}
+			  {{else}}
+			  0
+			  {{/if}}
+			  Favorites
+			</a>
+		</div>
+	</script>
+
+	<!-- comments template -->
+	<script id="comments" type="text/x-handlebars">
+		{{#each comments}}
+		{{> comment}}
+		{{/each}}
+	</script>
+
+  <!-- comment partial -->
+	<script id="comment" data-type="partial" type="text/x-handlebars">
+		<li>
+			<article>
+				<figure>
+					<img src="{{gravatar}}" />
+				</figure>
+				<header>
+				  <h4>{{name}}</h4>
+				  <p>Posted <time>{{date}}</time></p>
+				</header>
+				<p>{{body}}</p>
+			</article>
+		</li>
+	</script>
+</html>
