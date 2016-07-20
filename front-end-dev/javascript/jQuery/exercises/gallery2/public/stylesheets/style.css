@@ -8,7 +8,6 @@ main {
 	margin: 0 auto;
 	padding: 20px;
 	background-color: #ffffff;
-
 }
 
 h1 {
@@ -20,6 +19,7 @@ h1 {
 	position: relative;
 	width: 980px;
 	height: 784px;
+	margin: 0 0 40px 0;
 }
 
 #slides {
@@ -39,9 +39,10 @@ h1 {
 	left: 0;
 	bottom: 0;
 	z-index: 2;
-	padding: 20px 15px;
+	padding: 15px;
 	color: #ffffff;
 	background-color: #3d3d3d;
+	line-height: 140%;
 }
 
 #slides li {
@@ -68,4 +69,114 @@ h1 {
 	background: url("../images/icon_pager.png") 0 0 no-repeat;
 	margin-right: 20px;
 	background-position: 100% 100%;
+}
+
+section, 
+section > header {
+	position: relative;
+}
+
+section > header {
+	padding: 0 0 40px 0;
+}
+
+section > header h2 {
+	font-size: 28px;
+	padding: 0 0 15px 0;
+}
+
+section .actions {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px 15px;
+	text-decoration: none;
+	border-radius: 10px;
+	margin: 0 0 0 1px;
+	cursor: pointer;
+}
+
+.likes {
+  background-color: #c5eafa;
+  color: #2a8bb8;
+}
+
+.favorites {
+	background-color: #b70e85;
+	color: #ffffff;
+}
+
+#comments h3 {
+	font-size: 24px;
+	padding: 0 0 25px 0;
+}
+
+#comments header h4 {
+	font-size: 20px;
+}
+
+#comments figure {
+	display: inline-block;
+	margin: 0 15px 0 0;
+}
+
+#comments figure img {
+	width: 48px;
+	height: 48px;
+	border-radius: 100%;
+}
+
+#comments article header {
+	display: inline-block;
+	margin: 0 0 25px 0;
+}
+
+#comments article header + p {
+	margin: 0 0 0 68px;
+	padding: 0 0 20px 0;
+}
+
+#comments li + li {
+	border-top: 1px solid #cecece;
+	padding-top: 20px;
+	margin-top: 20px;
+}
+
+textarea,
+form input {
+	box-sizing: border-box;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+	border: 1px solid #cecece;
+	border-radius: 4px;
+	font: normal 14px Helvetica, Arial, sans-serif;
+	padding: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+	width: 250px;
+	height: 30px;
+}
+
+form h4,
+dd {
+	padding: 0 0 15px 0;
+}
+
+dt {
+	font-weight: bold;
+	padding: 0 0 5px 0;
+}
+
+input[type="submit"] {
+	margin: 0;
+	border: none;
 }
