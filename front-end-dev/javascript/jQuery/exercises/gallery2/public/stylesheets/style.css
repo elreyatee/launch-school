@@ -45,11 +45,11 @@ h1 {
 	line-height: 140%;
 }
 
-#slides li {
+#slideshow li {
 	list-style: none;
 }
 
-#slides li a {
+#slideshow li a {
 	position: absolute;
 	top: 50%;
 	margin-top: -40px;

@@ -14,6 +14,15 @@ $(function() {
 		}
 	});
 
+	var slideshow = {
+		bind: function() {
+
+		},
+		init: function() {
+			this.bind();
+		}
+	};
+
 	function renderPhotos() {
 		$("#slides").html(templates.photos({ photos: photos }));
 	}
