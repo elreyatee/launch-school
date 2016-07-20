@@ -10,7 +10,11 @@ $(function() {
 		url: "/photos",
 		success: function(json) {
 			photos = json;
-			$("#slides").append(templates.photos(photos[0]));
+			renderPhotos();
 		}
 	});
+
+	function renderPhotos() {
+		$("#slides").html(templates.photos({ photos: photos }));
+	}
 });

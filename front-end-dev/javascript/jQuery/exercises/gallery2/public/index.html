@@ -78,6 +78,7 @@
 
 	<!-- photo slides template -->
 	<script id="photos" type="text/x-handlebars">
+	  {{#each photos}}
 		<figure data-id="{{id}}">
 			<img src="{{src}}"/>
 		</figure>
@@ -90,6 +91,7 @@
 				<a href="#" class="next">Next</a>
 			</li>
 		</ul>
+		{{/each}}
 	</script>
 
 	<!-- photo information template -->
