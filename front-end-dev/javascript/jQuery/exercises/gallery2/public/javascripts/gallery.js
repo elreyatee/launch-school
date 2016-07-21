@@ -3,7 +3,7 @@ $(function() {
 	    photos;
 
   // capture all templates into an object
-	$("script[type='text/x-handlebars").each(function(_, item) {
+	$("script[type='text/x-handlebars']").each(function(_, item) {
 		templates[item.getAttribute("id")] = Handlebars.compile(item.innerHTML);
 	});
 
@@ -20,9 +20,24 @@ $(function() {
 		}
 	});
 
+	$("form").on("submit", function(e) {
+		e.preventDefault();
+		var $form = $(this);
+
+		$.ajax({
+			url: "/comments/new",
+			method: "POST",
+			data: $form.serialize(),
+			success: function(json) {
+				$("#comments ul").append(templates.comment(json));
+				$form.get(0).reset();
+			}
+	  });
+	});
+
 	var slideshow = {
 		$slideshow: $("#slideshow"),
-		default: 500,
+		duration: 500,
 		prevSlide: function(e) {
 			e.preventDefault();
 
@@ -33,8 +48,8 @@ $(function() {
 				$prev = this.$slideshow.find("figure").last();
 			}
 
-			$current.fadeOut(this.default);
-			$prev.fadeIn(this.default, "linear", renderPhotoContent(+$prev.attr("data-id")));
+			$current.fadeOut(this.duration);
+			$prev.fadeIn(this.duration, "linear", renderPhotoContent(+$prev.attr("data-id")));
 		},
 		nextSlide: function(e) {
 			e.preventDefault();
@@ -46,8 +61,8 @@ $(function() {
 				$next = this.$slideshow.find("figure").first();
 			}
 
-			$current.fadeOut(this.default, "linear");
-			$next.fadeIn(this.default, "linear", renderPhotoContent(+$next.attr("data-id")));
+			$current.fadeOut(this.duration, "linear");
+			$next.fadeIn(this.duration, "linear", renderPhotoContent(+$next.attr("data-id")));
 		},
 		bind: function() {
 			this.$slideshow.find(".prev").on("click", $.proxy(this.prevSlide, this));
@@ -83,6 +98,7 @@ $(function() {
 	}
 
 	function renderPhotoContent(photo_id) {
+		$("input[name='photo_id']").val(photo_id);
 		renderPhotoInformation(photo_id);
 		renderComments(photo_id);
 	}
