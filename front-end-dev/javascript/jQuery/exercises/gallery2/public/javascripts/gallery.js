@@ -97,8 +97,12 @@ $(function() {
 		});
 	}
 
-	function renderPhotoContent(photo_id) {
+	function setFormPhotoID(photo_id) {
 		$("input[name='photo_id']").val(photo_id);
+	}
+
+	function renderPhotoContent(photo_id) {
+		setFormPhotoID(photo_id);
 		renderPhotoInformation(photo_id);
 		renderComments(photo_id);
 	}
