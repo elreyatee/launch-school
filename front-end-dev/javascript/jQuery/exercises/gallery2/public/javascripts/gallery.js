@@ -20,13 +20,29 @@ $(function() {
 		}
 	});
 
+	$("section > header").on("click", ".actions a", function(e){
+		e.preventDefault();
+		var $button = $(e.target);
+
+		$.ajax({
+			url: $button.attr("href"),
+			method: "post",
+			data: "photo_id=" + $button.attr("data-id"),
+			success: function(json) {
+				$button.text(function(_, text) {
+					return text.replace(/\d+/, json.total);
+				});
+			}
+		});
+	});
+
 	$("form").on("submit", function(e) {
 		e.preventDefault();
 		var $form = $(this);
 
 		$.ajax({
 			url: "/comments/new",
-			method: "POST",
+			method: "post",
 			data: $form.serialize(),
 			success: function(json) {
 				$("#comments ul").append(templates.comment(json));

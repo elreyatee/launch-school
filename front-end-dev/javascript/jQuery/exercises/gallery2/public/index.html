@@ -15,10 +15,10 @@
 				<div id="slides"></div>
 				<ul>
 					<li>
-						<a href="" class="prev">Prev</a>
+						<a href="#" class="prev">Prev</a>
 					</li>
 					<li>
-						<a href="" class="next">Next</a>
+						<a href="#" class="next">Next</a>
 					</li>
 				</ul>
 			</div>
@@ -62,7 +62,7 @@
 		<h2>{{title}}</h2>
 		<p>Taken on <time>{{created_at}}</time></p>
 		<div class="actions">
-			<a href="#" class="button likes">
+			<a href="/photos/like" class="button likes" data-id="{{id}}">
 				&#9825;
 				{{#if likes}}
 				{{likes}}
@@ -71,7 +71,7 @@
 				{{/if}}
 				Likes
 			</a>
-			<a href="#" class="button favorites">
+			<a href="/photos/favorite" class="button favorites" data-id="{{id}}">
 			  &#9734;
 			  {{#if favorites}}
 			  {{favorites}}
