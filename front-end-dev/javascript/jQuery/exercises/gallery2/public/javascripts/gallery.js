@@ -4,7 +4,8 @@ $(function() {
 
   // capture all templates into an object
 	$("script[type='text/x-handlebars']").each(function(_, item) {
-		templates[item.getAttribute("id")] = Handlebars.compile(item.innerHTML);
+		$item = $(item);
+		templates[$item.attr("id")] = Handlebars.compile($item.html());
 	});
 
 	// register partial
