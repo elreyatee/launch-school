@@ -18,10 +18,6 @@ a {
 	color: #141414;
 }
 
-a:hover {
-	color: #1111f7;
-}
-
 main {
 	width: 800px;
 	margin: 0 auto;
@@ -30,8 +26,12 @@ main {
 	box-sizing: border-box;
 }
 
-article + article {
+#tabs article {
 	display: none;
+}
+
+#tabs article.selected {
+	display: block;
 }
 
 nav li {
@@ -41,6 +41,10 @@ nav li {
 
 .active {
 	background-color: #11f728;
+}
+
+.active a {
+	color: #1111f7;
 }
 
 p {
