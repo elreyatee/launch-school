@@ -26,14 +26,6 @@ main {
 	box-sizing: border-box;
 }
 
-#tabs article {
-	display: none;
-}
-
-#tabs article.selected {
-	display: block;
-}
-
 nav li {
 	display: inline-block;
 	padding: 10px 20px;
@@ -46,6 +38,14 @@ nav li {
 
 .active a {
 	color: #1111f7;
+}
+
+article + article {
+	display: block;
+}
+
+article {
+	display: none;
 }
 
 p {
