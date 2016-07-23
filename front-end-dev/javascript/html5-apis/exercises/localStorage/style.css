@@ -1,0 +1,61 @@
+body, main, fieldset, ul {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font: normal 16px Helvetica, Arial, sans-serif;
+	color: #141414;
+	background-color: #141414;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #141414;
+}
+
+a:hover {
+	color: #1111f7;
+}
+
+main {
+	width: 800px;
+	margin: 0 auto;
+	padding: 50px 30px;
+	background-color: #ffffff;
+	box-sizing: border-box;
+}
+
+article + article {
+	display: none;
+}
+
+nav li {
+	display: inline-block;
+	padding: 10px 20px;
+}
+
+.active {
+	background-color: #11f728;
+}
+
+p {
+	text-align: justify;
+}
+
+fieldset {
+	border: none;
+}
+
+input[type='radio'] {
+	margin: -2px 5px 0 0;
+	vertical-align: middle;
+}
+
+form ul {
+	padding-left: 30px;
+}
