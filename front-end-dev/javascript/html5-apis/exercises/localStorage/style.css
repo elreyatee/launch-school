@@ -38,6 +38,7 @@ nav li {
 
 .active a {
 	color: #1111f7;
+	font-weight: bold;
 }
 
 article + article {
