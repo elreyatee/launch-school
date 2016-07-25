@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="en-US">
   <head>
+    <title>Canvas Drawing</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="canvas.js"></script>
   </head>
   <body>
-    <main>
-      <canvas></canvas>
-      <footer>
-        <ul>
-          <li><a href="#" data-method="circle" class="button">Circle</a></li>
-          <li><a href="#" data-method="square" class="button">Square</a></li>
-          <li><a href="#" data-method="triangle" class="button">Triangle</a></li>
-          <li><a href="#" data-method="clear" class="button">Clear</a></li>
-          <li>
-            <label>Color:</label>
-            <input type="text" />
-          </li>
-        </ul>
-      </footer>
-    </main>
+    <canvas width="800" height="500"></canvas>
+    <ul>
+      <li><a href="#" data-method="circle" class="drawing_method active">Circle</a></li>
+      <li><a href="#" data-method="square" class="drawing_method">Square</a></li>
+      <li><a href="#" data-method="triangle" class="drawing_method">Triangle</a></li>
+      <li><a href="#" data-method="clear" id="clear">Clear</a></li>
+      <li>
+        <form action="" method="get">
+          <fieldset>
+          <label>Color: <input type="text" /></label>
+          </fieldset>
+        </form>
+      </li>
+    </ul>
   </body>
 </html>
