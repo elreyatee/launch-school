@@ -1,7 +1,8 @@
 $(function() {
   var canvas = document.querySelector("canvas"),
       ctx = canvas.getContext("2d"),
-      method;
+      method,
+      $color = $("input");
 
   var drawing_methods = {
     square: function(e) {
@@ -32,6 +33,9 @@ $(function() {
       ctx.lineTo(x - side / 2, y + side);
       ctx.fill();
       ctx.closePath();
+    },
+    clear: function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   };
 
@@ -48,12 +52,13 @@ $(function() {
   $("#clear").on("click", function(e) {
     e.preventDefault();
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawing_methods.clear();
   });
 
   $("canvas").on("click", function(e) {
-    var $el = $(this);
+    var color = $color.val();
 
+    ctx.fillStyle = color;
     drawing_methods[method](e);
   });
 });
