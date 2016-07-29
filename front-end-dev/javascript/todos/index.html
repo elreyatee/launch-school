@@ -44,54 +44,47 @@
     </div>
 
     <main>
-      <article>
-        <header>
-          <h1>02/16<span>8</span></h1>
-          <a href="#" id="add-todo">
-            <img src="images/plus-icon.png" alt="add-todo" />Add new to do
-          </a>
-        </header>
+      <header>
+        <h1>02/16<span>8</span></h1>
+        <a href="#" id="add-todo">
+          <img src="images/plus-icon.png" alt="add-todo" />Add new to do
+        </a>
+      </header>
 
-        <div id="modal">
-          <form action="" method="post" id="new-todo">
-            <dl>
-              <dt><label for="title">Title</label></dt>
-              <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
-            </dl>
-            <dl>
-              <dt><label for="due-date">Due Date</label></dt>
-              <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
-              <span>/</span>
-              <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
-              <span>/</span>
-              <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
-            </dl>
-            <dl>
-              <dt><label for="description">Description</label></dt>
-              <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
-            </dl>
-            <dl>
-              <dt></dt>
-              <dd><button type="submit">Save</button></dd>
-              <dd><button type="submit" formaction="">Mark as Complete</button></dd>
-            </dl>
-          </form>
-        </div>
+      <div id="modal">
+        <form action="" method="post" id="new-todo">
+          <dl>
+            <dt><label for="title">Title</label></dt>
+            <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
+          </dl>
+          <dl>
+            <dt><label for="due-date">Due Date</label></dt>
+            <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
+            <span>/</span>
+            <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
+            <span>/</span>
+            <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
+          </dl>
+          <dl>
+            <dt><label for="description">Description</label></dt>
+            <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
+          </dl>
+          <dl>
+            <dt></dt>
+            <dd><button type="submit">Save</button></dd>
+            <dd><button type="submit" formaction="">Mark as Complete</button></dd>
+          </dl>
+        </form>
+      </div>
 
-        <ul>
-          <li>
-            <form action="" method="post">
-              <input type="checkbox" id="item-1" />
-              <span class="mycheckbox"></span><!--
-              --><label for="item-1">Item 1</label>
-            </form>
-
-            <form action="" method="post">
-              <button type="submit"><span>Delete</span></button>
-            </form>
-          </li>
-        </ul>
-      </article>
+      <ul>
+        <li class="todo-item">
+          <input type="checkbox" id="item-1" />
+          <span class="mycheckbox"></span>
+          <label for="item-1">Item 1</label>
+          <img src="images/trash-bin.png" class="delete" />
+        </li>
+      </ul>
     </main>
   </body>
 </html>

@@ -21,8 +21,6 @@ a {
   color: inherit;
 }
 
-/**************************Sidebar Styles**************************/
-
 #sidebar {
   width: 335px;
   height: 100%;
@@ -89,7 +87,7 @@ main {
   padding: 60px 100px 0 20px;
 }
 
-main header { padding: 0 0 16px 10px; }
+main header { padding: 0 0 16px 16px; }
 
 main header h1 {
   padding-top: 8px;
@@ -114,25 +112,16 @@ main header h1 span {
 
 main header img { cursor: pointer; }
 
-main li {
+.todo-item {
   width: 100%;
-  padding: 16px 0 16px 10px;
+  padding: 16px;
   border-top: 1px solid #e7e7e7;
 }
 
-main li label {
+.todo-item label {
   padding-left: 12px;
   cursor: pointer;
 }
-
-main li a {
-  color: #3498d8;
-  padding-left: 15px;
-}
-
-main form { display: inline-block; }
-
-main li form:last-of-type { float: right; }
 
 span.mycheckbox {
   content: "";
@@ -156,12 +145,8 @@ main li label:hover {
   color: #3498d8;
 }
 
-main li button {
-  background: transparent url("../images/trash-bin.png") no-repeat;
-  border: none;
-  width: 17px;
-  height: 17px;
-  background-position: 50% 50%;
+.todo-item .delete {
+  float: right;
 }
 
 main li button span,
@@ -198,6 +183,7 @@ main header h1 {
 }
 
 #new-todo {
+  font-size: 16px;
   position: absolute;
   top: 107px;
   left: 105px;
@@ -212,7 +198,6 @@ main header h1 {
 }
 
 #new-todo dl {
-  margin: 0;
   margin-bottom: 24px;
 }
 

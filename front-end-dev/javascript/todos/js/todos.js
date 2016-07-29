@@ -8,5 +8,8 @@ $(function() {
 
   $modal.click(function() {
     $(this).hide();
-  })
+  });
+
+  
+
 });
