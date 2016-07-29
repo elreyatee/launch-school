@@ -14,27 +14,38 @@
     </label>
     <input type="checkbox" id="panel-toggle" />
 
-    <header>
-      <nav>
-        <ul id="all-todos">
-          <li><a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span></li>
-          <li class="selected"><a href="#">02/16</a><span>8</span></li>
+    <div id="sidebar">
+      <div id="all-todos">
+        <h2>
+          <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span>
+        </h2>
+        <ul>
+          <!-- <li><a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span></li> -->
+          <li class="selected">
+            <a href="#">02/16</a>
+            <span>8</span>
+          </li>
           <li><a href="#">03/16</a><span>2</span></li>
           <li><a href="#">04/16</a><span>1</span></li>
           <li><a href="#">05/16</a><span>1</span></li>
           <li><a href="#">06/16</a><span>6</span></li>
         </ul>
+      </div>
 
-        <ul id="completed">
-          <li><a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a></li>
+      <div id="completed">
+        <h2>
+          <a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a>
+        </h2>
+        <ul>
+          <!-- <li><a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a></li> -->
           <li><a href="#">02/15</a></li>
           <li><a href="#">03/15</a></li>
           <li><a href="#">04/15</a></li>
           <li><a href="#">05/15</a></li>
           <li><a href="#">06/14</a></li>
         </ul>
-      </nav>
-    </header>
+      </div>
+    </div>
 
     <main>
       <article>

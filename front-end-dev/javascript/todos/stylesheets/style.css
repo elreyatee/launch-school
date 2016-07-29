@@ -21,22 +21,23 @@ a {
   color: inherit;
 }
 
-header {
+/**************************Sidebar Styles**************************/
+
+#sidebar {
   width: 335px;
   height: 100%;
   float: left;
   background: #464f77;
-}
-
-nav ul {
   padding-top: 60px;
 }
 
-nav ul li:first-of-type {
+#sidebar h2 {
+  font-weight: inherit;
   color: #ffffff;
 }
 
-nav li {
+#sidebar h2,
+#sidebar li {
   position: relative;
   display: table;
   text-align: center;
@@ -44,23 +45,19 @@ nav li {
   width: 100%;
 }
 
-nav li.selected {
+#sidebar a,
+#sidebar h2 img { vertical-align: middle; }
+
+#sidebar a { display: table-cell; }
+
+#sidebar h2 img { padding-right: 10px; }
+
+#sidebar .selected {
   background: #383f5f;
   color: #ffffff;
 }
 
-nav li a {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-nav li a img {
-  display: inline;
-  padding-right: 10px;
-  vertical-align: middle;
-}
-
-nav span {
+#sidebar span {
   display: table-cell;
   position: absolute;
   text-align: center;
@@ -73,18 +70,15 @@ nav span {
   background: #6b7292;
   color: #b2b5c3;
   font-size: 14px;
-  padding: 0;
 }
 
-li.selected span {
+#sidebar .selected span {
   background: #148fd5;
   border: 1px solid #148fd5;
   color: #ffffff;
 }
 
-ul#completed li + li {
-  text-decoration: line-through;
-}
+#completed li { text-decoration: line-through; }
 
 main {
   position: relative;
@@ -316,7 +310,7 @@ body > label {
     min-width: 480px;
   }
 
-  header {
+  #sidebar {
     display: none;
   }
 
