@@ -3,7 +3,7 @@
 * { box-sizing: border-box; }
 
 html, body {
-  font: normal 16px Helvetica, Arial, sans-serif;
+  font: normal 18px Helvetica, Arial, sans-serif;
   font-weight: 400;
   letter-spacing: 1px;
   max-width: 1200px;
@@ -89,7 +89,14 @@ main {
   padding: 60px 100px 0 20px;
 }
 
-main h1 span {
+main header { padding: 0 0 16px 10px; }
+
+main header h1 {
+  padding-top: 8px;
+  padding-bottom: 17px;
+}
+
+main header h1 span {
   position: relative;
   display: inline-block;
   left: 18px;
@@ -105,20 +112,12 @@ main h1 span {
   vertical-align: middle;
 }
 
+main header img { cursor: pointer; }
+
 main li {
   width: 100%;
   padding: 16px 0 16px 10px;
   border-top: 1px solid #e7e7e7;
-}
-
-main li:first-of-type,
-main li:nth-of-type(2) {
-  border-style: none;
-}
-
-main li:first-of-type {
-  padding-top: 8px;
-  padding-bottom: 17px;
 }
 
 main li label {
@@ -131,13 +130,9 @@ main li a {
   padding-left: 15px;
 }
 
-main form {
-  display: inline-block;
-}
+main form { display: inline-block; }
 
-main li form:last-of-type {
-  float: right;
-}
+main li form:last-of-type { float: right; }
 
 span.mycheckbox {
   content: "";
@@ -157,11 +152,11 @@ main input[type="checkbox"]:checked ~ label {
   text-decoration: line-through;
 }
 
-main li + li label:hover {
+main li label:hover {
   color: #3498d8;
 }
 
-main li:nth-of-type(2) ~ li button {
+main li button {
   background: transparent url("../images/trash-bin.png") no-repeat;
   border: none;
   width: 17px;
@@ -174,26 +169,24 @@ main input[type="checkbox"]  {
   display: none;
 }
 
-main li:nth-of-type(2) label img {
+main header img {
   padding-right: 8px;
 }
 
-main li:nth-of-type(2) label {
+main header a {
   padding-left: 0;
   color: #148fd5;
 }
 
-main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new-todo {
-  visibility: visible;
-  z-index: 2;
+main header h1 {
+  padding-bottom: 40px;
 }
 
-main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
-  color: #148fd5;
-  text-decoration: none;
+#modal {
+  display: none;
 }
 
-main li:nth-of-type(2) input[type="checkbox"]:checked + label:after{
+#modal:after {
   position: fixed;
   content: "";
   top: 0;
@@ -204,11 +197,7 @@ main li:nth-of-type(2) input[type="checkbox"]:checked + label:after{
   z-index: 1;
 }
 
-main li:nth-of-type(2) input ~ form#new-todo {
-  visibility: hidden;
-}
-
-form#new-todo {
+#new-todo {
   position: absolute;
   top: 107px;
   left: 105px;
@@ -222,17 +211,17 @@ form#new-todo {
   z-index: 3;
 }
 
-form#new-todo dl {
+#new-todo dl {
   margin: 0;
   margin-bottom: 24px;
 }
 
-form#new-todo dt,
-form#new-todo dd {
+#new-todo dt,
+#new-todo dd {
   display: inline-block;
 }
 
-form#new-todo dt {
+#new-todo dt {
   width: 90px;
   height: 36px;
   text-align: left;
@@ -242,19 +231,19 @@ form#new-todo dt {
   padding-left: 0;
 }
 
-form#new-todo label {
+#new-todo label {
   font-weight: 400;
   color: #060606;
   padding: 0;
 }
 
-form#new-todo input,
-form#new-todo textarea {
+#new-todo input,
+#new-todo textarea {
   font-size: 16px;
   border: 1px solid #b3b3b3;
 }
 
-form#new-todo button {
+#new-todo button {
   width: 182px;
   height: 34px;
   font-size: 16px;
@@ -265,7 +254,7 @@ form#new-todo button {
   margin-right: 18px;
 }
 
-form#new-todo textarea {
+#new-todo textarea {
   font: normal 16px Helvetica, Arial, sans-serif;
   resize: none;
   width: 396px;
@@ -273,19 +262,19 @@ form#new-todo textarea {
   padding: 8px;
 }
 
-form#new-todo input[id="title"] {
+#new-todo input[id="title"] {
   width: 396px;
   height: 36px;
   padding: 8px;
 }
 
-form#new-todo input[id="due-date"] {
+#new-todo input[id="due-date"] {
   width: 116px;
   height: 36px;
   padding: 8px;
 }
 
-form#new-todo span {
+#new-todo span {
   display: inline-block;
   width: 13px;
   text-align: center;
@@ -318,7 +307,7 @@ body > label {
     display: inline-block;
   }
 
-  body > input[id="panel-toggle"]:checked + header {
+  body > input[id="panel-toggle"]:checked + #sidebar {
     display: block;
     cursor: pointer;
   }

@@ -17,18 +17,18 @@
     <div id="sidebar">
       <div id="all-todos">
         <h2>
-          <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span>
+          <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a>
+          <span>18</span>
         </h2>
         <ul>
-          <!-- <li><a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span></li> -->
           <li class="selected">
             <a href="#">02/16</a>
             <span>8</span>
           </li>
-          <li><a href="#">03/16</a><span>2</span></li>
-          <li><a href="#">04/16</a><span>1</span></li>
-          <li><a href="#">05/16</a><span>1</span></li>
-          <li><a href="#">06/16</a><span>6</span></li>
+          <li>
+            <a href="#">03/16</a>
+            <span>2</span>
+          </li>
         </ul>
       </div>
 
@@ -37,52 +37,48 @@
           <a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a>
         </h2>
         <ul>
-          <!-- <li><a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a></li> -->
           <li><a href="#">02/15</a></li>
           <li><a href="#">03/15</a></li>
-          <li><a href="#">04/15</a></li>
-          <li><a href="#">05/15</a></li>
-          <li><a href="#">06/14</a></li>
         </ul>
       </div>
     </div>
 
     <main>
       <article>
+        <header>
+          <h1>02/16<span>8</span></h1>
+          <a href="#" id="add-todo">
+            <img src="images/plus-icon.png" alt="add-todo" />Add new to do
+          </a>
+        </header>
+
+        <div id="modal">
+          <form action="" method="post" id="new-todo">
+            <dl>
+              <dt><label for="title">Title</label></dt>
+              <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
+            </dl>
+            <dl>
+              <dt><label for="due-date">Due Date</label></dt>
+              <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
+              <span>/</span>
+              <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
+              <span>/</span>
+              <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
+            </dl>
+            <dl>
+              <dt><label for="description">Description</label></dt>
+              <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
+            </dl>
+            <dl>
+              <dt></dt>
+              <dd><button type="submit">Save</button></dd>
+              <dd><button type="submit" formaction="">Mark as Complete</button></dd>
+            </dl>
+          </form>
+        </div>
+
         <ul>
-          <li><h1>02/16<span>8</span></h1></li>
-          <li>
-            <input type="checkbox" id="add-todo" />
-            <label for="add-todo">
-              <img src="images/plus-icon.png" alt="add-todo" />
-              Add new to do
-            </label>
-
-            <form action="" method="post" id="new-todo">
-              <dl>
-                <dt><label for="title">Title</label></dt>
-                <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
-              </dl>
-              <dl>
-                <dt><label for="due-date">Due Date</label></dt>
-                <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
-                <span>/</span>
-                <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
-                <span>/</span>
-                <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
-              </dl>
-              <dl>
-                <dt><label for="description">Description</label></dt>
-                <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
-              </dl>
-              <dl>
-                <dt></dt>
-                <dd><button type="submit">Save</button></dd>
-                <dd><button type="submit" formaction="">Mark as Complete</button></dd>
-              </dl>
-            </form>
-          </li>
-
           <li>
             <form action="" method="post">
               <input type="checkbox" id="item-1" />
@@ -92,30 +88,6 @@
 
             <form action="" method="post">
               <button type="submit"><span>Delete</span></button>
-            </form>
-          </li>
-
-          <li>
-            <form action="" method="post">
-              <input type="checkbox" id="item-2" />
-              <span class="mycheckbox"></span><!--
-              --><label for="item-2">Item 2</label>
-            </form>
-
-            <form action="" method="post">
-              <button type="submit"></button>
-            </form>
-          </li>
-
-          <li>
-            <form action="" method="post">
-              <input type="checkbox" id="item-3" checked />
-              <span class="mycheckbox"></span><!--
-              --><label for="item-3">Item 3</label>
-            </form>
-
-            <form action="" method="post">
-              <button type="submit"></button>
             </form>
           </li>
         </ul>
