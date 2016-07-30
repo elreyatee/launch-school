@@ -87,7 +87,7 @@ main {
   padding: 60px 100px 0 20px;
 }
 
-main header { padding: 0 0 16px 16px; }
+main header { padding: 0 0 0 16px; }
 
 main header h1 {
   padding-top: 8px;
@@ -110,10 +110,6 @@ main header h1 span {
   vertical-align: middle;
 }
 
-#add-todo img {
-  padding-right: 18px;
-}
-
 .todo-item {
   width: 100%;
   padding: 16px;
@@ -134,16 +130,16 @@ span.mycheckbox {
   background: transparent url("../images/unchecked-box.png") no-repeat;
 }
 
-main input[type="checkbox"]:checked + span.mycheckbox {
+#todo-list input[type="checkbox"]:checked + span.mycheckbox {
   background: transparent url("../images/checked-box.png") no-repeat;
 }
 
-main input[type="checkbox"]:checked ~ label {
+#todo-list input[type="checkbox"]:checked ~ label {
   color: #cecece;
   text-decoration: line-through;
 }
 
-main li label:hover {
+#todo-list li label:hover {
   color: #3498d8;
 }
 
@@ -156,24 +152,26 @@ main input[type="checkbox"]  {
   display: none;
 }
 
-main header img {
-  padding-right: 8px;
-}
-
-main header a {
-  padding-left: 0;
-  color: #148fd5;
-}
-
 main header h1 {
   padding-bottom: 40px;
+}
+
+#add-todo {
+  color: #3498d8;
+  padding: 0 0 16px 16px;
+}
+
+#add-todo img {
+  padding-right: 18px;
+  cursor: pointer;
 }
 
 #modal {
   display: none;
 }
 
-#modal:after {
+#modal_background {
+  display: none;
   position: fixed;
   content: "";
   top: 0;
