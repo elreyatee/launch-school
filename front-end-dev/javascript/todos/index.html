@@ -71,20 +71,22 @@
           </dl>
           <dl>
             <dt></dt>
-            <dd><button type="submit">Save</button></dd>
-            <dd><button type="submit" formaction="">Mark as Complete</button></dd>
+            <dd><input type="submit" value="Save"</dd>
+            <dd><button name="complete">Mark as Complete</button></dd>
           </dl>
         </form>
       </div>
 
-      <ul>
-        <li class="todo-item">
-          <input type="checkbox" id="item-1" />
-          <span class="mycheckbox"></span>
-          <label for="item-1">Item 1</label>
-          <img src="images/trash-bin.png" class="delete" />
-        </li>
-      </ul>
+      <ul id="todo-list"></ul>
     </main>
+
+    <script type="text/x-handlebars" id="list_of_todo_items">
+      <li class="todo-item">
+        <input type="checkbox" id="item-{{id}}" />
+        <span class="mycheckbox"></span>
+        <label for="item-{{id}}">{{title}}</label>
+        <img src="images/trash-bin.png" class="delete" />
+      </li>
+    </script>
   </body>
 </html>
