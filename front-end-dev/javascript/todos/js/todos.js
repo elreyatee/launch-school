@@ -1,52 +1,59 @@
+var d;
+
+var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
+    templates = {};
+
 $(function() {
   var $todo_list = $("#todo-list"),
-      todo_items_template = Handlebars.compile($("#list_of_todo_items").html()),
-      todo_header_template = Handlebars.compile($("#todo_headers").html());
+      $modal = $("#modal"),
+      $new_todo = $("#new-todo"),
+      $todo_header = $("#todo-header"),
+      $modal_background = $("#modal_background");
 
-  var todos = {
-    $modal: $("#modal"),
-    $modal_background: $("#modal_background"),
-    collection: [],
-    total: 0,
-    addTodo: function() {
-      var values = $("#new-todo").serializeArray(),
-          todo_item = {};
+  function Todo(data) {
+    this.id = this.last_id;
+    this.completed = false;
+    this.filterData(data);
+  }
 
-      values.forEach(function(field, idx) {
-        todo_item[field.name] = field.value;
+  Todo.prototype = {
+    constructor: Todo,
+    collection: all_todos,
+    last_id: localStorage.getItem("id") || 0,
+    filterData: function(data) {
+      var self = this;
+
+      data.forEach(function(d) {
+        self[d.name] = d.value;
       });
-
-      this.collection.push(todo_item);
-      this.total++;
-      todo_item["id"] = this.collection.length - 1;
-      return todo_item;
     },
-    newTodo: function(e) {
-      e.preventDefault();
-
-      var todo_item = this.addTodo();
-      $todo_list.append(todo_items_template(todo_item));
-      this.$modal_background.click();
-      this.updateTotal();
+    saveData: function() {
+      localStorage.setItem("all_todos", JSON.stringify(this.collection));
+      localStorage.setItem("id", this.last_id);
     },
-    renderForm: function(e) {
-      e.stopPropagation();
-      this.$modal.show().find("form")[0].reset();
-      this.$modal_background.show();
+    deleteTodo: function(id) {
+      this.collection.splice(id, 1);
+      this.saveData();
     },
-    hideForm: function(e) {
-      e.stopPropagation();
+    addTodo: function(data) {
+      this.last_id++;
+      var new_todo = new Todo(data);
+      this.collection.push(new_todo);
+      this.saveData();
+      return new_todo;
+    }
+  };
 
-      $("#modal_background").hide();
-      this.$modal.hide();
+  var kickstart = {
+    loadTemplates: function() {
+      $("[type='text/x-handlebars']").each(function() {
+        $tmpl = $(this);
+        templates[$tmpl.attr("id")] = Handlebars.compile($tmpl.html());
+      });
     },
     getIDNum: function(id) {
       var id_val = id.match(/\d/)[0];
       return +id_val;
-    },
-    deleteTodo: function(id) {
-      this.collection.splice(id, 1);
-      this.total--;
     },
     removeTodo: function(e) {
       e.stopPropagation();
@@ -55,27 +62,40 @@ $(function() {
           id = $el.find("input").attr("id");
 
       id = this.getIDNum(id);
-      this.deleteTodo(id);
+      Todo.prototype.deleteTodo(id);
       $el.remove();
-      this.updateTotal();
     },
-    updateTotal: function() {
-      $("#todo-header").find("span").text(this.total.toString());
+    hideForm: function(e) {
+      e.stopPropagation();
+
+      $modal_background.hide();
+      $modal.hide();
     },
-    showTotal: function() {
-      $("#todo-header").append(todo_header_template({ total: this.total.toString() }));
+    renderForm: function(e) {
+      e.stopPropagation();
+      $modal.show().find("form")[0].reset();
+      $modal_background.show();
     },
-    bindEvents: function() {
-      $("form#new-todo").on("submit", $.proxy(this.newTodo, this));
-      $("#add-todo").on("click", $.proxy(this.renderForm, this));
-      this.$modal_background.on("click", $.proxy(this.hideForm, this));
-      $("body").on("click", ".delete", $.proxy(this.removeTodo, this));
+    newTodo: function(e) {
+      e.preventDefault();
+
+      var form_data = $new_todo.serializeArray(),
+          todo_item = Todo.prototype.addTodo(form_data);
+
+      $todo_list.append(templates.list_of_todo_items(todo_item));
+      $modal_background.click();
+    },
+    bind: function() {
+      $new_todo.off("submit").on("submit", $.proxy(this.newTodo, this));
+      $("#add-todo").off("click").on("click", $.proxy(this.renderForm, this));
+      $modal_background.off("click").on("click", $.proxy(this.hideForm, this));
+      $("body").off("click").on("click", ".delete", $.proxy(this.removeTodo, this));
     },
     init: function() {
-      this.bindEvents();
-      this.showTotal();
+      this.bind();
+      this.loadTemplates();
     }
-  };
+  }
 
-  todos.init();
+  kickstart.init();
 });
