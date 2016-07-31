@@ -16,12 +16,12 @@
 
     <div id="sidebar">
       <div id="all-todos">
-        <h2>
+        <h2 class="selected">
           <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a>
           <span>18</span>
         </h2>
         <ul>
-          <li class="selected">
+          <li>
             <a href="#">02/16</a>
             <span>8</span>
           </li>
@@ -44,9 +44,7 @@
     </div>
 
     <main>
-      <header>
-        <h1>02/16<span>8</span></h1>
-      </header>
+      <div id="todo-header"></div>
 
       <div id="add-todo">
         <img src="images/plus-icon.png" alt="add-todo" />Add new to do
@@ -89,6 +87,12 @@
         <label for="item-{{id}}">{{title}}</label>
         <img src="images/trash-bin.png" class="delete" />
       </li>
+    </script>
+
+    <script type="text/x-handlerbars" id="todo_headers">
+      <header>
+        <h1>02/16<span>{{total}}</span></h1>
+      </header>
     </script>
   </body>
 </html>
