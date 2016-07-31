@@ -9,94 +9,102 @@
     <script src="js/todos.js"></script>
   </head>
   <body>
-    <label for="panel-toggle">
-      <img src="images/menu-icon.png" alt="panel-toggle" />
-    </label>
-    <input type="checkbox" id="panel-toggle" />
+    <script type="text/x-handlebars" id="whole_page_template">
+      <label for="panel-toggle">
+        <img src="images/menu-icon.png" alt="panel-toggle" />
+      </label>
+      <input type="checkbox" id="panel-toggle" />
 
-    <div id="sidebar">
-      <div id="all-todos">
-        <h2 class="selected">
-          <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a>
-          <span>18</span>
-        </h2>
-        <ul>
-          <li>
-            <a href="#">02/16</a>
-            <span>8</span>
-          </li>
-          <li>
-            <a href="#">03/16</a>
-            <span>2</span>
-          </li>
+      <div id="sidebar">
+        <div id="all-todos">
+          {{> all_todos_template}}
+        </div>
+        <!-- <div id="todos-by-month">
+          <ul>
+            <li>
+              <a href="#">02/16</a>
+              <span>8</span>
+            </li>
+            <li>
+              <a href="#">03/16</a>
+              <span>2</span>
+            </li>
+          </ul>
+        </div> -->
+        <!-- <div id="completed">
+          <h2>
+            <a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a>
+          </h2>
+          <ul>
+            <li><a href="#">02/15</a></li>
+          </ul>
+        </div> -->
+      </div>
+
+      <main>
+        <div id="todo-header">
+          {{> todo_header_template}}
+        </div>
+
+        <div id="modal_background"></div>
+        <div id="modal">
+          <form action="" method="post" id="new-todo">
+            <dl>
+              <dt><label for="title">Title</label></dt>
+              <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
+            </dl>
+            <dl>
+              <dt><label for="due-date">Due Date</label></dt>
+              <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
+              <span>/</span>
+              <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
+              <span>/</span>
+              <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
+            </dl>
+            <dl>
+              <dt><label for="description">Description</label></dt>
+              <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
+            </dl>
+            <dl>
+              <dt></dt>
+              <dd><input type="submit" value="Save"</dd>
+              <dd><button name="complete">Mark as Complete</button></dd>
+            </dl>
+          </form>
+        </div>
+
+        <ul id="todo-list">
+          {{> list_of_todo_items}}
         </ul>
-      </div>
+      </main>
+    </script>
 
-      <div id="completed">
-        <h2>
-          <a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a>
-        </h2>
-        <ul>
-          <li><a href="#">02/15</a></li>
-          <li><a href="#">03/15</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <main>
-      <div id="todo-header">
-        <header>
-          <h1>02/16<span>8</span></h1>
-        </header>
-      </div>
-
-      <div id="add-todo">
-        <img src="images/plus-icon.png" alt="add-todo" />Add new to do
-      </div>
-
-      <div id="modal_background"></div>
-      <div id="modal">
-        <form action="" method="post" id="new-todo">
-          <dl>
-            <dt><label for="title">Title</label></dt>
-            <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
-          </dl>
-          <dl>
-            <dt><label for="due-date">Due Date</label></dt>
-            <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
-            <span>/</span>
-            <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
-            <span>/</span>
-            <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
-          </dl>
-          <dl>
-            <dt><label for="description">Description</label></dt>
-            <dd><textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea></dd>
-          </dl>
-          <dl>
-            <dt></dt>
-            <dd><input type="submit" value="Save"</dd>
-            <dd><button name="complete">Mark as Complete</button></dd>
-          </dl>
-        </form>
-      </div>
-
-      <ul id="todo-list"></ul>
-    </main>
-
-    <script type="text/x-handlebars" id="list_of_todo_items">
+    <script type="text/x-handlebars" id="list_of_todo_items" data-type="partial">
+      {{#each collection}}
       <li class="todo-item">
         <input type="checkbox" id="item-{{id}}" />
         <span class="mycheckbox"></span>
         <label for="item-{{id}}">{{title}}</label>
         <img src="images/trash-bin.png" class="delete" />
       </li>
+      {{/each}}
     </script>
 
-    <!-- <script type="text/x-handlebars" id="todo_headers">
+    <script type="text/x-handlebars" id="all_todos_template" data-type="partial">
+      <h2 data-title="{{current_section.title}}" data-total="{{current_section.total}}" id="all-todos-header">
+        <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a>
+        <span>{{current_section.total}}</span>
+      </h2>
+    </script>
+
+    <script type="text/x-handlebars" id="todo_header_template" data-type="partial">
       <header>
-        <h1>02/16<span>{{total}}</span></h1>
+        <h1>{{current_section.title}}<span>{{current_section.total}}</span></h1>
       </header>
-    </script> -->
+
+      <div id="add-todo">
+        <img src="images/plus-icon.png" alt="add-todo" />Add new to do
+      </div>
+    </script>
   </body>
 </html>

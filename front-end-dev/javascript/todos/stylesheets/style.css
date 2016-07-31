@@ -76,6 +76,10 @@ a {
   color: #ffffff;
 }
 
+#completed {
+  margin-top: 30px;
+}
+
 #completed li { text-decoration: line-through; }
 
 main {
