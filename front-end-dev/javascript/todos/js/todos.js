@@ -15,7 +15,9 @@ $(function() {
     selected: [],
     current_section: {
       title: "All Todos",
-      total: all_todos.length || 0
+      total: all_todos.length,
+      class: "selected",
+      data: 0
     },
     filterData: function(data) {
       var self = this;
@@ -84,6 +86,9 @@ $(function() {
     updateTitle: function() {
       $("#todo-header").html(templates.todo_header_template(Todo.prototype));
     },
+    updateHeader: function() {
+      $("#all-todos").html(templates.all_todos_template(Todo.prototype));
+    },
     showList: function() {
       $("#todo-list").html(templates.list_of_todo_items(Todo.prototype));
     },
@@ -93,10 +98,9 @@ $(function() {
       var $el = $(e.target).closest(".todo-item"),
           item_id = $el.find("input").attr("id");
 
-      console.log(item_id);
-
       Todo.prototype.deleteTodo(item_id);
       $el.remove();
+      this.updateHeader();
       this.updateTitle();
       this.showList();
     },
@@ -107,6 +111,7 @@ $(function() {
 
       Todo.prototype.addTodo(form_data);
       $("#modal_background").click();
+      this.updateHeader();
       this.updateTitle();
       this.showList();
     },
@@ -118,6 +123,8 @@ $(function() {
       $el.addClass("selected");
       Todo.prototype.current_section.title = $el.attr("data-title");
       Todo.prototype.current_section.data = $el.attr("data-total");
+      console.log($el);
+      console.log(Todo.prototype.current_section);
       this.updateTitle();
       this.showList();
     },

@@ -43,12 +43,26 @@ a {
   width: 100%;
 }
 
-#sidebar a,
-#sidebar h2 img { vertical-align: middle; }
+#sidebar h2 {
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#sidebar #all-todos {
+
+}
+
+#sidebar p,
+#sidebar h2 img {
+  display: inline-block;
+  vertical-align: middle;
+}
 
 #sidebar a { display: table-cell; }
 
-#sidebar h2 img { padding-right: 10px; }
+#sidebar h2 img {
+  padding-right: 10px;
+}
 
 #sidebar .selected {
   background: #383f5f;

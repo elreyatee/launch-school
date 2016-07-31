@@ -91,8 +91,9 @@
     </script>
 
     <script type="text/x-handlebars" id="all_todos_template" data-type="partial">
-      <h2 data-title="{{current_section.title}}" data-total="{{current_section.total}}" id="all-todos-header">
-        <a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a>
+      <h2 data-title="{{current_section.title}}" data-total="{{current_section.total}}" id="all-todos-header" class="{{current_section.class}}">
+        <img src="images/list-icon.png" alt="todos" />
+        <p>All Todos</p>
         <span>{{current_section.total}}</span>
       </h2>
     </script>
