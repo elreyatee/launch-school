@@ -1,12 +1,7 @@
 $(function() {
   var $todo_list = $("#todo-list"),
-      todo_items_template = Handlebars.compile($("#list_of_todo_items").html());
-
-  // $(".todo-item").on("click", ".delete", function(e) {
-  //   e.stopPropagation();
-  //
-  //   $(this).closest(".todo-item").remove();
-  // });
+      todo_items_template = Handlebars.compile($("#list_of_todo_items").html()),
+      todo_header_template = Handlebars.compile($("main header").html());
 
   var todos = {
     $modal: $("#modal"),
@@ -42,10 +37,31 @@ $(function() {
       $("#modal_background").hide();
       this.$modal.hide();
     },
+    removeTodo: function(id) {
+      this.collection.splice(+id);
+    },
+    getIDNum: function(id) {
+      var id_val = id.match(/\d/)[0];
+      return +id_val;
+    },
+    deleteTodo: function(id) {
+      this.collection.splice(id, 1);
+    },
+    removeTodo: function(e) {
+      e.stopPropagation();
+
+      var $el = $(e.target).closest(".todo-item"),
+          id = $el.find("input").attr("id");
+
+      id = this.getIDNum(id);
+      this.deleteTodo(id);
+      $el.remove();
+    },
     bindEvents: function() {
       $("form#new-todo").on("submit", $.proxy(this.newTodo, this));
       $("#add-todo").on("click", $.proxy(this.renderForm, this));
       this.$modal_background.on("click", $.proxy(this.hideForm, this));
+      $("body").on("click", ".delete", $.proxy(this.removeTodo, this));
     },
     init: function() {
       this.bindEvents();
