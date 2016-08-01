@@ -4,7 +4,6 @@ var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
 $(function() {
   function Todo(data) {
     this.id = this.last_id;
-    // this.completed = false;
     this.filterData(data);
   }
 
@@ -29,20 +28,32 @@ $(function() {
       var id = item_id.match(/\d/)[0];
       return +id;
     },
+    updateTodo: function(id, data) {
+      var todo = this.getTodoByID(id)[0];
+
+      data.forEach(function(d) {
+        todo[d.name] = d.value;
+      })
+
+      this.saveData();
+    },
+    getTodoByID: function(id) {
+      return this.collection.filter(function(todo) {
+        return todo.id === id;
+      });
+    },
+    getTodoIndex: function(todo) {
+      return this.collection.indexOf(todo[0]);
+    },
     saveData: function() {
       localStorage.setItem("all_todos", JSON.stringify(this.collection));
       localStorage.setItem("id", this.last_id);
     },
     deleteTodo: function(item_id) {
       var id = this.getIDNum(item_id),
-          todo_index,
-          todo;
+          todo = this.getTodoByID(id),
+          todo_index = this.getTodoIndex(todo);
 
-      todo = this.collection.filter(function(todo) {
-        return todo.id === id;
-      });
-
-      todo_index = this.collection.indexOf(todo[0]);
       this.collection.splice(todo_index, 1);
       this.saveData();
       this.current_section.total--;
@@ -57,16 +68,20 @@ $(function() {
   };
 
   var form = {
-    hideForm: function(e) {
-      e.stopPropagation();
-
+    hideForm: function() {
       $("#modal_background").hide();
       $("#modal").hide();
     },
-    renderForm: function(e) {
-      e.stopPropagation();
+    renderForm: function() {
       $("#modal").show().find("form")[0].reset();
       $("#modal_background").show();
+    },
+    editForm: function(data) {
+      this.renderForm();
+
+      for(var key in data) {
+        $("[name=" + key + "]").val(data[key]);
+      }
     }
   };
 
@@ -91,6 +106,25 @@ $(function() {
     renderList: function() {
       $("#todo-list").html(templates.list_of_todo_items(Todo.prototype));
     },
+    updateTodo: function(todo_data) {
+      form.editForm(todo_data);
+
+      $("body").off("submit").on("submit", "form", function(e) {
+        e.preventDefault();
+        form.hideForm();
+
+        var form_data = $(this).serializeArray();
+        Todo.prototype.updateTodo(todo_data.id, form_data);
+      });
+    },
+    editTodo: function(e) {
+      e.preventDefault();
+
+      var todo_id = $(e.target).closest("li").data("id"),
+          todo = Todo.prototype.getTodoByID(todo_id);
+
+      this.updateTodo(todo[0]);
+    },
     removeTodo: function(e) {
       e.stopPropagation();
 
@@ -109,7 +143,7 @@ $(function() {
       var form_data = $("#new-todo").serializeArray();
 
       Todo.prototype.addTodo(form_data);
-      $("#modal_background").click();
+      form.hideForm();
       this.renderHeader();
       this.renderTitle();
       this.renderList();
@@ -128,11 +162,12 @@ $(function() {
       $("body").html(templates.whole_page_template(Todo.prototype));
     },
     bind: function() {
-      $("body").on("submit", $.proxy(this.newTodo, this));
-      $("body").on("click", "#add-todo", $.proxy(form.renderForm, this));
+      $("body").off("submit").on("submit", "form", $.proxy(this.newTodo, this));
+      $("body").off("click").on("click", "#add-todo", $.proxy(form.renderForm, this));
       $("body").on("click", "#modal_background", $.proxy(form.hideForm, this));
       $("body").on("click", ".delete", $.proxy(this.removeTodo, this));
       $("body").on("click", "#all-todos-header", $.proxy(this.sideBarSelect, this));
+      $("body").on("click", ".todo-item", $.proxy(this.editTodo, this));
     },
     setDefault: function() {
       this.bind();

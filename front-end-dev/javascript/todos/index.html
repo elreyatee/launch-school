@@ -141,7 +141,7 @@
 
     <script type="text/x-handlebars" id="list_of_todo_items" data-type="partial">
       {{#each collection}}
-      <li class="todo-item">
+      <li class="todo-item" data-id="{{id}}">
         <input type="checkbox" id="item-{{id}}" />
         <span class="mycheckbox"></span>
         <label for="item-{{id}}">{{title}}</label>

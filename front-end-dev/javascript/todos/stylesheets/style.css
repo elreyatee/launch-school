@@ -143,17 +143,18 @@ span.mycheckbox {
   background: transparent url("../images/unchecked-box.png") no-repeat;
 }
 
-#todo-list input[type="checkbox"]:checked + span.mycheckbox {
+/*#todo-list input[type="checkbox"]:checked + span.mycheckbox {
   background: transparent url("../images/checked-box.png") no-repeat;
 }
 
 #todo-list input[type="checkbox"]:checked ~ label {
   color: #cecece;
   text-decoration: line-through;
-}
+}*/
 
-#todo-list li label:hover {
+#todo-list li:hover {
   color: #3498d8;
+  background-color: #bde5ef;
 }
 
 .todo-item .delete {
