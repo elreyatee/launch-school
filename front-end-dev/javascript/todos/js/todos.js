@@ -4,7 +4,7 @@ var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
 $(function() {
   function Todo(data) {
     this.id = this.last_id;
-    this.completed = false;
+    // this.completed = false;
     this.filterData(data);
   }
 
@@ -16,8 +16,7 @@ $(function() {
     current_section: {
       title: "All Todos",
       total: all_todos.length,
-      class: "selected",
-      data: 0
+      class: "selected"
     },
     filterData: function(data) {
       var self = this;
@@ -71,7 +70,7 @@ $(function() {
     }
   };
 
-  var kickstart = {
+  var start = {
     loadTemplates: function() {
       $("[type='text/x-handlebars']").each(function() {
         $tmpl = $(this);
@@ -83,13 +82,13 @@ $(function() {
         Handlebars.registerPartial($tmpl.attr("id"), $tmpl.html());
       });
     },
-    updateTitle: function() {
+    renderTitle: function() {
       $("#todo-header").html(templates.todo_header_template(Todo.prototype));
     },
-    updateHeader: function() {
+    renderHeader: function() {
       $("#all-todos").html(templates.all_todos_template(Todo.prototype));
     },
-    showList: function() {
+    renderList: function() {
       $("#todo-list").html(templates.list_of_todo_items(Todo.prototype));
     },
     removeTodo: function(e) {
@@ -100,9 +99,9 @@ $(function() {
 
       Todo.prototype.deleteTodo(item_id);
       $el.remove();
-      this.updateHeader();
-      this.updateTitle();
-      this.showList();
+      this.renderHeader();
+      this.renderTitle();
+      this.renderList();
     },
     newTodo: function(e) {
       e.preventDefault();
@@ -111,22 +110,19 @@ $(function() {
 
       Todo.prototype.addTodo(form_data);
       $("#modal_background").click();
-      this.updateHeader();
-      this.updateTitle();
-      this.showList();
+      this.renderHeader();
+      this.renderTitle();
+      this.renderList();
     },
     sideBarSelect: function(e) {
       e.stopPropagation();
 
       var $el = $(e.target);
 
-      $el.addClass("selected");
       Todo.prototype.current_section.title = $el.attr("data-title");
-      Todo.prototype.current_section.data = $el.attr("data-total");
-      console.log($el);
-      console.log(Todo.prototype.current_section);
-      this.updateTitle();
-      this.showList();
+      Todo.prototype.current_section.total = $el.attr("data-total");
+      this.renderTitle();
+      this.renderList();
     },
     loadPage: function() {
       $("body").html(templates.whole_page_template(Todo.prototype));
@@ -149,5 +145,5 @@ $(function() {
     }
   }
 
-  kickstart.init();
+  start.init();
 });

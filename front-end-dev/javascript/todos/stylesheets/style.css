@@ -29,11 +29,6 @@ a {
   padding-top: 60px;
 }
 
-#sidebar h2 {
-  font-weight: inherit;
-  color: #ffffff;
-}
-
 #sidebar h2,
 #sidebar li {
   position: relative;
@@ -46,10 +41,8 @@ a {
 #sidebar h2 {
   cursor: pointer;
   vertical-align: middle;
-}
-
-#sidebar #all-todos {
-
+  font-weight: inherit;
+  color: #ffffff;
 }
 
 #sidebar p,
@@ -94,7 +87,9 @@ a {
   margin-top: 30px;
 }
 
-#completed li { text-decoration: line-through; }
+#completed li {
+  text-decoration: line-through;
+}
 
 main {
   position: relative;
@@ -225,6 +220,16 @@ main header h1 {
   display: inline-block;
 }
 
+#new-todo dd select {
+  font-size: 16px;
+  border: 1px solid #b3b3b3;
+  padding: 8px;
+  width: 116px;
+  height: 36px;
+  color: #b3b3b3;
+  background: #ffffff;
+}
+
 #new-todo dt {
   width: 90px;
   height: 36px;
@@ -269,12 +274,6 @@ main header h1 {
 
 #new-todo input[id="title"] {
   width: 396px;
-  height: 36px;
-  padding: 8px;
-}
-
-#new-todo input[id="due-date"] {
-  width: 116px;
   height: 36px;
   padding: 8px;
 }
