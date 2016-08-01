@@ -53,19 +53,11 @@
               <dt><label for="title">Title</label></dt>
               <dd><input type="text" name="title" id="title" placeholder="Title" required /></dd>
             </dl>
-            <!-- <dl>
-              <dt><label for="due-date">Due Date</label></dt>
-              <dd><input type="text" name="day" id="due-date" placeholder="Day" required /></dd>
-              <span>/</span>
-              <dd><input type="text" name="month" id="due-date" placeholder="Month" required /></dd>
-              <span>/</span>
-              <dd><input type="text" name="year" id="due-date" placeholder="Year" required /></dd>
-            </dl> -->
             <dl>
               <dt><label for="due-date">Due Date</label></dt>
               <dd>
                 <select id="due-day" name="due-day" required>
-                  <option>Day</option>
+                  <option value="" disabled selected hidden>Day</option>
                   <option value="01">1</option>
                   <option value="02">2</option>
                   <option value="03">3</option>
@@ -102,7 +94,7 @@
               <span>/</span>
               <dd>
                 <select id="due-month" name="due-month" required>
-                  <option>Month</option>
+                  <option value="" disabled selected hidden>Month</option>
                   <option value="01">January</option>
                   <option value="02">February</option>
                   <option value="03">March</option>
@@ -120,7 +112,7 @@
               <span>/</span>
               <dd>
                 <select id="due-year" name="due-year" required>
-                  <option>Year</option>
+                  <option value="" disabled selected hidden>Year</option>
                   <option value="2016">2016</option>
                   <option value="2017">2017</option>
                   <option value="2018">2018</option>
