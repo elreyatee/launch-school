@@ -1,0 +1,95 @@
+#todo_list {
+  position: relative;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+  color: #050505;
+  padding: 60px 100px 0 20px;
+}
+
+#todo_list_header dl * {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#todo_list_header dd {
+  width: 22px;
+  line-height: 22px;
+  background: #148fd5;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+#add_todo {
+  color: #148fd5;
+}
+
+#add_todo,
+#todo_list dl {
+  height: 50px;
+  line-height: 50px;
+}
+
+#add_todo input[type="checkbox"] {
+  display: none;
+}
+
+#todo_list_items dl * {
+  display: inline-block;
+}
+
+#todo_list_items dl {
+  width: 100%;
+  padding: 16px 0 16px 10px;
+  border-top: 1px solid #e7e7e7;
+}
+
+#todo_list_items dl label {
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+#todo_list li a {
+  color: #3498d8;
+  padding-left: 15px;
+}
+
+#todo_list_items dl button {
+  float: right;
+}
+
+#todo_list_items span.mycheckbox {
+  content: "";
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  background: transparent url("../images/unchecked-box.png") no-repeat;
+}
+
+#todo_list_items input[type="checkbox"]:checked + span.mycheckbox {
+  background: transparent url("../images/checked-box.png") no-repeat;
+}
+
+#todo_list_items input[type="checkbox"]:checked ~ label {
+  color: #cecece;
+  text-decoration: line-through;
+}
+
+#todo_list_items dl label:hover {
+  color: #3498d8;
+}
+
+#todo_list_items button {
+  background: transparent url("../images/trash-bin.png") no-repeat;
+  border: none;
+  width: 17px;
+  height: 17px;
+  background-position: 50% 50%;
+}
+
+#todo_list_items button span,
+#todo_list_items input[type="checkbox"]  {
+  display: none;
+}

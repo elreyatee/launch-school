@@ -1,0 +1,112 @@
+form#new_todo {
+  display: none;
+}
+
+form#new_todo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 625px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -287px;
+  padding-left: 30px;
+  padding-top: 36px;
+  padding-right: 40px;
+  background: #ffffff;
+  z-index: 3;
+}
+
+form#new_todo dl {
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+form#new_todo dt,
+form#new_todo dd {
+  display: inline-block;
+}
+
+form#new_todo dt {
+  width: 120px;
+  height: 36px;
+  text-align: left;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+form#new_todo label {
+  font-weight: 400;
+  color: #616161;
+  cursor: pointer;
+}
+
+form#new_todo input,
+form#new_todo textarea {
+  font-size: 16px;
+  border: 1px solid #b3b3b3;
+  letter-spacing: inherit;
+  color: #616161;
+}
+
+form#new_todo button {
+  width: 182px;
+  height: 40px;
+  font-size: 16px;
+  background: #148fd5;
+  color: #ffffff;
+  border: 1px solid #148fd5;
+  border-radius: 4px;
+  margin-right: 18px;
+  cursor: pointer;
+  letter-spacing: inherit;
+}
+
+form#new_todo textarea {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  resize: none;
+  width: 396px;
+  height: 144px;
+  padding: 8px;
+}
+
+form#new_todo input[id="title"] {
+  width: 396px;
+  height: 36px;
+  padding: 8px;
+}
+
+form#new_todo select {
+  width: 116px;
+  height: 36px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: #ffffff;
+  letter-spacing: inherit;
+}
+
+form#new_todo span {
+  display: inline-block;
+  width: 13px;
+  text-align: center;
+}
+
+/*main li:nth-of-type(2) input[type="checkbox"]:checked ~ form#new_todo {
+  display: block;
+}
+
+main li:nth-of-type(2) input[type="checkbox"]:checked ~ label {
+  color: #148fd5;
+  text-decoration: none;
+}
+
+main li:nth-of-type(2) input[type="checkbox"]:checked ~ #modal_background {
+  position: fixed;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}*/
