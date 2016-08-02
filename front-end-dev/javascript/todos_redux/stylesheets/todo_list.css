@@ -7,22 +7,43 @@
   padding: 60px 100px 0 20px;
 }
 
+#todo_list_header {
+  padding: 0 18px;
+}
+
 #todo_list_header dl * {
   vertical-align: middle;
   display: inline-block;
 }
 
 #todo_list_header dd {
-  width: 22px;
   line-height: 22px;
+  width: 22px;
   background: #148fd5;
   border-radius: 50%;
   color: #ffffff;
   font-size: 15px;
 }
 
+#todo_list_header header {
+  margin-bottom: 25px;
+}
+
+#todo_list_header header dd {
+  text-align: center;
+  margin: 0 0 0 20px;
+}
+
+#add_todo label img {
+  margin-right: 5px;
+}
+
 #add_todo {
   color: #148fd5;
+}
+
+#add_todo img {
+  cursor: pointer;
 }
 
 #add_todo,
@@ -40,9 +61,8 @@
 }
 
 #todo_list_items dl {
-  width: 100%;
-  padding: 16px 0 16px 10px;
   border-top: 1px solid #e7e7e7;
+  padding: 0 18px;
 }
 
 #todo_list_items dl label {
@@ -50,16 +70,11 @@
   cursor: pointer;
 }
 
-#todo_list li a {
-  color: #3498d8;
-  padding-left: 15px;
-}
-
-#todo_list_items dl button {
+#todo_list_items dd {
   float: right;
 }
 
-#todo_list_items span.mycheckbox {
+#todo_list_items .mycheckbox {
   content: "";
   width: 15px;
   height: 15px;
@@ -68,7 +83,7 @@
   background: transparent url("../images/unchecked-box.png") no-repeat;
 }
 
-#todo_list_items input[type="checkbox"]:checked + span.mycheckbox {
+#todo_list_items input[type="checkbox"]:checked + .mycheckbox {
   background: transparent url("../images/checked-box.png") no-repeat;
 }
 
@@ -87,6 +102,7 @@
   width: 17px;
   height: 17px;
   background-position: 50% 50%;
+  cursor: pointer;
 }
 
 #todo_list_items button span,
