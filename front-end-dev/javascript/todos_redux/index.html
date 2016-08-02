@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Todos App</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <script src="js/todos"></script>
+  </head>
+  <body>
+    <label for="panel-toggle">
+      <img src="images/menu-icon.png" alt="panel-toggle" />
+    </label>
+    <input type="checkbox" id="panel-toggle" />
+
+    <header>
+      <nav>
+        <ul id="all-todos">
+          <li><a href="#"><img src="images/list-icon.png" alt="todos" />All Todos</a><span>18</span></li>
+          <li class="selected"><a href="#">02/16</a><span>8</span></li>
+          <li><a href="#">03/16</a><span>2</span></li>
+          <li><a href="#">04/16</a><span>1</span></li>
+          <li><a href="#">05/16</a><span>1</span></li>
+          <li><a href="#">06/16</a><span>6</span></li>
+        </ul>
+
+        <ul id="completed">
+          <li><a href="#"><img src="images/complete-icon.png" alt="completed" />Completed</a></li>
+          <li><a href="#">02/15</a></li>
+          <li><a href="#">03/15</a></li>
+          <li><a href="#">04/15</a></li>
+          <li><a href="#">05/15</a></li>
+          <li><a href="#">06/14</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <ul>
+          <li>
+            <h1>02/16<span>8</span></h1>
+          </li>
+          <li>
+            <input type="checkbox" id="add-todo" />
+            <label for="add-todo">
+              <img src="images/plus-icon.png" alt="add-todo" />
+              Add new to do
+            </label>
+
+            <form action="" method="post" id="new-todo">
+              <dl>
+                <dt>
+                  <label for="title">Title</label>
+                </dt>
+                <dd>
+                  <input type="text" name="title" id="title" placeholder="Title" required />
+                </dd>
+              </dl>
+              <dl>
+                <dt>
+                  <label for="due-date">Due Date</label>
+                </dt>
+                <dd>
+                  <input type="text" name="day" id="due-date" placeholder="Day" required />
+                </dd>
+                <span>/</span>
+                <dd>
+                  <input type="text" name="month" id="due-date" placeholder="Month" required />
+                </dd>
+                <span>/</span>
+                <dd>
+                  <input type="text" name="year" id="due-date" placeholder="Year" required />
+                </dd>
+              </dl>
+              <dl>
+                <dt>
+                  <label for="description">Description</label>
+                </dt>
+                <dd>
+                  <textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea>
+                </dd>
+              </dl>
+              <dl>
+                <dt></dt>
+                <dd>
+                  <button type="submit">Save</button>
+                </dd>
+                <dd>
+                  <button type="submit" formaction="">Mark as Complete</button>
+                </dd>
+              </dl>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-1" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-1">Item 1</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"><span>Delete</span></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-2" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-2">Item 2</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-3" checked />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-3">Item 3</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-4" checked />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-4">Item 4</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-5" checked />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-5">Item 5</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-6" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-6">Item 6</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-7" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-7">Item 7</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-8" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-8">Item 8</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+          <li>
+            <form action="" method="post">
+              <input type="checkbox" id="item-9" />
+              <span class="mycheckbox"></span><!--
+              --><label for="item-9">Item 9</label>
+            </form>
+
+            <form action="" method="post">
+              <button type="submit"></button>
+            </form>
+          </li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
