@@ -153,11 +153,11 @@ span.mycheckbox {
   height: 15px;
   display: inline-block;
   vertical-align: middle;
-  background: transparent url("images/unchecked-box.png") no-repeat;
+  background: transparent url("../images/unchecked-box.png") no-repeat;
 }
 
 main input[type="checkbox"]:checked + span.mycheckbox {
-  background: transparent url("images/checked-box.png") no-repeat;
+  background: transparent url("../images/checked-box.png") no-repeat;
 }
 
 main input[type="checkbox"]:checked ~ label {
@@ -170,7 +170,7 @@ main li + li label:hover {
 }
 
 main li:nth-of-type(2) ~ li button {
-  background: transparent url("images/trash-bin.png") no-repeat;
+  background: transparent url("../images/trash-bin.png") no-repeat;
   border: none;
   width: 17px;
   height: 17px;
