@@ -40,9 +40,9 @@
 }
 
 #sidebar span {
-  width: 21px;
+  width: 22px;
   border-radius: 50%;
-  line-height: 21px;
+  line-height: 22px;
   background-color: #6b7292;
   color: #b2b5c3;
   font-size: 14px;
@@ -50,7 +50,6 @@
 
 #sidebar dl.selected span {
   background: #148fd5;
-  border: 1px solid #148fd5;
   color: #ffffff;
 }
 
