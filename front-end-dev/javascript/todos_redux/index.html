@@ -116,28 +116,7 @@
           </label>
         </div>
       </div>
-      <div id="todo_list_items">
-        <dl>
-          <dt>
-            <input type="checkbox" id="item_1" />
-            <span class="mycheckbox"></span><!--
-            --><label for="item_1">Item 1</label>
-          </dt>
-          <dd>
-            <button><span>Delete</span></button>
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            <input type="checkbox" id="item_2" />
-            <span class="mycheckbox"></span><!--
-            --><label for="item_2">Item 2</label>
-          </dt>
-          <dd>
-            <button><span>Delete</span></button>
-          </dd>
-        </dl>
-      </div>
+      <div id="todo_list_items"></div>
     </div>
 
     <div id="modal_background"></div>
@@ -232,13 +211,48 @@
         <dl>
           <dt></dt>
           <dd>
-            <button type="submit">Save</button>
+            <input type="submit" value="Save" />
           </dd>
           <dd>
-            <button type="submit" formaction="">Mark as Complete</button>
+            <button name="complete">Mark as Complete</button>
           </dd>
         </dl>
       </form>
     </div>
+
+    <!-- <script type="text/x-handlebars" id="todo_list_header_tmpl">
+      <header>
+        <dl>
+          <dt>
+            <h1>02/16</h1>
+          </dt>
+          <dd>
+            <span>8</span>
+          </dd>
+        </dl>
+      </header>
+      <div id="add_todo">
+        <input type="checkbox" id="new_todo" />
+        <label for="new_todo">
+          <img src="images/plus-icon.png" alt="new_todo" />
+          Add new todo
+        </label>
+      </div>
+    </script> -->
+
+    <script type="text/x-handlebars" id="todo_list_item_tmpl">
+      {{#each todos}}
+      <dl data-id="{{id}}" data-title="{{title}}">
+        <dt>
+          <input type="checkbox" id="item_{{id}}" />
+          <span class="mycheckbox"></span><!--
+          --><label for="item_{{id}}">{{title}}</label>
+        </dt>
+        <dd>
+          <button><span>Delete</span></button>
+        </dd>
+      </dl>
+      {{/each}}
+    </script>
   </body>
 </html>
