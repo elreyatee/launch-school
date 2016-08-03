@@ -48,6 +48,16 @@ a {
 
   #sidebar {
     display: none;
+    width: 250px;
+  }
+
+  #sidebar dl {
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  #todo_list {
+    padding: 60px 18px 0 20px;
   }
 
   body > label[for="hamburger"] {
@@ -59,6 +69,6 @@ a {
   }
 
   input[id="hamburger"]:checked ~ label[for="hamburger"] {
-    left: 355px;
+    left: 270px;
   }
 }
