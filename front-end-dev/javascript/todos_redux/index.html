@@ -9,115 +9,25 @@
     <script src="js/todos.js"></script>
   </head>
   <body>
-    <input type="checkbox" id="hamburger"/>
-    <label for="hamburger">
-      <img src="images/menu-icon.png" alt="hamburger" />
-    </label>
+    <script type="text/x-handlebars" id="main_page">
+      <input type="checkbox" id="hamburger"/>
+      <label for="hamburger">
+        <img src="images/menu-icon.png" alt="hamburger" />
+      </label>
 
-    <div id="sidebar">
-      <div id="all_todos">
-        <header>
-          <dl>
-            <dt>
-              <img src="images/list-icon.png" alt="todos" />
-              <h1>All Todos</h1>
-            </dt>
-            <dd>
-              <span>18</span>
-            </dd>
-          </dl>
-        </header>
-        <section id="todo_list_title">
-          <dl class="selected">
-            <dt>
-              <p>02/16</p>
-            </dt>
-            <dd>
-              <span>8</span>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <p>03/16</p>
-            </dt>
-            <dd>
-              <span>2</span>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <p>04/16</p>
-            </dt>
-            <dd>
-              <span>1</span>
-            </dd>
-          </dl>
-        </section>
+      <div id="sidebar">
+        {{> sidebar_tmpl}}
       </div>
 
-      <div id="completed_todos">
-        <header>
-          <dl>
-            <dt>
-              <img src="images/complete-icon.png" alt="completed" />
-              <h1>Completed</h1>
-            </dt>
-            <dd>
-              <span>13</span>
-            </dd>
-          </dl>
-        </header>
-        <section id="completed_list">
-          <dl>
-            <dt>
-              <p>02/15</p>
-            </dt>
-            <dd>
-              <span>8</span>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <p>03/15</p>
-            </dt>
-            <dd>
-              <span>1</span>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <p>04/15</p>
-            </dt>
-            <dd>
-              <span>1</span>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </div>
-
-    <div id="todo_list">
-      <div id="todo_list_header">
-        <header>
-          <dl>
-            <dt>
-              <h1>02/16</h1>
-            </dt>
-            <dd>
-              <span>8</span>
-            </dd>
-          </dl>
-        </header>
-        <div id="add_todo">
-          <input type="checkbox" id="new_todo" />
-          <label for="new_todo">
-            <img src="images/plus-icon.png" alt="new_todo" />
-            Add new todo
-          </label>
+      <div id="todo_list">
+        <div id="todo_list_header">
+          {{> todo_list_header_tmpl}}
+        </div>
+        <div id="todo_list_items">
+          {{> todo_list_item_tmpl}}
         </div>
       </div>
-      <div id="todo_list_items"></div>
-    </div>
+    </script>
 
     <div id="modal_background"></div>
     <div id="modal">
@@ -220,7 +130,89 @@
       </form>
     </div>
 
-    <!-- <script type="text/x-handlebars" id="todo_list_header_tmpl">
+    <script type="text/x-handlebars" id="sidebar_tmpl" data-type="partial">
+      <div id="all_todos">
+        <header>
+          <dl>
+            <dt>
+              <img src="images/list-icon.png" alt="todos" />
+              <h1>All Todos</h1>
+            </dt>
+            <dd>
+              <span>18</span>
+            </dd>
+          </dl>
+        </header>
+        <section id="todo_list_title">
+          <dl class="selected">
+            <dt>
+              <p>02/16</p>
+            </dt>
+            <dd>
+              <span>8</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <p>03/16</p>
+            </dt>
+            <dd>
+              <span>2</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <p>04/16</p>
+            </dt>
+            <dd>
+              <span>1</span>
+            </dd>
+          </dl>
+        </section>
+      </div>
+
+      <div id="completed_todos">
+        <header>
+          <dl>
+            <dt>
+              <img src="images/complete-icon.png" alt="completed" />
+              <h1>Completed</h1>
+            </dt>
+            <dd>
+              <span>13</span>
+            </dd>
+          </dl>
+        </header>
+        <section id="completed_list">
+          <dl>
+            <dt>
+              <p>02/15</p>
+            </dt>
+            <dd>
+              <span>8</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <p>03/15</p>
+            </dt>
+            <dd>
+              <span>1</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <p>04/15</p>
+            </dt>
+            <dd>
+              <span>1</span>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="todo_list_header_tmpl" data-type="partial">
       <header>
         <dl>
           <dt>
@@ -238,9 +230,9 @@
           Add new todo
         </label>
       </div>
-    </script> -->
+    </script>
 
-    <script type="text/x-handlebars" id="todo_list_item_tmpl">
+    <script type="text/x-handlebars" id="todo_list_item_tmpl" data-type="partial">
       {{#each todos}}
       <dl data-id="{{id}}" data-title="{{title}}">
         <dt>
@@ -249,7 +241,7 @@
           --><label for="item_{{id}}">{{title}}</label>
         </dt>
         <dd>
-          <button><span>Delete</span></button>
+          <button class="delete"><span>Delete</span></button>
         </dd>
       </dl>
       {{/each}}
