@@ -17,7 +17,17 @@ body {
   position: relative;
 }
 
-#panel_toggle {
+body > label {
+  display: none;
+  position: absolute;
+  display: inline-block;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+input[id="hamburger"] {
   display: none;
 }
 
@@ -40,12 +50,15 @@ a {
     display: none;
   }
 
-  #panel_toggle {
-    position: absolute;
+  body > label[for="hamburger"] {
     display: inline-block;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 1;
+  }
+
+  input[id="hamburger"]:checked ~ #sidebar {
+    display: block;
+  }
+
+  input[id="hamburger"]:checked ~ label[for="hamburger"] {
+    left: 355px;
   }
 }

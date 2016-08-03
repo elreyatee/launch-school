@@ -1,4 +1,5 @@
 #sidebar {
+  display: block;
   width: 335px;
   height: 100%;
   float: left;
