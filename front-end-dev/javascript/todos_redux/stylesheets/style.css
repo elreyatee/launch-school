@@ -7,31 +7,18 @@
   box-sizing: border-box;
 }
 
-html, body {
+body {
   font: normal 18px Helvetica, Arial, sans-serif;
   font-weight: 400;
   letter-spacing: 1px;
+  color: #b2b5c3;
   max-width: 1200px;
   height: 818px;
-  color: #b2b5c3;
-}
-
-body {
   position: relative;
 }
 
-body > label {
+#panel_toggle {
   display: none;
-  padding-top: 20px;
-  padding-left: 30px;
-}
-
-body > input[id="panel-toggle"] {
-  display: none;
-}
-
-body > label {
-  cursor: pointer;
 }
 
 h1 {
@@ -45,7 +32,7 @@ a {
 }
 
 @media (max-width: 768px) {
-  html, body {
+  body {
     min-width: 480px;
   }
 
@@ -53,16 +40,12 @@ a {
     display: none;
   }
 
-  body > label[for="panel-toggle"] {
+  #panel_toggle {
+    position: absolute;
     display: inline-block;
-  }
-
-  body > input[id="panel-toggle"]:checked + header {
-    display: block;
+    top: 20px;
+    left: 20px;
     cursor: pointer;
-  }
-
-  main {
-    padding-top: 18px;
+    z-index: 1;
   }
 }
