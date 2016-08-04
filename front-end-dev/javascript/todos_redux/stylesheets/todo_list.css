@@ -71,6 +71,11 @@
 }
 
 #todo_list_items dd {
+  margin-left: 10px;
+}
+
+#edit_controls {
+  display: inline-block;
   float: right;
 }
 
@@ -97,12 +102,19 @@
 }
 
 #todo_list_items button {
-  background: transparent url("../images/trash-bin.png") no-repeat;
   border: none;
   width: 17px;
   height: 17px;
   background-position: 50% 50%;
   cursor: pointer;
+}
+
+#todo_list_items .delete {
+  background: transparent url("../images/trash-bin.png") no-repeat;
+}
+
+#todo_list_items .edit {
+  background: transparent url("../images/edit-icon.png") no-repeat;
 }
 
 #todo_list_items button span,

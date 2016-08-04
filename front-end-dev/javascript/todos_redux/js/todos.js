@@ -1,5 +1,3 @@
-var x;
-
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
@@ -7,7 +5,7 @@ $(function() {
   function Todo(data) {
     this.id = this.last_id;
     this.filterData(data);
-    this.due_date = this.getDueDate(data);
+    this.due_date = this.formatDueDate();
     this.completed = false;
   }
 
@@ -19,6 +17,10 @@ $(function() {
     default_selection: {
       title: "All Todos",
       total: all_todos.length
+    },
+    complete: function(todo) {
+      todo.completed = true;
+      this.completed_todos.push(todo);
     },
     filterData: function(data) {
       var self = this;
@@ -36,13 +38,12 @@ $(function() {
       localStorage.setItem("all_todos", JSON.stringify(this.todos));
       localStorage.setItem("id", this.last_id);
     },
-    updateTodo: function(id, data) {
-      var todo = this.getTodoByID(id)[0];
-
+    updateTodo: function(todo, data) {
       data.forEach(function(d) {
         todo[d.name] = d.value;
       });
-      todo.due_date = this.getDueDate(data);
+
+      todo.due_date = this.formatDueDate.call(todo);
       this.saveData();
     },
     deleteTodo: function(id) {
@@ -56,28 +57,40 @@ $(function() {
       this.todos.push(new_todo);
       this.saveData();
     },
-    getDueDate: function(data) {
-      var date = [];
-
-      data.forEach(function(obj) {
-        if(obj.name === "due_month") {
-          date.push(obj.value);
-        } else if(obj.name === "due_year") {
-          date.push(obj.value.slice(2));
-        }
-      });
-
-      return date.join("/");
+    formatDueDate: function() {
+      return this.due_month + "/" + this.due_year.slice(2);
     }
   };
 
-  var form = {
-    data: function() {
+  var markup = {
+    loadTemplates: function() {
+      $("[type='text/x-handlebars']").each(function(){
+        $tmpl = $(this);
+        templates[$tmpl.attr("id")] = Handlebars.compile($tmpl.html());
+      });
+
+      $("[data-type='partial']").each(function() {
+        $tmpl = $(this);
+        Handlebars.registerPartial($tmpl.attr("id"), $tmpl.html());
+      });
+    },
+    // renderMainPage: function() {
+    //   $("body").html(templates.main_page(Todo.prototype));
+    // },
+    // renderTodoListHeader: function() {
+    //   $("#todo_list_header").html(templates.todo_list_header_tmpl({ total_todos: Todo.prototype.todos.length }));
+    // },
+    // renderListItems: function() {
+    //   $("#todo_list_items").html(templates.todo_list_item_tmpl({ todos: Todo.prototype.todos }));
+    // },
+    form_data: function() {
       return $("form").serializeArray();
     },
     toggleModal: function() {
       $("#modal, #modal_background").fadeToggle("fast", function() {
-        if($("#modal, #modal_background").css("display") === "none") {
+        var $el = $(this);
+
+        if($el.css("display") === "none") {
           $("form")[0].reset();
         }
       });
@@ -92,94 +105,70 @@ $(function() {
   };
 
   var app = {
-    loadTemplates: function() {
-      $("[type='text/x-handlebars']").each(function(){
-        $tmpl = $(this);
-        templates[$tmpl.attr("id")] = Handlebars.compile($tmpl.html());
-      });
+    delete: function(e) {
+      e.preventDefault();
 
-      $("[data-type='partial']").each(function() {
-        $tmpl = $(this);
-        Handlebars.registerPartial($tmpl.attr("id"), $tmpl.html());
-      });
-    },
-    renderMainPage: function() {
-      $("body").html(templates.main_page(Todo.prototype));
-    },
-    renderTodoListHeader: function() {
-      $("#todo_list_header").html(templates.todo_list_header_tmpl({ total_todos: Todo.prototype.todos.length }));
-    },
-    renderListItems: function() {
-      $("#todo_list_items").html(templates.todo_list_item_tmpl({ todos: Todo.prototype.todos }));
-    },
-    deleteTodo: function(e) {
       var id = $(e.target).closest("dl").data("id");
-
       Todo.prototype.deleteTodo(id);
       this.loadPage();
     },
-    createTodo: function(e) {
+    create: function(e) {
       e.preventDefault();
 
-      form.toggleModal();
-      Todo.prototype.addTodo(form.data());
+      markup.toggleModal();
+      Todo.prototype.addTodo(markup.form_data());
       this.loadPage();
     },
-    sideBarSelect: function(e) {
-      e.stopPropagation();
+    // sideBarSelect: function(e) {
+    //   e.stopPropagation();
+    //
+    //   var $item = $(e.target);
+    //
+    //   $("#sidebar").find(".selected").removeClass("selected");
+    //   $item.closest("dl").addClass("selected");
+    // },
+    update: function(id) {
+      var todo = Todo.prototype.getTodoByID(id)[0];
 
-      var $item = $(e.target);
-
-      $("#sidebar").find(".selected").removeClass("selected");
-      $item.closest("dl").addClass("selected");
-    },
-    updateTodo: function(todo) {
-      var self = this;
-      form.editForm(todo);
+      markup.editForm(todo);
 
       $(document).off("submit").on("submit", "form#new_todo", function(e) {
         e.preventDefault();
 
-        form.toggleModal();
-
-        var form_data = form.data();
-
-        Todo.prototype.updateTodo(todo.id, form_data);
-        self.renderListItems();
+        markup.toggleModal();
+        Todo.prototype.updateTodo(todo, markup.form_data());
+        this.loadPage();
       });
+
+      // $(document).on("click", "button[name='complete']", function(e) {
+      //   e.stopPropagation();
+      //   Todo.prototype.complete(todo);
+      //   $("dl[data-id='" + todo.id + "']").find("input[type='checkbox']").prop("checked", true);
+      // });
     },
-    editTodo: function(e) {
+    edit: function(e) {
       e.preventDefault();
 
-      var id = $(e.target).closest("dl").data("id"),
-          todo = Todo.prototype.getTodoByID(id);
-
-      this.updateTodo(todo[0]);
-    },
-    completeTodo: function(e) {
-      e.preventDefault();
-
+      var id = $(e.target).closest("dl").data("id");
+      this.update(id);
     },
     bind: function() {
-      $(document).on("submit", "form", $.proxy(this.createTodo, this));
-      $(document).on("click", "#add_todo img", form.toggleModal);
-      $(document).on("click", "#modal_background", form.toggleModal);
-      $(document).on("click", "button.delete", $.proxy(this.deleteTodo, this));
-      $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
-      $(document).on("click", "#todo_list_items dl dt", $.proxy(this.editTodo, this));
-      $(document).on("click", "button[name='complete']", $.proxy(this.completeTodo, this));
+      $(document).off("submit").on("submit", "form#new_todo", $.proxy(this.create, this));
+      $(document).on("click", "#add_todo img, #modal_background", markup.toggleModal);
+      // $(document).on("click", "#modal_background", markup.toggleModal);
+      $(document).on("click", "button.delete", $.proxy(this.delete, this));
+      $(document).on("click", "button.edit", $.proxy(this.edit, this));
+      // $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
     },
     loadPage: function() {
-      this.renderMainPage();
-      this.renderTodoListHeader();
-      this.renderListItems();
+      $("body").html(templates.main_page(Todo.prototype));
     },
     init: function() {
-      this.loadTemplates();
-      this.bind();
       this.loadPage();
+      this.bind();
     }
   };
 
+  markup.loadTemplates();
   app.init();
 });
