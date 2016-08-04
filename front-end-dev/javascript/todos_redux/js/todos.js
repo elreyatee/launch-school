@@ -46,7 +46,14 @@ $(function() {
     },
     deleteTodo: function(id) {
       var todo = this.getTodoByID(id);
-      this.todos.splice(todo.id, 1);
+
+      for(var idx = 0; idx <= this.todos.length - 1; idx++) {
+        if(this.todos[idx].id === id) {
+          this.todos.splice(idx, 1);
+          break;
+        }
+      }
+      
       this.saveData();
     },
     addTodo: function(data) {
