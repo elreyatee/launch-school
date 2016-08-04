@@ -18,21 +18,20 @@ $(function() {
       title: "All Todos",
       total: all_todos.length
     },
-    complete: function(todo) {
+    complete: function(id) {
+      var todo = this.getTodoByID(id);
       todo.completed = true;
       this.completed_todos.push(todo);
     },
     filterData: function(data) {
-      var self = this;
-
       data.forEach(function(d) {
-        self[d.name] = d.value;
-      });
+        this[d.name] = d.value;
+      }.bind(this));
     },
     getTodoByID: function(id) {
       return this.todos.filter(function(todo) {
         return todo.id === id;
-      });
+      })[0];
     },
     saveData: function() {
       localStorage.setItem("all_todos", JSON.stringify(this.todos));
@@ -42,7 +41,6 @@ $(function() {
       data.forEach(function(d) {
         todo[d.name] = d.value;
       });
-
       todo.due_date = this.formatDueDate.call(todo);
       this.saveData();
     },
@@ -128,7 +126,7 @@ $(function() {
     //   $item.closest("dl").addClass("selected");
     // },
     update: function(id) {
-      var todo = Todo.prototype.getTodoByID(id)[0];
+      var todo = Todo.prototype.getTodoByID(id);
 
       markup.editForm(todo);
 
@@ -138,13 +136,15 @@ $(function() {
         markup.toggleModal();
         Todo.prototype.updateTodo(todo, markup.form_data());
         this.loadPage();
-      });
+      }.bind(this));
+    },
+    complete: function(e) {
+      // e.preventDefault();
+      // e.stopImmediatePropagation();
 
-      // $(document).on("click", "button[name='complete']", function(e) {
-      //   e.stopPropagation();
-      //   Todo.prototype.complete(todo);
-      //   $("dl[data-id='" + todo.id + "']").find("input[type='checkbox']").prop("checked", true);
-      // });
+      var id = $(e.target).closest("dl").data("id");
+
+      Todo.prototype.complete(id);
     },
     edit: function(e) {
       e.preventDefault();
@@ -155,9 +155,9 @@ $(function() {
     bind: function() {
       $(document).off("submit").on("submit", "form#new_todo", $.proxy(this.create, this));
       $(document).on("click", "#add_todo img, #modal_background", markup.toggleModal);
-      // $(document).on("click", "#modal_background", markup.toggleModal);
       $(document).on("click", "button.delete", $.proxy(this.delete, this));
       $(document).on("click", "button.edit", $.proxy(this.edit, this));
+      // $(document).on("click", "button.complete", $.proxy(this.complete, this));
       // $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
     },
     loadPage: function() {
