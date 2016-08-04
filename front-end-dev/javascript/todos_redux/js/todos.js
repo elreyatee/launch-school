@@ -5,6 +5,7 @@ $(function() {
   function Todo(data) {
     this.id = this.last_id;
     this.filterData(data);
+    this.due_date = this.getDueDate(data);
   }
 
   Todo.prototype = {
@@ -37,7 +38,7 @@ $(function() {
       data.forEach(function(d) {
         todo[d.name] = d.value;
       });
-
+      todo.due_date = this.getDueDate(data);
       this.saveData();
     },
     deleteTodo: function(id) {
@@ -50,6 +51,19 @@ $(function() {
       var new_todo = new Todo(data);
       this.todos.push(new_todo);
       this.saveData();
+    },
+    getDueDate: function(data) {
+      var date = [];
+
+      data.forEach(function(obj) {
+        if(obj.name === "due_month") {
+          date.push(obj.value);
+        } else if(obj.name === "due_year") {
+          date.push(obj.value.slice(2));
+        }
+      });
+
+      return date.join("/");
     }
   };
 
@@ -112,6 +126,7 @@ $(function() {
       $item.closest("dl").addClass("selected");
     },
     updateTodo: function(todo) {
+      var self = this;
       form.editForm(todo);
 
       $(document).off("submit").on("submit", "form#new_todo", function(e) {
@@ -122,6 +137,7 @@ $(function() {
         var form_data = form.data();
 
         Todo.prototype.updateTodo(todo.id, form_data);
+        self.renderListItems();
       });
     },
     editTodo: function(e) {
