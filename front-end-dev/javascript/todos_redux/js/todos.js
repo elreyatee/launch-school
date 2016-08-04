@@ -1,3 +1,5 @@
+var x;
+
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
@@ -6,11 +8,13 @@ $(function() {
     this.id = this.last_id;
     this.filterData(data);
     this.due_date = this.getDueDate(data);
+    this.completed = false;
   }
 
   Todo.prototype = {
     constructor: Todo,
     todos: all_todos || [],
+    completed_todos: [],
     last_id: localStorage.getItem("id") || 0,
     default_selection: {
       title: "All Todos",
@@ -72,7 +76,11 @@ $(function() {
       return $("form").serializeArray();
     },
     toggleModal: function() {
-      $("#modal, #modal_background").fadeToggle();
+      $("#modal, #modal_background").fadeToggle("fast", function() {
+        if($("#modal, #modal_background").css("display") === "none") {
+          $("form")[0].reset();
+        }
+      });
     },
     editForm: function(todo) {
       this.toggleModal();
@@ -148,6 +156,10 @@ $(function() {
 
       this.updateTodo(todo[0]);
     },
+    completeTodo: function(e) {
+      e.preventDefault();
+
+    },
     bind: function() {
       $(document).on("submit", "form", $.proxy(this.createTodo, this));
       $(document).on("click", "#add_todo img", form.toggleModal);
@@ -155,6 +167,7 @@ $(function() {
       $(document).on("click", "button.delete", $.proxy(this.deleteTodo, this));
       $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
       $(document).on("click", "#todo_list_items dl dt", $.proxy(this.editTodo, this));
+      $(document).on("click", "button[name='complete']", $.proxy(this.completeTodo, this));
     },
     loadPage: function() {
       this.renderMainPage();
