@@ -16,7 +16,54 @@
       </label>
 
       <div id="sidebar">
-        {{> sidebar_tmpl}}
+        <div id="all_todos">
+          <header>
+            <dl data-title="" data-total="" class="selected">
+              <dt>
+                <img src="images/list-icon.png" alt="todos" />
+                <h1>All Todos</h1>
+              </dt>
+              <dd>
+                <span>8</span>
+              </dd>
+            </dl>
+
+          </header>
+          <section id="todo_list_title">
+            <dl>
+              <dt>
+                <p>02/16</p>
+              </dt>
+              <dd>
+                <span>8</span>
+              </dd>
+            </dl>
+          </section>
+        </div>
+
+        <div id="completed_todos">
+          <header>
+            <dl>
+              <dt>
+                <img src="images/complete-icon.png" alt="completed" />
+                <h1>Completed</h1>
+              </dt>
+              <dd>
+                <span>13</span>
+              </dd>
+            </dl>
+          </header>
+          <section id="completed_list">
+            <dl>
+              <dt>
+                <p>02/15</p>
+              </dt>
+              <dd>
+                <span>8</span>
+              </dd>
+            </dl>
+          </section>
+        </div>
       </div>
 
       <div id="todo_list">
@@ -27,188 +74,106 @@
           {{> todo_list_item_tmpl}}
         </div>
       </div>
-    </script>
 
-    <div id="modal_background"></div>
-    <div id="modal">
-      <form action="" method="post" id="new_todo">
-        <dl>
-          <dt>
-            <label for="title">Title</label>
-          </dt>
-          <dd>
-            <input type="text" name="title" id="title" placeholder="Title" required />
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            <label for="due_date">Due Date</label>
-          </dt>
-          <dd>
-            <select id="due_day" name="due_day" required>
-              <option value="" disabled selected hidden>Day</option>
-              <option value="01">1</option>
-              <option value="02">2</option>
-              <option value="03">3</option>
-              <option value="04">4</option>
-              <option value="05">5</option>
-              <option value="06">6</option>
-              <option value="07">7</option>
-              <option value="08">8</option>
-              <option value="09">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-          </dd>
-          <span>/</span>
-          <dd>
-            <select id="due_month" name="due_month" required>
-              <option value="" disabled selected hidden>Month</option>
-              <option value="01">January</option>
-              <option value="02">February</option>
-              <option value="03">March</option>
-              <option value="04">April</option>
-              <option value="05">May</option>
-              <option value="06">June</option>
-              <option value="07">July</option>
-              <option value="08">August</option>
-              <option value="09">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-            </select>
-          </dd>
-          <span>/</span>
-          <dd>
-            <select id="due_year" name="due_year" required>
-              <option value="" disabled selected hidden>Year</option>
-              <option value="2016">2016</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-            </select>
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            <label for="description">Description</label>
-          </dt>
-          <dd>
-            <textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea>
-          </dd>
-        </dl>
-        <dl>
-          <dt></dt>
-          <dd>
-            <input type="submit" value="Save" />
-          </dd>
-          <dd>
-            <button name="complete">Mark as Complete</button>
-          </dd>
-        </dl>
-      </form>
-    </div>
-
-    <script type="text/x-handlebars" id="sidebar_tmpl" data-type="partial">
-      <div id="all_todos">
-        <header>
+      <div id="modal_background"></div>
+      <div id="modal">
+        <form action="" method="post" id="new_todo">
           <dl>
             <dt>
-              <img src="images/list-icon.png" alt="todos" />
-              <h1>All Todos</h1>
+              <label for="title">Title</label>
             </dt>
             <dd>
-              <span>18</span>
-            </dd>
-          </dl>
-        </header>
-        <section id="todo_list_title">
-          <dl class="selected">
-            <dt>
-              <p>02/16</p>
-            </dt>
-            <dd>
-              <span>8</span>
+              <input type="text" name="title" id="title" placeholder="Title" required />
             </dd>
           </dl>
           <dl>
             <dt>
-              <p>03/16</p>
+              <label for="due_date">Due Date</label>
             </dt>
             <dd>
-              <span>2</span>
+              <select id="due_day" name="due_day" required>
+                <option value="" disabled selected hidden>Day</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+            </dd>
+            <span>/</span>
+            <dd>
+              <select id="due_month" name="due_month" required>
+                <option value="" disabled selected hidden>Month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </dd>
+            <span>/</span>
+            <dd>
+              <select id="due_year" name="due_year" required>
+                <option value="" disabled selected hidden>Year</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+              </select>
             </dd>
           </dl>
           <dl>
             <dt>
-              <p>04/16</p>
+              <label for="description">Description</label>
             </dt>
             <dd>
-              <span>1</span>
-            </dd>
-          </dl>
-        </section>
-      </div>
-
-      <div id="completed_todos">
-        <header>
-          <dl>
-            <dt>
-              <img src="images/complete-icon.png" alt="completed" />
-              <h1>Completed</h1>
-            </dt>
-            <dd>
-              <span>13</span>
-            </dd>
-          </dl>
-        </header>
-        <section id="completed_list">
-          <dl>
-            <dt>
-              <p>02/15</p>
-            </dt>
-            <dd>
-              <span>8</span>
+              <textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea>
             </dd>
           </dl>
           <dl>
-            <dt>
-              <p>03/15</p>
-            </dt>
+            <dt></dt>
             <dd>
-              <span>1</span>
+              <input type="submit" value="Save" />
+            </dd>
+            <dd>
+              <button name="complete">Mark as Complete</button>
             </dd>
           </dl>
-          <dl>
-            <dt>
-              <p>04/15</p>
-            </dt>
-            <dd>
-              <span>1</span>
-            </dd>
-          </dl>
-        </section>
+        </form>
       </div>
     </script>
 
@@ -219,7 +184,7 @@
             <h1>02/16</h1>
           </dt>
           <dd>
-            <span>8</span>
+            <span>{{total_todos}}</span>
           </dd>
         </dl>
       </header>
