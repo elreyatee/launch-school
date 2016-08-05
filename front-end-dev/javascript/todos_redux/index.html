@@ -197,11 +197,14 @@
       </div>
     </script>
 
-    <script type="text/x-handlebars" id="todo_list_item_tmpl" data-type="partial">
-      {{#each todos}}
+    <script type="text/x-handlebars" id="item_tmpl" data-type="partial">
       <dl data-id="{{id}}" data-title="{{title}}">
         <dt>
+          {{#if completed}}
+          <input type="checkbox" id="item_{{id}}" checked/>
+          {{else}}
           <input type="checkbox" id="item_{{id}}" />
+          {{/if}}
           <span class="mycheckbox"></span><!--
           --><label for="item_{{id}}">{{title}} - {{due_date}}</label>
         </dt>
@@ -214,6 +217,11 @@
           </dd>
         </div>
       </dl>
+    </script>
+
+    <script type="text/x-handlebars" id="todo_list_item_tmpl" data-type="partial">
+      {{#each todos}}
+      {{> item_tmpl}}
       {{/each}}
     </script>
   </body>

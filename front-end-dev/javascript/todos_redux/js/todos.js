@@ -1,3 +1,5 @@
+var x;
+
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
@@ -18,10 +20,24 @@ $(function() {
       title: "All Todos",
       total: all_todos.length
     },
-    complete: function(id) {
-      var todo = this.getTodoByID(id);
+    init: function() {
+      console.log(this.todos);
+      this.sortTodosByCompletion();
+      console.log(this.todos);
+    },
+    sortTodosByCompletion: function() {
+      this.todos.sort(function(a, b) {
+        if(a.completed === true) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    },
+    complete: function(todo) {
       todo.completed = true;
       this.completed_todos.push(todo);
+      this.saveData();
     },
     filterData: function(data) {
       data.forEach(function(d) {
@@ -34,7 +50,9 @@ $(function() {
       })[0];
     },
     saveData: function() {
+      this.sortTodosByCompletion();
       localStorage.setItem("all_todos", JSON.stringify(this.todos));
+      localStorage.setItem("completed_todos", JSON.stringify(this.completed_todos));
       localStorage.setItem("id", this.last_id);
     },
     updateTodo: function(todo, data) {
@@ -53,7 +71,6 @@ $(function() {
           break;
         }
       }
-      
       this.saveData();
     },
     addTodo: function(data) {
@@ -79,15 +96,6 @@ $(function() {
         Handlebars.registerPartial($tmpl.attr("id"), $tmpl.html());
       });
     },
-    // renderMainPage: function() {
-    //   $("body").html(templates.main_page(Todo.prototype));
-    // },
-    // renderTodoListHeader: function() {
-    //   $("#todo_list_header").html(templates.todo_list_header_tmpl({ total_todos: Todo.prototype.todos.length }));
-    // },
-    // renderListItems: function() {
-    //   $("#todo_list_items").html(templates.todo_list_item_tmpl({ todos: Todo.prototype.todos }));
-    // },
     form_data: function() {
       return $("form").serializeArray();
     },
@@ -144,14 +152,14 @@ $(function() {
         Todo.prototype.updateTodo(todo, markup.form_data());
         this.loadPage();
       }.bind(this));
-    },
-    complete: function(e) {
-      // e.preventDefault();
-      // e.stopImmediatePropagation();
 
-      var id = $(e.target).closest("dl").data("id");
+      $(document).on("click", "button.complete", function(e) {
+        e.preventDefault();
 
-      Todo.prototype.complete(id);
+        markup.toggleModal();
+        Todo.prototype.complete(todo);
+        this.loadPage();
+      }.bind(this));
     },
     edit: function(e) {
       e.preventDefault();
@@ -159,12 +167,23 @@ $(function() {
       var id = $(e.target).closest("dl").data("id");
       this.update(id);
     },
+    complete: function(e) {
+      e.preventDefault();
+
+      var $input = $(e.target),
+          id = $input.closest("dl").data("id"),
+          todo = Todo.prototype.getTodoByID(id);
+
+      markup.toggleModal();
+      Todo.prototype.complete(todo);
+      this.loadPage();
+    },
     bind: function() {
       $(document).off("submit").on("submit", "form#new_todo", $.proxy(this.create, this));
       $(document).on("click", "#add_todo img, #modal_background", markup.toggleModal);
       $(document).on("click", "button.delete", $.proxy(this.delete, this));
       $(document).on("click", "button.edit", $.proxy(this.edit, this));
-      // $(document).on("click", "button.complete", $.proxy(this.complete, this));
+      $(document).on("click", "#todo_list_items input", $.proxy(this.complete, this));
       // $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
     },
     loadPage: function() {
@@ -177,5 +196,6 @@ $(function() {
   };
 
   markup.loadTemplates();
+  Todo.prototype.init();
   app.init();
 });
