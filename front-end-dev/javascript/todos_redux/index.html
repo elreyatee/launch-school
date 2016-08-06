@@ -17,18 +17,7 @@
 
       <div id="sidebar">
         <div id="all_todos">
-          <header>
-            <dl data-title="" data-total="" class="selected">
-              <dt>
-                <img src="images/list-icon.png" alt="todos" />
-                <h1>All Todos</h1>
-              </dt>
-              <dd>
-                <span>8</span>
-              </dd>
-            </dl>
-
-          </header>
+          {{> all_todos_header_tmpl}}
           <section id="todo_list_title">
             <dl>
               <dt>
@@ -175,6 +164,20 @@
           </dl>
         </form>
       </div>
+    </script>
+
+    <script type="text/x-handlebars" id="all_todos_header_tmpl" data-type="partial">
+      <header>
+        <dl data-title="All Todos" data-total="{{todos.length}}">
+          <dt>
+            <img src="images/list-icon.png" alt="todos" />
+            <h1>All Todos</h1>
+          </dt>
+          <dd>
+            <span>{{todos.length}}</span>
+          </dd>
+        </dl>
+      </header>
     </script>
 
     <script type="text/x-handlebars" id="todo_list_header_tmpl" data-type="partial">

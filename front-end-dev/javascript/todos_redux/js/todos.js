@@ -16,10 +16,10 @@ $(function() {
     completed_todos: JSON.parse(localStorage.getItem("completed_todos")) || [],
     completed_todos_by_date: {},
     all_todos_by_date: {},
-    default_selection: {
-      title: "All Todos",
-      total: all_todos.length
-    },
+    // current_section: {
+    //   title: "All Todos",
+    //   total: all_todos.length,
+    // },
     init: function() {
       this.groupByDate("completed_todos_by_date", this.completed_todos);
       this.groupByDate("all_todos_by_date", this.todos);
