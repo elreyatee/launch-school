@@ -19,14 +19,7 @@
         <div id="all_todos">
           {{> all_todos_header_tmpl}}
           <section id="todo_list_title">
-            <dl>
-              <dt>
-                <p>02/16</p>
-              </dt>
-              <dd>
-                <span>8</span>
-              </dd>
-            </dl>
+            {{> todos_by_date_tmpl}}
           </section>
         </div>
 
@@ -178,6 +171,19 @@
           </dd>
         </dl>
       </header>
+    </script>
+
+    <script type="text/x-handlebars" id="todos_by_date_tmpl" data-type="partial">
+      {{#each all_todos_by_date}}
+      <dl>
+        <dt data-title="{{@key}}" data-total="{{this.length}}">
+          <p>{{@key}}</p>
+        </dt>
+        <dd>
+          <span>{{this.length}}</span>
+        </dd>
+      </dl>
+      {{/each}}
     </script>
 
     <script type="text/x-handlebars" id="todo_list_header_tmpl" data-type="partial">
