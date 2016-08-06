@@ -175,8 +175,8 @@
 
     <script type="text/x-handlebars" id="todos_by_date_tmpl" data-type="partial">
       {{#each all_todos_by_date}}
-      <dl>
-        <dt data-title="{{@key}}" data-total="{{this.length}}">
+      <dl data-title="{{@key}}" data-total="{{this.length}}">
+        <dt>
           <p>{{@key}}</p>
         </dt>
         <dd>
@@ -190,10 +190,10 @@
       <header>
         <dl>
           <dt>
-            <h1>02/16</h1>
+            <h1>{{selected.title}}</h1>
           </dt>
           <dd>
-            <span>{{total_todos}}</span>
+            <span>{{selected.total}}</span>
           </dd>
         </dl>
       </header>

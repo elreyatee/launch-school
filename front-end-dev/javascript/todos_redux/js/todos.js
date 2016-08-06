@@ -1,5 +1,6 @@
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
-    templates = {};
+    templates = {},
+    x;
 
 $(function() {
   function Todo(data) {
@@ -16,7 +17,11 @@ $(function() {
     completed_todos: JSON.parse(localStorage.getItem("completed_todos")) || [],
     completed_todos_by_date: {},
     all_todos_by_date: {},
+    selected: {
+      title: "All Todos"
+    },
     init: function() {
+      console.log(this.selected);
       this.groupByDate("completed_todos_by_date", this.completed_todos);
       this.groupByDate("all_todos_by_date", this.todos);
       this.saveData();
@@ -182,12 +187,27 @@ $(function() {
       Todo.prototype.complete(todo);
       this.loadPage();
     },
+    changedSelected: function() {
+
+    },
+    selectSidebar: function(e) {
+      e.preventDefault();
+
+      var $el = $(e.currentTarget),
+          title = $el.data("title");
+
+      Todo.prototype.selected = { title: title, total: Todo.prototype.all_todos_by_date[title].length }
+      $("#all_todos").find("dl.selected").removeClass("selected");
+      $el.addClass("selected");
+      this.loadPage();
+    },
     bind: function() {
       $(document).off("submit").on("submit", "form#new_todo", $.proxy(this.create, this));
       $(document).on("click", "#add_todo img, #modal_background", markup.toggleModal);
       $(document).on("click", "button.delete", $.proxy(this.delete, this));
       $(document).on("click", "button.edit", $.proxy(this.edit, this));
       $(document).on("click", "#todo_list_items input", $.proxy(this.complete, this));
+      $(document).on("click", "#all_todos dl", $.proxy(this.selectSidebar, this));
     },
     loadPage: function() {
       $("body").html(templates.main_page(Todo.prototype));
