@@ -15,21 +15,21 @@ $(function() {
     last_id: localStorage.getItem("id") || 0,
     completed_todos: JSON.parse(localStorage.getItem("completed_todos")) || [],
     completed_todos_by_date: {},
+    all_todos_by_date: {},
     default_selection: {
       title: "All Todos",
       total: all_todos.length
     },
     init: function() {
-      this.groupByDate(this.completed_todos);
+      this.groupByDate("completed_todos_by_date", this.completed_todos);
+      this.groupByDate("all_todos_by_date", this.todos);
       this.saveData();
     },
-    groupByDate: function(todos) {
-      if(todos.length === 0) {
-        return;
-      }
+    groupByDate: function(obj_name, todos) {
+      if(todos.length === 0) { return; }
 
-      this.completed_todos_by_date = {};
-      var obj = this.completed_todos_by_date;
+      this[obj_name] = {};
+      var obj = this[obj_name];
 
       this.sortByDate(todos).forEach(function(item) {
         let o = obj[item.due_date];
@@ -44,25 +44,6 @@ $(function() {
     sortByDate: function(todos) {
       return todos.sort(this.compareByDate);
     },
-    // compareByDate: function(todo1, todo2) {
-    //   if(+todo1.due_year < +todo2.due_year) {
-    //     return -1;
-    //   } else {
-    //     if(+todo1.due_year > +todo2.due_year) {
-    //       return 1;
-    //     } else {
-    //       if(+todo1.month < +todo2.month) {
-    //         return -1;
-    //       } else {
-    //         if(+todo1.month > +todo2.month) {
-    //           return 1;
-    //         } else {
-    //           return 0;
-    //         }
-    //       }
-    //     }
-    //   }
-    // },
     compareByDate: function(a, b) {
       if(Date.parse(a.due_date) < Date.parse(b.due_date)) return -1;
       if(Date.parse(a.due_date) > Date.parse(b.due_date)) return 1;
@@ -112,7 +93,7 @@ $(function() {
       this.last_id++;
       var new_todo = new Todo(data);
       this.todos.push(new_todo);
-      this.saveData();
+      this.init();
     },
     formatDueDate: function() {
       return this.due_month + "/" + this.due_year.slice(2);
