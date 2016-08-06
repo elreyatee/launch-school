@@ -1,5 +1,3 @@
-var x;
-
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
@@ -14,30 +12,66 @@ $(function() {
   Todo.prototype = {
     constructor: Todo,
     todos: all_todos || [],
-    completed_todos: [],
     last_id: localStorage.getItem("id") || 0,
+    completed_todos: JSON.parse(localStorage.getItem("completed_todos")) || [],
+    completed_todos_by_date: {},
     default_selection: {
       title: "All Todos",
       total: all_todos.length
     },
     init: function() {
-      console.log(this.todos);
-      this.sortTodosByCompletion();
-      console.log(this.todos);
+      this.groupByDate(this.completed_todos);
+      this.saveData();
     },
-    sortTodosByCompletion: function() {
-      this.todos.sort(function(a, b) {
-        if(a.completed === true) {
-          return 1;
+    groupByDate: function(todos) {
+      if(todos.length === 0) {
+        return;
+      }
+
+      this.completed_todos_by_date = {};
+      var obj = this.completed_todos_by_date;
+
+      this.sortByDate(todos).forEach(function(item) {
+        let o = obj[item.due_date];
+        if(o && o.indexOf(item.due_date) === -1) {
+          obj[item.due_date].push(item);
         } else {
-          return -1;
+          obj[item.due_date] = [];
+          obj[item.due_date].push(item);
         }
       });
+    },
+    sortByDate: function(todos) {
+      return todos.sort(this.compareByDate);
+    },
+    // compareByDate: function(todo1, todo2) {
+    //   if(+todo1.due_year < +todo2.due_year) {
+    //     return -1;
+    //   } else {
+    //     if(+todo1.due_year > +todo2.due_year) {
+    //       return 1;
+    //     } else {
+    //       if(+todo1.month < +todo2.month) {
+    //         return -1;
+    //       } else {
+    //         if(+todo1.month > +todo2.month) {
+    //           return 1;
+    //         } else {
+    //           return 0;
+    //         }
+    //       }
+    //     }
+    //   }
+    // },
+    compareByDate: function(a, b) {
+      if(Date.parse(a.due_date) < Date.parse(b.due_date)) return -1;
+      if(Date.parse(a.due_date) > Date.parse(b.due_date)) return 1;
+      return 0;
     },
     complete: function(todo) {
       todo.completed = true;
       this.completed_todos.push(todo);
-      this.saveData();
+      this.init();
     },
     filterData: function(data) {
       data.forEach(function(d) {
@@ -50,7 +84,6 @@ $(function() {
       })[0];
     },
     saveData: function() {
-      this.sortTodosByCompletion();
       localStorage.setItem("all_todos", JSON.stringify(this.todos));
       localStorage.setItem("completed_todos", JSON.stringify(this.completed_todos));
       localStorage.setItem("id", this.last_id);
@@ -60,18 +93,20 @@ $(function() {
         todo[d.name] = d.value;
       });
       todo.due_date = this.formatDueDate.call(todo);
-      this.saveData();
+      this.init();
     },
     deleteTodo: function(id) {
-      var todo = this.getTodoByID(id);
+      var completed_idx = this.completed_todos.findIndex(function(item) {
+        return item.id === id;
+      });
 
-      for(var idx = 0; idx <= this.todos.length - 1; idx++) {
-        if(this.todos[idx].id === id) {
-          this.todos.splice(idx, 1);
-          break;
-        }
-      }
-      this.saveData();
+      var todo_idx = this.todos.findIndex(function(item) {
+        return item.id === id;
+      });
+
+      this.todos.splice(todo_idx, 1);
+      if(completed_idx !== -1) { this.completed_todos.splice(completed_idx, 1); }
+      this.init();
     },
     addTodo: function(data) {
       this.last_id++;
@@ -132,14 +167,6 @@ $(function() {
       Todo.prototype.addTodo(markup.form_data());
       this.loadPage();
     },
-    // sideBarSelect: function(e) {
-    //   e.stopPropagation();
-    //
-    //   var $item = $(e.target);
-    //
-    //   $("#sidebar").find(".selected").removeClass("selected");
-    //   $item.closest("dl").addClass("selected");
-    // },
     update: function(id) {
       var todo = Todo.prototype.getTodoByID(id);
 
@@ -184,7 +211,6 @@ $(function() {
       $(document).on("click", "button.delete", $.proxy(this.delete, this));
       $(document).on("click", "button.edit", $.proxy(this.edit, this));
       $(document).on("click", "#todo_list_items input", $.proxy(this.complete, this));
-      // $(document).on("click", "#all_todos dl", $.proxy(this.sideBarSelect, this));
     },
     loadPage: function() {
       $("body").html(templates.main_page(Todo.prototype));
