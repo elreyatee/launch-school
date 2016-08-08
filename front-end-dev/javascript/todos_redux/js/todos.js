@@ -1,8 +1,6 @@
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
-var x;
-
 $(function() {
   function Todo(data) {
     this.id = this.last_id;
@@ -101,8 +99,6 @@ $(function() {
     }
   };
 
-x = Todo.prototype;
-
   var markup = {
     loadTemplates: function() {
       $("[type='text/x-handlebars']").each(function(){
@@ -124,6 +120,7 @@ x = Todo.prototype;
 
         if($el.css("display") === "none") {
           $("form")[0].reset();
+          $("input[type='submit']").val("Save");
         }
       });
     },
@@ -135,6 +132,8 @@ x = Todo.prototype;
       for(var i = 0; i < keys.length; i++) {
         $("[name=" + keys[i] + "]").val(todo[keys[i]]);
       }
+
+      $("input[type='submit']").val("Update");
     },
     updateTitle: function() {
       $("#todo_list_header").html(templates.todo_list_header_tmpl(Todo.prototype));
