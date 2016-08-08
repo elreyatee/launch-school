@@ -160,8 +160,8 @@
     </script>
 
     <script type="text/x-handlebars" id="all_todos_header_tmpl" data-type="partial">
-      <header>
-        <dl data-title="All Todos" data-total="{{todos.length}}">
+      <header id="#all_todos_header">
+        <dl data-title="All Todos" data-total="{{todos.length}}" class="selected">
           <dt>
             <img src="images/list-icon.png" alt="todos" />
             <h1>All Todos</h1>
@@ -190,10 +190,10 @@
       <header>
         <dl>
           <dt>
-            <h1>{{selected.title}}</h1>
+            <h1>{{current_section.title}}</h1>
           </dt>
           <dd>
-            <span>{{selected.total}}</span>
+            <span>{{current_section.total}}</span>
           </dd>
         </dl>
       </header>
@@ -229,7 +229,7 @@
     </script>
 
     <script type="text/x-handlebars" id="todo_list_item_tmpl" data-type="partial">
-      {{#each todos}}
+      {{#each selected}}
       {{> item_tmpl}}
       {{/each}}
     </script>
