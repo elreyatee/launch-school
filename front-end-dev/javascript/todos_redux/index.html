@@ -24,26 +24,9 @@
         </div>
 
         <div id="completed_todos">
-          <header>
-            <dl>
-              <dt>
-                <img src="images/complete-icon.png" alt="completed" />
-                <h1>Completed</h1>
-              </dt>
-              <dd>
-                <span>13</span>
-              </dd>
-            </dl>
-          </header>
+          {{> completed_todos_header_tmpl}}
           <section id="completed_list">
-            <dl>
-              <dt>
-                <p>02/15</p>
-              </dt>
-              <dd>
-                <span>8</span>
-              </dd>
-            </dl>
+            {{> completed_todos_by_date_tmpl}}
           </section>
         </div>
       </div>
@@ -157,6 +140,31 @@
           </dl>
         </form>
       </div>
+    </script>
+
+    <script type="text/x-handlebars" id="completed_todos_by_date_tmpl" data-type="partial">
+      <dl>
+        <dt>
+          <p>02/15</p>
+        </dt>
+        <dd>
+          <span>8</span>
+        </dd>
+      </dl>
+    </script>
+
+    <script type="text/x-handlebars" id="completed_todos_header_tmpl" data-type="partial">
+      <header>
+        <dl>
+          <dt>
+            <img src="images/complete-icon.png" alt="completed" />
+            <h1>Completed</h1>
+          </dt>
+          <dd>
+            <span>13</span>
+          </dd>
+        </dl>
+      </header>
     </script>
 
     <script type="text/x-handlebars" id="all_todos_header_tmpl" data-type="partial">
