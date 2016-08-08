@@ -1,6 +1,8 @@
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
+var x;
+
 $(function() {
   function Todo(data) {
     this.id = this.last_id;
@@ -98,6 +100,8 @@ $(function() {
       return this.due_month + "/" + this.due_year.slice(2);
     }
   };
+
+x = Todo.prototype;
 
   var markup = {
     loadTemplates: function() {

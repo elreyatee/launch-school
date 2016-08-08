@@ -143,14 +143,16 @@
     </script>
 
     <script type="text/x-handlebars" id="completed_todos_by_date_tmpl" data-type="partial">
+      {{#each completed_todos_by_date}}
       <dl>
         <dt>
-          <p>02/15</p>
+          <p>{{@key}}</p>
         </dt>
         <dd>
-          <span>8</span>
+          <span>{{this.length}}</span>
         </dd>
       </dl>
+      {{/each}}
     </script>
 
     <script type="text/x-handlebars" id="completed_todos_header_tmpl" data-type="partial">
@@ -161,7 +163,7 @@
             <h1>Completed</h1>
           </dt>
           <dd>
-            <span>13</span>
+            <span>{{completed_todos.length}}</span>
           </dd>
         </dl>
       </header>
