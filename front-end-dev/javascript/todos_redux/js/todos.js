@@ -1,5 +1,3 @@
-var x;
-
 var all_todos = JSON.parse(localStorage.getItem("all_todos")) || [],
     templates = {};
 
@@ -33,7 +31,7 @@ $(function() {
       var obj = this[obj_name];
 
       this.sortByDate(todos).forEach(function(item) {
-        let o = obj[item.due_date];
+        var o = obj[item.due_date];
         if(o && o.indexOf(item.due_date) === -1) {
           obj[item.due_date].push(item);
         } else {
@@ -46,8 +44,8 @@ $(function() {
       return todos.sort(this.compareByDate);
     },
     compareByDate: function(a, b) {
-      if(Date.parse(a.due_date) < Date.parse(b.due_date)) return -1;
-      if(Date.parse(a.due_date) > Date.parse(b.due_date)) return 1;
+      if(Date.parse(a.due_date) < Date.parse(b.due_date)) { return -1; }
+      if(Date.parse(a.due_date) > Date.parse(b.due_date)) { return 1; }
       return 0;
     },
     complete: function(todo) {
@@ -101,8 +99,6 @@ $(function() {
     }
   };
 
-  x = Todo.prototype;
-
   var markup = {
     loadTemplates: function() {
       $("[type='text/x-handlebars']").each(function(){
@@ -130,8 +126,10 @@ $(function() {
     editForm: function(todo) {
       this.toggleModal();
 
-      for(var key in todo) {
-        $("[name=" + key + "]").val(todo[key]);
+      var keys = Object.keys(todo);
+
+      for(var i = 0; i < keys.length; i++) {
+        $("[name=" + keys[i] + "]").val(todo[keys[i]]);
       }
     },
     updateTitle: function() {
@@ -218,7 +216,7 @@ $(function() {
           incomplete = [];
 
       todos.forEach(function(todo) {
-        if(todo.completed === true) {
+        if(todo.completed) {
           complete.push(todo);
         } else {
           incomplete.push(todo);
