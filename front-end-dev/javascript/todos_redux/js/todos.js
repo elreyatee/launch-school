@@ -29,8 +29,6 @@ $(function() {
       this.saveData();
     },
     groupByDate: function(obj_name, todos) {
-      if(todos.length === 0) { return; }
-
       this[obj_name] = {};
       var obj = this[obj_name];
 
@@ -150,14 +148,14 @@ $(function() {
 
       var id = $(e.target).closest("dl").data("id");
       Todo.prototype.deleteTodo(id);
-      this.loadPage();
+      this.init();
     },
     create: function(e) {
       e.preventDefault();
 
       markup.toggleModal();
       Todo.prototype.addTodo(markup.form_data());
-      this.loadPage();
+      this.init();
     },
     update: function(id) {
       var todo = Todo.prototype.getTodoByID(id);
@@ -210,6 +208,7 @@ $(function() {
       } else {
         Todo.prototype.selected = Todo.prototype.all_todos_by_date[title];
       }
+
       $("#all_todos").find(".selected").removeClass("selected");
       $el.addClass("selected");
       this.loadPage();
@@ -225,7 +224,7 @@ $(function() {
           incomplete.push(todo);
         }
       });
-      return complete.concat(incomplete);
+      return incomplete.concat(complete);
     },
     bind: function() {
       $(document).off("submit").on("submit", "form#new_todo", $.proxy(this.create, this));
