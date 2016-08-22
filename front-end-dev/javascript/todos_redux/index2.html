@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Todos App</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/todos_oloo.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+  </head>
+  <body>
+    <script type="text/x-handlebars" id="main_page">
+      <input type="checkbox" id="hamburger"/>
+      <label for="hamburger">
+        <img src="images/menu-icon.png" alt="hamburger" />
+      </label>
+
+      <div id="sidebar">
+        <div id="all_todos">
+          {{> all_todos_header_tmpl}}
+          <section id="todo_list_title">
+            {{> todos_by_date_tmpl}}
+          </section>
+        </div>
+
+        <div id="completed_todos">
+          {{> completed_todos_header_tmpl}}
+          <section id="completed_list">
+            {{> completed_todos_by_date_tmpl}}
+          </section>
+        </div>
+      </div>
+
+      <div id="todo_list">
+        <div id="todo_list_header">
+          {{> todo_list_header_tmpl}}
+        </div>
+        <div id="todo_list_items">
+          {{> todo_list_item_tmpl}}
+        </div>
+      </div>
+
+      <div id="modal_background"></div>
+      <div id="modal">
+        <form action="" method="post" id="new_todo">
+          <dl>
+            <dt>
+              <label for="title">Title</label>
+            </dt>
+            <dd>
+              <input type="text" name="title" id="title" placeholder="Title" required />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="due_date">Due Date</label>
+            </dt>
+            <dd>
+              <select id="day" name="day" required>
+                <option value="" disabled selected hidden>Day</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+            </dd>
+            <span>/</span>
+            <dd>
+              <select id="month" name="month" required>
+                <option value="" disabled selected hidden>Month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </dd>
+            <span>/</span>
+            <dd>
+              <select id="year" name="year" required>
+                <option value="" disabled selected hidden>Year</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+              </select>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="description">Description</label>
+            </dt>
+            <dd>
+              <textarea name="description" id="description" rows="5" cols="45" placeholder="Description" required></textarea>
+            </dd>
+          </dl>
+          <dl>
+            <dt></dt>
+            <dd>
+              <input type="submit" value="Save" />
+            </dd>
+            <dd>
+              <button class="complete">Mark as Complete</button>
+            </dd>
+          </dl>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="all_todos_header_tmpl" data-type="partial">
+      <header id="#all_todos_header">
+        <dl data-title="All Todos" data-total="{{todos.length}}">
+          <dt>
+            <img src="images/list-icon.png" alt="todos" />
+            <h1>All Todos</h1>
+          </dt>
+          <dd>
+            <span>{{todos.length}}</span>
+          </dd>
+        </dl>
+      </header>
+    </script>
+
+    <script type="text/x-handlebars" id="todos_by_date_tmpl" data-type="partial">
+      {{#each todosByDate}}
+      <dl data-title="{{@key}}" data-total="{{this.length}}">
+        <dt>
+          <p>{{@key}}</p>
+        </dt>
+        <dd>
+          <span>{{this.length}}</span>
+        </dd>
+      </dl>
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" id="completed_todos_header_tmpl" data-type="partial">
+      <header>
+        <dl>
+          <dt>
+            <img src="images/complete-icon.png" alt="completed" />
+            <h1>Completed</h1>
+          </dt>
+          <dd>
+            <span>{{totalCompletedTodos}}</span>
+          </dd>
+        </dl>
+      </header>
+    </script>
+
+    <script type="text/x-handlebars" id="completed_todos_by_date_tmpl" data-type="partial">
+      {{#each completedTodosByDate}}
+      <dl>
+        <dt>
+          <p>{{@key}}</p>
+        </dt>
+        <dd>
+          <span>{{this.length}}</span>
+        </dd>
+      </dl>
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" id="todo_list_header_tmpl" data-type="partial">
+      <header>
+        <dl>
+          <dt>
+            <h1>{{current_section.title}}</h1>
+          </dt>
+          <dd>
+            <span>{{current_section.total}}</span>
+          </dd>
+        </dl>
+      </header>
+      <div id="add_todo">
+        <input type="checkbox" id="new_todo" />
+        <label for="new_todo">
+          <img src="images/plus-icon.png" alt="new_todo" />
+          Add new todo
+        </label>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="item_tmpl" data-type="partial">
+      <dl data-id="{{id}}" data-title="{{title}}">
+        <dt>
+          {{#if completed}}
+          <input type="checkbox" id="item_{{id}}" checked/>
+          {{else}}
+          <input type="checkbox" id="item_{{id}}" />
+          {{/if}}
+          <span class="mycheckbox"></span><!--
+          --><label for="item_{{id}}">{{title}} - {{due_date}}</label>
+        </dt>
+        <div id="edit_controls">
+          <dd>
+            <button class="edit"><span>Edit</span></button>
+          </dd>
+          <dd>
+            <button class="delete"><span>Delete</span></button>
+          </dd>
+        </div>
+      </dl>
+    </script>
+
+    <script type="text/x-handlebars" id="todo_list_item_tmpl" data-type="partial">
+      {{#each selected}}
+      {{> item_tmpl}}
+      {{/each}}
+    </script>
+  </body>
+</html>
